@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Imóveis Rocha - Admin Dashboard</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-background": "#1a1c1c",
+                      "error": "#ba1a1a",
+                      "on-secondary-fixed": "#1c1b1b",
+                      "on-surface": "#1a1c1c",
+                      "primary-fixed-dim": "#ffb4ac",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed-variant": "#474746",
+                      "surface-tint": "#b91d20",
+                      "surface-bright": "#f9f9f9",
+                      "inverse-on-surface": "#f1f1f1",
+                      "background": "#f9f9f9",
+                      "on-primary-fixed-variant": "#93000e",
+                      "on-surface-variant": "#5b403d",
+                      "surface": "#f9f9f9",
+                      "primary": "#a20513",
+                      "on-error-container": "#93000a",
+                      "inverse-surface": "#2f3131",
+                      "surface-container-low": "#f3f3f3",
+                      "secondary": "#5f5e5e",
+                      "on-error": "#ffffff",
+                      "surface-container-high": "#e8e8e8",
+                      "secondary-container": "#e2dfde",
+                      "on-secondary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "surface-variant": "#e2e2e2",
+                      "secondary-fixed": "#e5e2e1",
+                      "on-tertiary-container": "#ffe1d4",
+                      "on-secondary-container": "#636262",
+                      "surface-container-highest": "#e2e2e2",
+                      "primary-container": "#c62828",
+                      "primary-fixed": "#ffdad6",
+                      "outline-variant": "#e4beba",
+                      "secondary-fixed-dim": "#c8c6c5",
+                      "on-primary": "#ffffff",
+                      "on-tertiary-fixed": "#351000",
+                      "on-primary-container": "#ffe0dd",
+                      "on-tertiary-fixed-variant": "#7a3000",
+                      "outline": "#8f706c",
+                      "tertiary-fixed": "#ffdbcc",
+                      "surface-dim": "#dadada",
+                      "surface-container": "#eeeeee",
+                      "tertiary-container": "#af4700",
+                      "on-primary-fixed": "#410003",
+                      "tertiary-fixed-dim": "#ffb693",
+                      "on-tertiary": "#ffffff",
+                      "inverse-primary": "#ffb4ac",
+                      "tertiary": "#883600"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "stack-lg": "24px",
+                      "gutter": "24px",
+                      "container-max": "1280px",
+                      "margin-desktop": "40px",
+                      "stack-sm": "8px",
+                      "base": "4px",
+                      "stack-md": "16px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "title-lg": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "display": ["Inter"],
+                      "body-md": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e2e2e2;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c8c6c5;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased overflow-x-hidden">
+<!-- JSON Layout Mapping: SideNavBar -->
+<nav class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low shadow-lg flex flex-col h-full p-stack-md gap-base z-50">
+<!-- Header / Brand -->
+<div class="mb-stack-lg px-stack-sm flex items-center gap-stack-md">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant flex-shrink-0">
+<img alt="Admin Avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a male real estate broker wearing a tailored navy suit. The lighting is studio quality, bright and even, against a clean light grey background, projecting confidence and corporate professionalism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxrjSktGOUhtcMl3bJouvr0F44M6ZyIcDJnt4Q79rGDhW-6sVTeMDJYo_J7-jY8Roi45-jgS-QuX8zOt7gTjW608VSNB80wD5v3bRdfTbdRMjCZTb818S7_SY_oVdY5DZ_vg4pGrSm7loNH5scU7f7BxC8IKOxV51VBEePfCxGkWHE21TskBRdVDY6yZQoF77QEASZp0pt8OcodCe-Zq4quDy2kdoAWg0z_ZMCh0sv2CR3upAGblw23l0Lo61QoG8QJmO7Q2Ah9T1-"/>
+</div>
+<div>
+<h2 class="text-headline-sm font-headline-sm font-bold text-primary truncate">Admin Portal</h2>
+<p class="text-label-sm font-label-sm text-on-surface-variant truncate">Management Console</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<ul class="flex flex-col gap-stack-sm flex-grow">
+<!-- Properties (Inactive) -->
+<li>
+<a class="flex items-center gap-stack-md px-stack-md py-stack-sm text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">home_work</span>
+<span class="font-label-md text-label-md">Properties</span>
+</a>
+</li>
+<!-- Leads (Inactive) -->
+<li>
+<a class="flex items-center gap-stack-md px-stack-md py-stack-sm text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">person_search</span>
+<span class="font-label-md text-label-md flex-grow">Leads</span>
+<span class="bg-error-container text-on-error-container font-label-sm text-label-sm px-2 py-0.5 rounded-full">12</span>
+</a>
+</li>
+<!-- Brokers (Inactive) -->
+<li>
+<a class="flex items-center gap-stack-md px-stack-md py-stack-sm text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">badge</span>
+<span class="font-label-md text-label-md">Brokers</span>
+</a>
+</li>
+<!-- Metrics (Active - Dashboard Context) -->
+<li>
+<a class="flex items-center gap-stack-md px-stack-md py-stack-sm bg-primary-container text-on-primary-container rounded-lg font-bold translate-x-1 transition-transform duration-200 shadow-sm" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-label-md text-label-md">Metrics</span>
+</a>
+</li>
+</ul>
+<!-- Footer actions in sidebar -->
+<div class="mt-auto pt-stack-lg border-t border-surface-variant">
+<a class="flex items-center gap-stack-md px-stack-md py-stack-sm text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+<span class="font-label-md text-label-md">Sign Out</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen pb-stack-lg">
+<!-- Top Header Area -->
+<header class="sticky top-0 z-40 bg-background/80 backdrop-blur-md border-b border-surface-variant px-margin-desktop py-stack-md flex justify-between items-center">
+<div>
+<h1 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">Overview</h1>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">Here's what's happening with your portfolio today.</p>
+</div>
+<div class="flex items-center gap-stack-md">
+<button class="w-10 h-10 rounded-full border border-surface-variant bg-surface flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-stack-lg py-stack-sm rounded-lg flex items-center gap-stack-sm hover:shadow-[0_4px_14px_rgba(162,5,19,0.3)] hover:-translate-y-0.5 transition-all duration-200">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                    Add New Property
+                </button>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="p-margin-desktop max-w-[1600px] mx-auto flex flex-col gap-stack-lg">
+<!-- Metrics Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Card 1: Total Listings -->
+<div class="bg-surface rounded-xl border border-surface-variant p-stack-lg shadow-[0_4px_20px_rgba(0,0,0,0.02)] flex flex-col justify-between hover:border-outline-variant transition-colors group">
+<div class="flex justify-between items-start mb-stack-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center text-on-surface-variant group-hover:text-primary group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[24px]">real_estate_agent</span>
+</div>
+<span class="flex items-center text-label-sm font-label-sm text-tertiary bg-tertiary-fixed px-2 py-1 rounded-full gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> 12%
+                        </span>
+</div>
+<div>
+<p class="text-label-md font-label-md text-on-surface-variant mb-1">Total Listings</p>
+<h3 class="text-display font-display text-on-surface">1,284</h3>
+</div>
+</div>
+<!-- Card 2: Active Leads -->
+<div class="bg-surface rounded-xl border border-surface-variant p-stack-lg shadow-[0_4px_20px_rgba(0,0,0,0.02)] flex flex-col justify-between hover:border-outline-variant transition-colors group">
+<div class="flex justify-between items-start mb-stack-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center text-on-surface-variant group-hover:text-primary group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[24px]">group</span>
+</div>
+<span class="flex items-center text-label-sm font-label-sm text-tertiary bg-tertiary-fixed px-2 py-1 rounded-full gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> 8%
+                        </span>
+</div>
+<div>
+<p class="text-label-md font-label-md text-on-surface-variant mb-1">Active Leads</p>
+<h3 class="text-display font-display text-on-surface">342</h3>
+</div>
+</div>
+<!-- Card 3: Monthly Sales -->
+<div class="bg-surface rounded-xl border border-surface-variant p-stack-lg shadow-[0_4px_20px_rgba(0,0,0,0.02)] flex flex-col justify-between hover:border-outline-variant transition-colors group">
+<div class="flex justify-between items-start mb-stack-md">
+<div class="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center text-on-surface-variant group-hover:text-primary group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[24px]">payments</span>
+</div>
+<span class="flex items-center text-label-sm font-label-sm text-on-surface-variant bg-surface-container-highest px-2 py-1 rounded-full gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_flat</span> 0%
+                        </span>
+</div>
+<div>
+<p class="text-label-md font-label-md text-on-surface-variant mb-1">Monthly Sales Volume</p>
+<h3 class="text-headline-lg font-headline-lg text-on-surface mt-2">R$ 4.2M</h3>
+</div>
+</div>
+<!-- Card 4: Performance Chart (Abstracted) -->
+<div class="bg-surface rounded-xl border border-surface-variant p-stack-lg shadow-[0_4px_20px_rgba(0,0,0,0.02)] flex flex-col justify-between relative overflow-hidden">
+<div class="relative z-10">
+<p class="text-label-md font-label-md text-on-surface-variant mb-1">Conversion Rate</p>
+<h3 class="text-display font-display text-on-surface">4.8%</h3>
+</div>
+<!-- CSS Bar Chart Simulation -->
+<div class="flex items-end gap-1 h-16 mt-auto opacity-80 pt-stack-md">
+<div class="w-full bg-surface-container-highest rounded-t-sm h-[30%] hover:bg-outline-variant transition-colors"></div>
+<div class="w-full bg-surface-container-highest rounded-t-sm h-[50%] hover:bg-outline-variant transition-colors"></div>
+<div class="w-full bg-surface-container-highest rounded-t-sm h-[40%] hover:bg-outline-variant transition-colors"></div>
+<div class="w-full bg-surface-container-highest rounded-t-sm h-[70%] hover:bg-outline-variant transition-colors"></div>
+<div class="w-full bg-primary rounded-t-sm h-[90%] shadow-[0_0_10px_rgba(162,5,19,0.3)]"></div>
+<div class="w-full bg-surface-container-highest rounded-t-sm h-[60%] hover:bg-outline-variant transition-colors"></div>
+<div class="w-full bg-surface-container-highest rounded-t-sm h-[80%] hover:bg-outline-variant transition-colors"></div>
+</div>
+</div>
+</div>
+<!-- Two Column Layout: Properties & Leads -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter mt-stack-sm">
+<!-- Main Column: Property Table (Spans 2 columns) -->
+<div class="lg:col-span-2 bg-surface rounded-xl border border-surface-variant shadow-[0_4px_20px_rgba(0,0,0,0.02)] overflow-hidden flex flex-col">
+<div class="p-stack-lg border-b border-surface-variant flex justify-between items-center bg-surface">
+<h3 class="text-title-lg font-title-lg text-on-surface">Recent Properties</h3>
+<button class="text-label-md font-label-md text-primary hover:text-on-primary-fixed-variant transition-colors font-semibold">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-lowest border-b border-surface-variant">
+<th class="font-label-sm text-label-sm text-on-surface-variant py-stack-md px-stack-lg font-semibold uppercase tracking-wider">Property</th>
+<th class="font-label-sm text-label-sm text-on-surface-variant py-stack-md px-stack-lg font-semibold uppercase tracking-wider">Status</th>
+<th class="font-label-sm text-label-sm text-on-surface-variant py-stack-md px-stack-lg font-semibold uppercase tracking-wider">Price</th>
+<th class="font-label-sm text-label-sm text-on-surface-variant py-stack-md px-stack-lg font-semibold uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-bright transition-colors group">
+<td class="py-stack-md px-stack-lg">
+<div class="flex items-center gap-stack-md">
+<div class="w-12 h-12 rounded bg-surface-container-low overflow-hidden border border-outline-variant">
+<img alt="Villa" class="w-full h-full object-cover" data-alt="Exterior shot of a modern luxury villa with large glass windows and a pristine pool. Sunlight highlights the clean architectural lines against a clear blue sky." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHgvP3YYcOgyqajzavCxuGvMT_rnrZSRusk50aKnG6vz_UkF3QR47bFIZXdD0xLzYb9URwl4bKAp0-QOvRLH2WKmGqPplHJoqlTtpIQmemWWm9npFmi40XXpzPFM2OntSv-HqAP2A1S7_URAC50lsN9Yv2QTHrndWVbC0Rb3QvEpunP_bI-DGKyrVPuR3ceSLGq8pqh6DO8UtfSQvBMAi-Kc-D8Pxo9itHArvEulaANsdNh24ge94vd3GXwwA4ks_7C9wJv_eYGchA"/>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface font-semibold">Villa Nova Luxury</p>
+<p class="font-body-md text-[13px] text-on-surface-variant">São Paulo, SP</p>
+</div>
+</div>
+</td>
+<td class="py-stack-md px-stack-lg">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-label-sm font-label-sm bg-[#e6f4ea] text-[#137333] border border-[#ceead6]">Active</span>
+</td>
+<td class="py-stack-md px-stack-lg font-body-md text-body-md text-on-surface">R$ 2.450.000</td>
+<td class="py-stack-md px-stack-lg text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors" title="Edit">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-error hover:bg-error-container transition-colors" title="Delete">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-bright transition-colors group">
+<td class="py-stack-md px-stack-lg">
+<div class="flex items-center gap-stack-md">
+<div class="w-12 h-12 rounded bg-surface-container-low overflow-hidden border border-outline-variant">
+<img alt="Apartment" class="w-full h-full object-cover" data-alt="Interior view of a high-end minimalist apartment living room. Features a comfortable beige sofa, hardwood floors, and large windows revealing a cityscape." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvXT4nxZOJ6gBiO7GHlCDybQswavduz3jr98Loz3ca8r5A8z2HHdpT9dSn3rRcPW_wxQy3nXPYWpfhW8fEih2zYeb1EgBp6uYd1RPkhoIgH3WVSwCmMpbRUKk6pl5tVQbo4GLK5N3CwnDiAF8iaEHRJewZmivtqInxM181V6yTHoy6FBgYMkX3AVnjwXOqOy16NHbz4ri_yRJXPoU-DuDGFrpLIkITbm6SXNQp9D_1_ah-_IIvERLm4Cdf1h-O727qCgjAHKs2E5Uy"/>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface font-semibold">Jardins Penthouse</p>
+<p class="font-body-md text-[13px] text-on-surface-variant">São Paulo, SP</p>
+</div>
+</div>
+</td>
+<td class="py-stack-md px-stack-lg">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-label-sm font-label-sm bg-[#fff8e1] text-[#f57f17] border border-[#ffecb3]">Pending</span>
+</td>
+<td class="py-stack-md px-stack-lg font-body-md text-body-md text-on-surface">R$ 1.800.000</td>
+<td class="py-stack-md px-stack-lg text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors" title="Edit">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-error hover:bg-error-container transition-colors" title="Delete">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-bright transition-colors group">
+<td class="py-stack-md px-stack-lg">
+<div class="flex items-center gap-stack-md">
+<div class="w-12 h-12 rounded bg-surface-container-low flex items-center justify-center border border-outline-variant text-on-surface-variant">
+<span class="material-symbols-outlined">image</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface font-semibold">Corporate Office Alto</p>
+<p class="font-body-md text-[13px] text-on-surface-variant">Rio de Janeiro, RJ</p>
+</div>
+</div>
+</td>
+<td class="py-stack-md px-stack-lg">
+<span class="inline-flex items-center px-2 py-1 rounded-full text-label-sm font-label-sm bg-surface-container-highest text-on-surface border border-outline-variant">Draft</span>
+</td>
+<td class="py-stack-md px-stack-lg font-body-md text-body-md text-on-surface">R$ 5.200.000</td>
+<td class="py-stack-md px-stack-lg text-right">
+<div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors" title="Edit">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-error hover:bg-error-container transition-colors" title="Delete">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Side Column: Lead Management Section -->
+<div class="lg:col-span-1 bg-surface rounded-xl border border-surface-variant shadow-[0_4px_20px_rgba(0,0,0,0.02)] flex flex-col h-full">
+<div class="p-stack-lg border-b border-surface-variant flex justify-between items-center bg-surface">
+<h3 class="text-title-lg font-title-lg text-on-surface">Recent Leads</h3>
+<span class="bg-error-container text-on-error-container font-label-sm text-label-sm px-2 py-0.5 rounded-full">New</span>
+</div>
+<div class="p-stack-md flex flex-col gap-stack-sm overflow-y-auto">
+<!-- Lead Item 1 -->
+<div class="p-stack-md rounded-lg border border-surface-variant bg-surface-container-lowest hover:border-primary-fixed-dim transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-label-md text-label-md font-bold text-on-surface group-hover:text-primary transition-colors">Mariana Costa</h4>
+<span class="text-label-sm font-label-sm text-on-surface-variant">2h ago</span>
+</div>
+<p class="font-body-md text-[13px] text-on-surface-variant mb-3 line-clamp-2">"Hi, I'm interested in scheduling a viewing for the Villa Nova property this weekend."</p>
+<div class="flex gap-2">
+<span class="inline-flex items-center px-2 py-1 rounded bg-surface-container-high text-[11px] font-label-sm text-on-surface-variant uppercase tracking-wider">Viewing</span>
+<span class="inline-flex items-center px-2 py-1 rounded bg-tertiary-fixed text-[11px] font-label-sm text-on-tertiary-fixed uppercase tracking-wider">High Intent</span>
+</div>
+</div>
+<!-- Lead Item 2 -->
+<div class="p-stack-md rounded-lg border border-surface-variant bg-surface-container-lowest hover:border-primary-fixed-dim transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-label-md text-label-md font-bold text-on-surface group-hover:text-primary transition-colors">Carlos Mendes</h4>
+<span class="text-label-sm font-label-sm text-on-surface-variant">5h ago</span>
+</div>
+<p class="font-body-md text-[13px] text-on-surface-variant mb-3 line-clamp-2">"Can you provide more details about the condominium fees for the Jardins Penthouse?"</p>
+<div class="flex gap-2">
+<span class="inline-flex items-center px-2 py-1 rounded bg-surface-container-high text-[11px] font-label-sm text-on-surface-variant uppercase tracking-wider">Question</span>
+</div>
+</div>
+<!-- Lead Item 3 -->
+<div class="p-stack-md rounded-lg border border-surface-variant bg-surface-container-lowest hover:border-primary-fixed-dim transition-colors cursor-pointer group opacity-80">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-label-md text-label-md font-bold text-on-surface">Fernanda Lima</h4>
+<span class="text-label-sm font-label-sm text-on-surface-variant">1d ago</span>
+</div>
+<p class="font-body-md text-[13px] text-on-surface-variant mb-3 line-clamp-2">Requested a callback regarding property valuation services.</p>
+<div class="flex gap-2">
+<span class="inline-flex items-center px-2 py-1 rounded bg-surface-container-highest text-[11px] font-label-sm text-on-surface-variant uppercase tracking-wider">Seller</span>
+</div>
+</div>
+</div>
+<div class="p-stack-md border-t border-surface-variant mt-auto">
+<button class="w-full py-stack-sm rounded-lg border border-outline-variant text-on-surface font-label-md text-label-md hover:bg-surface-container-high transition-colors">
+                            View Inbox
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
