@@ -8,7 +8,7 @@ export function NavBar({ activePage = "home" }: { activePage?: string }) {
 	const links = [
 		{ label: "Home", to: "/", key: "home" },
 		{ label: "Imóveis", to: "/", key: "imoveis" },
-		{ label: "Sobre", to: "/", key: "sobre" },
+		{ label: "Sobre", to: "/sobre", key: "sobre" },
 		{ label: "Serviços", to: "/", key: "servicos" },
 		{ label: "Admin", to: "/admin", key: "admin" },
 	] as const;
