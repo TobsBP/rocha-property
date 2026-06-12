@@ -50,10 +50,14 @@ export function LeadForm({
 			</h3>
 			<form onSubmit={handleSubmit} className="flex flex-col gap-4">
 				<div>
-					<label className="block text-xs font-semibold text-on-surface-variant mb-1">
+					<label
+						htmlFor="lead-name"
+						className="block text-xs font-semibold text-on-surface-variant mb-1"
+					>
 						Nome Completo
 					</label>
 					<input
+						id="lead-name"
 						type="text"
 						required
 						placeholder="Seu nome"
@@ -63,10 +67,14 @@ export function LeadForm({
 					/>
 				</div>
 				<div>
-					<label className="block text-xs font-semibold text-on-surface-variant mb-1">
+					<label
+						htmlFor="lead-email"
+						className="block text-xs font-semibold text-on-surface-variant mb-1"
+					>
 						E-mail
 					</label>
 					<input
+						id="lead-email"
 						type="email"
 						required
 						placeholder="seu@email.com"
@@ -76,10 +84,14 @@ export function LeadForm({
 					/>
 				</div>
 				<div>
-					<label className="block text-xs font-semibold text-on-surface-variant mb-1">
+					<label
+						htmlFor="lead-phone"
+						className="block text-xs font-semibold text-on-surface-variant mb-1"
+					>
 						Telefone / WhatsApp
 					</label>
 					<input
+						id="lead-phone"
 						type="tel"
 						placeholder="(11) 90000-0000"
 						value={phone}
@@ -88,10 +100,14 @@ export function LeadForm({
 					/>
 				</div>
 				<div>
-					<label className="block text-xs font-semibold text-on-surface-variant mb-1">
+					<label
+						htmlFor="lead-message"
+						className="block text-xs font-semibold text-on-surface-variant mb-1"
+					>
 						Mensagem
 					</label>
 					<textarea
+						id="lead-message"
 						rows={3}
 						value={message}
 						onChange={(e) => setMessage(e.target.value)}

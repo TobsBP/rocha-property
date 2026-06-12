@@ -17,7 +17,10 @@ export function AboutSection() {
 						sua história.
 					</p>
 					<div>
-						<button className="bg-primary text-on-primary px-6 py-3 rounded-lg text-sm font-bold hover:bg-on-error-container transition-colors shadow-sm">
+						<button
+							type="button"
+							className="bg-primary text-on-primary px-6 py-3 rounded-lg text-sm font-bold hover:bg-on-error-container transition-colors shadow-sm"
+						>
 							Conheça nossa história
 						</button>
 					</div>

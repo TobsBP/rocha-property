@@ -20,13 +20,13 @@ export function Footer() {
 					</h4>
 					<div className="flex flex-col gap-2">
 						{["Privacidade", "Termos", "Contato", "FAQ"].map((item) => (
-							<a
+							<button
 								key={item}
-								href="#"
-								className="text-sm text-on-secondary-container hover:text-primary transition-colors no-underline"
+								type="button"
+								className="text-left text-sm text-on-secondary-container hover:text-primary transition-colors bg-transparent border-0 p-0 cursor-pointer"
 							>
 								{item}
-							</a>
+							</button>
 						))}
 					</div>
 				</div>
@@ -46,18 +46,18 @@ export function Footer() {
 							<MapPin size={14} /> Av. Faria Lima, 1000 - SP
 						</span>
 						<div className="flex gap-3 mt-2">
-							<a
-								href="#"
-								className="p-2 bg-surface-container-low rounded-full hover:bg-primary hover:text-on-primary transition-colors text-on-surface-variant"
+							<button
+								type="button"
+								className="p-2 bg-surface-container-low rounded-full hover:bg-primary hover:text-on-primary transition-colors text-on-surface-variant border-0 cursor-pointer"
 							>
 								<Share2 size={16} />
-							</a>
-							<a
-								href="#"
-								className="p-2 bg-surface-container-low rounded-full hover:bg-primary hover:text-on-primary transition-colors text-on-surface-variant"
+							</button>
+							<button
+								type="button"
+								className="p-2 bg-surface-container-low rounded-full hover:bg-primary hover:text-on-primary transition-colors text-on-surface-variant border-0 cursor-pointer"
 							>
 								<Camera size={16} />
-							</a>
+							</button>
 						</div>
 					</div>
 				</div>

@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Bell, Plus } from "lucide-react";
+import { useState } from "react";
+import { PropertyFormModal } from "#/modules/properties";
 import { LeadsPanel } from "./-components/admin/LeadsPanel";
 import { MetricCards } from "./-components/admin/MetricCards";
 import { PropertiesTable } from "./-components/admin/PropertiesTable";
@@ -8,6 +10,8 @@ import { SideNav } from "./-components/admin/SideNav";
 export const Route = createFileRoute("/admin")({ component: AdminPage });
 
 function AdminPage() {
+	const [showForm, setShowForm] = useState(false);
+
 	return (
 		<div
 			className="min-h-screen bg-[#f9f9f9] text-on-background font-[Inter,ui-sans-serif,system-ui,sans-serif] antialiased"
@@ -27,11 +31,18 @@ function AdminPage() {
 						</p>
 					</div>
 					<div className="flex items-center gap-4">
-						<button className="w-10 h-10 rounded-full border border-surface-variant bg-surface flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors relative">
+						<button
+							type="button"
+							className="w-10 h-10 rounded-full border border-surface-variant bg-surface flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors relative"
+						>
 							<Bell size={18} />
 							<span className="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full" />
 						</button>
-						<button className="bg-primary text-on-primary text-sm font-medium px-5 py-2 rounded-lg flex items-center gap-2 hover:shadow-[0_4px_14px_rgba(162,5,19,0.3)] hover:-translate-y-0.5 transition-all duration-200">
+						<button
+							type="button"
+							onClick={() => setShowForm(true)}
+							className="bg-primary text-on-primary text-sm font-medium px-5 py-2 rounded-lg flex items-center gap-2 hover:shadow-[0_4px_14px_rgba(162,5,19,0.3)] hover:-translate-y-0.5 transition-all duration-200"
+						>
 							<Plus size={18} />
 							Add New Property
 						</button>
@@ -39,7 +50,7 @@ function AdminPage() {
 				</header>
 
 				{/* Dashboard Content */}
-				<div className="p-10 max-w-[1600px] mx-auto flex flex-col gap-6">
+				<div className="p-10 max-w-400 mx-auto flex flex-col gap-6">
 					<MetricCards />
 
 					<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -48,6 +59,8 @@ function AdminPage() {
 					</div>
 				</div>
 			</main>
+
+			{showForm && <PropertyFormModal onClose={() => setShowForm(false)} />}
 		</div>
 	);
 }

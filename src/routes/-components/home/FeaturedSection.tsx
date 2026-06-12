@@ -20,12 +20,12 @@ export function FeaturedSection({
 						As melhores oportunidades selecionadas para você.
 					</p>
 				</div>
-				<a
-					href="#"
-					className="hidden md:flex items-center gap-1 text-primary text-sm font-bold hover:underline"
+				<button
+					type="button"
+					className="hidden md:flex items-center gap-1 text-primary text-sm font-bold hover:underline bg-transparent border-0 cursor-pointer"
 				>
 					Ver todos <ArrowRight size={16} />
-				</a>
+				</button>
 			</div>
 
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -35,7 +35,10 @@ export function FeaturedSection({
 			</div>
 
 			<div className="mt-4 text-center md:hidden">
-				<button className="w-full border border-outline text-on-surface py-3 rounded-lg text-sm font-bold">
+				<button
+					type="button"
+					className="w-full border border-outline text-on-surface py-3 rounded-lg text-sm font-bold"
+				>
 					Ver todos os imóveis
 				</button>
 			</div>

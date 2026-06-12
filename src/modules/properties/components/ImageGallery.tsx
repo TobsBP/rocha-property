@@ -13,8 +13,9 @@ export function ImageGallery({
 
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-2 h-90 md:h-153.5 rounded-xl overflow-hidden">
-			<div
-				className="md:col-span-2 md:row-span-2 relative group cursor-pointer overflow-hidden"
+			<button
+				type="button"
+				className="md:col-span-2 md:row-span-2 relative group cursor-pointer overflow-hidden p-0 border-0 bg-transparent"
 				onClick={() => setActive(0)}
 			>
 				<img
@@ -22,11 +23,12 @@ export function ImageGallery({
 					alt={title}
 					className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
 				/>
-			</div>
+			</button>
 			{shown.slice(1, 5).map((src, i) => (
-				<div
-					key={i}
-					className="hidden md:block relative group cursor-pointer overflow-hidden"
+				<button
+					type="button"
+					key={src}
+					className="hidden md:block relative group cursor-pointer overflow-hidden p-0 border-0 bg-transparent"
 					onClick={() => setActive(i + 1)}
 				>
 					<img
@@ -41,7 +43,7 @@ export function ImageGallery({
 							</span>
 						</div>
 					)}
-				</div>
+				</button>
 			))}
 		</div>
 	);

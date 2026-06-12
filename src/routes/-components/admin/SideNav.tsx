@@ -79,7 +79,10 @@ export function SideNav() {
 			</ul>
 
 			<div className="pt-4 border-t border-surface-variant">
-				<button className="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors w-full text-left text-sm">
+				<button
+					type="button"
+					className="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors w-full text-left text-sm"
+				>
 					<LogOut size={18} />
 					Sign Out
 				</button>

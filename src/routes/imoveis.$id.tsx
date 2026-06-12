@@ -96,10 +96,16 @@ function PropertyDetailPage() {
 						</span>
 					</div>
 					<div className="flex gap-2">
-						<button className="p-2 rounded-full bg-surface-container-low hover:bg-surface-container-high transition-colors text-on-surface-variant">
+						<button
+							type="button"
+							className="p-2 rounded-full bg-surface-container-low hover:bg-surface-container-high transition-colors text-on-surface-variant"
+						>
 							<Share2 size={18} />
 						</button>
-						<button className="p-2 rounded-full bg-surface-container-low hover:bg-surface-container-high transition-colors text-on-surface-variant">
+						<button
+							type="button"
+							className="p-2 rounded-full bg-surface-container-low hover:bg-surface-container-high transition-colors text-on-surface-variant"
+						>
 							<Heart size={18} />
 						</button>
 					</div>
@@ -167,7 +173,7 @@ function PropertyDetailPage() {
 								},
 							].map((m, i) => (
 								<div
-									key={i}
+									key={m.label}
 									className={`flex flex-col items-center justify-center p-4 text-center ${i > 0 ? "border-l border-surface-variant" : ""}`}
 								>
 									<div className="mb-2">{m.icon}</div>
@@ -187,8 +193,8 @@ function PropertyDetailPage() {
 								Descrição do Imóvel
 							</h2>
 							<div className="text-base text-on-surface-variant leading-relaxed space-y-4">
-								{property.description.split("\n\n").map((paragraph, i) => (
-									<p key={i}>{paragraph}</p>
+								{property.description.split("\n\n").map((paragraph) => (
+									<p key={paragraph}>{paragraph}</p>
 								))}
 							</div>
 						</div>
@@ -232,12 +238,12 @@ function PropertyDetailPage() {
 							<h2 className="text-3xl font-semibold text-on-surface">
 								Imóveis Similares
 							</h2>
-							<a
-								href="#"
-								className="text-primary hover:text-on-primary-fixed-variant text-sm font-medium flex items-center gap-1 transition-colors no-underline"
+							<button
+								type="button"
+								className="text-primary hover:text-on-primary-fixed-variant text-sm font-medium flex items-center gap-1 transition-colors bg-transparent border-0 cursor-pointer"
 							>
 								Ver todos <ArrowRight size={14} />
-							</a>
+							</button>
 						</div>
 						<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 							{similar.map((p) => (

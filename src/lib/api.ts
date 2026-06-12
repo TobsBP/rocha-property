@@ -6,6 +6,8 @@
  * data — assim o app continua funcionando sem um backend rodando.
  */
 
+import { getToken } from "#/modules/auth/auth.storage";
+
 export const API_URL = (import.meta.env.VITE_API_URL ?? "").replace(/\/$/, "");
 export const isApiConfigured = API_URL.length > 0;
 
@@ -49,10 +51,12 @@ async function request<T>(
 	const { params, body, headers, ...init } = options;
 	const url = `${API_URL}${path}${buildQuery(params)}`;
 
+	const token = getToken();
 	const response = await fetch(url, {
 		...init,
 		headers: {
 			"Content-Type": "application/json",
+			...(token ? { Authorization: `Bearer ${token}` } : {}),
 			...headers,
 		},
 		body: body !== undefined ? JSON.stringify(body) : undefined,

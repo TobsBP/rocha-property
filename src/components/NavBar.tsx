@@ -42,12 +42,14 @@ export function NavBar({ activePage = "home" }: { activePage?: string }) {
 
 				<div className="flex items-center gap-2">
 					<button
+						type="button"
 						className="p-2 rounded-full text-primary hover:bg-surface-container-low transition-all"
 						aria-label="Alternar tema"
 					>
 						<Moon size={20} />
 					</button>
 					<button
+						type="button"
 						className="md:hidden p-2 rounded-full text-primary hover:bg-surface-container-low transition-all"
 						onClick={() => setMobileOpen((v) => !v)}
 						aria-label="Menu"

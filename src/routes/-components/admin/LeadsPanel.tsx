@@ -51,7 +51,10 @@ export function LeadsPanel() {
 			</div>
 
 			<div className="p-4 border-t border-surface-variant">
-				<button className="w-full py-2 rounded-lg border border-outline-variant text-on-surface text-sm font-medium hover:bg-surface-container-high transition-colors">
+				<button
+					type="button"
+					className="w-full py-2 rounded-lg border border-outline-variant text-on-surface text-sm font-medium hover:bg-surface-container-high transition-colors"
+				>
 					View Inbox
 				</button>
 			</div>

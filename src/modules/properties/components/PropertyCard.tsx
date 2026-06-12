@@ -32,7 +32,10 @@ export function PropertyCard({ property }: { property: Property }) {
 							<BadgeChip badge={property.badge} />
 						</div>
 					)}
-					<button className="absolute top-4 right-4 bg-surface/80 backdrop-blur-md p-2 rounded-full text-on-surface-variant hover:text-primary transition-colors shadow-sm">
+					<button
+						type="button"
+						className="absolute top-4 right-4 bg-surface/80 backdrop-blur-md p-2 rounded-full text-on-surface-variant hover:text-primary transition-colors shadow-sm"
+					>
 						<Heart size={18} />
 					</button>
 				</div>

@@ -1,11 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
+	createProperty,
 	fetchAdminProperties,
 	fetchProperties,
 	fetchProperty,
 	fetchSimilarProperties,
 } from "./properties.api";
-import type { PropertyFilters } from "./properties.types";
+import type { CreatePropertyInput, PropertyFilters } from "./properties.types";
 
 export const propertyKeys = {
 	all: ["properties"] as const,
@@ -47,5 +48,15 @@ export function useAdminProperties() {
 		queryKey: propertyKeys.admin(),
 		queryFn: fetchAdminProperties,
 		staleTime: 1000 * 60 * 5,
+	});
+}
+
+export function useCreateProperty() {
+	const queryClient = useQueryClient();
+	return useMutation({
+		mutationFn: (input: CreatePropertyInput) => createProperty(input),
+		onSuccess: () => {
+			void queryClient.invalidateQueries({ queryKey: propertyKeys.admin() });
+		},
 	});
 }

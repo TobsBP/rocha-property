@@ -6,7 +6,8 @@ const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 export async function fetchLeads(): Promise<Lead[]> {
 	if (isApiConfigured) {
-		return api.get<Lead[]>("/leads");
+		const data = await api.get<Lead[]>("/leads");
+		if (Array.isArray(data)) return data;
 	}
 
 	await delay(300);

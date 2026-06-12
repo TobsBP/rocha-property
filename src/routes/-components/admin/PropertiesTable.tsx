@@ -1,10 +1,17 @@
 import { Building2, Pencil, Trash2 } from "lucide-react";
 import { formatPrice } from "#/lib/utils";
-import type { Property } from "#/modules/properties";
+import type { AdminPropertyListItem } from "#/modules/properties";
 import { StatusBadge, useAdminProperties } from "#/modules/properties";
 
+/** A API devolve `price` como string; formata se for numérico, senão exibe cru. */
+function formatPriceLabel(price: string): string {
+	const num = Number(price);
+	return price !== "" && Number.isFinite(num) ? formatPrice(num) : price;
+}
+
 export function PropertiesTable() {
-	const { data: properties = [], isLoading } = useAdminProperties();
+	const { data, isLoading } = useAdminProperties();
+	const properties = Array.isArray(data) ? data : [];
 
 	return (
 		<div className="lg:col-span-2 bg-surface rounded-xl border border-surface-variant shadow-[0_4px_20px_rgba(0,0,0,0.02)] overflow-hidden flex flex-col">
@@ -12,7 +19,10 @@ export function PropertiesTable() {
 				<h3 className="text-lg font-semibold text-on-surface">
 					Recent Properties
 				</h3>
-				<button className="text-sm font-semibold text-primary hover:text-on-primary-fixed-variant transition-colors">
+				<button
+					type="button"
+					className="text-sm font-semibold text-primary hover:text-on-primary-fixed-variant transition-colors"
+				>
 					View All
 				</button>
 			</div>
@@ -52,33 +62,28 @@ export function PropertiesTable() {
 										<td className="py-4 px-5" />
 									</tr>
 								))
-							: properties.map((p: Property) => (
+							: properties.map((p: AdminPropertyListItem) => (
 									<tr
 										key={p.id}
 										className="hover:bg-surface-bright transition-colors group"
 									>
 										<td className="py-4 px-5">
 											<div className="flex items-center gap-3">
-												<div className="w-12 h-12 rounded bg-surface-container-low overflow-hidden border border-outline-variant flex-shrink-0 flex items-center justify-center">
-													{p.images[0] ? (
-														<img
-															src={p.images[0]}
-															alt={p.title}
-															className="w-full h-full object-cover"
-														/>
-													) : (
-														<Building2
-															size={20}
-															className="text-on-surface-variant"
-														/>
-													)}
+												<div className="w-12 h-12 rounded bg-surface-container-low border border-outline-variant flex-shrink-0 flex items-center justify-center">
+													<Building2
+														size={20}
+														className="text-on-surface-variant"
+													/>
 												</div>
 												<div>
 													<p className="text-sm font-semibold text-on-surface">
-														{p.title}
+														{p.name || p.title || "—"}
 													</p>
 													<p className="text-xs text-on-surface-variant">
-														{p.address.city}, {p.address.state}
+														{p.location ||
+															[p.neighborhood, p.city, p.state]
+																.filter(Boolean)
+																.join(", ")}
 													</p>
 												</div>
 											</div>
@@ -87,17 +92,19 @@ export function PropertiesTable() {
 											<StatusBadge status={p.status} />
 										</td>
 										<td className="py-4 px-5 text-sm text-on-surface">
-											{formatPrice(p.price)}
+											{formatPriceLabel(p.price)}
 										</td>
 										<td className="py-4 px-5 text-right">
-											<div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+											<div className="flex items-center justify-end gap-2 transition-opacity">
 												<button
+													type="button"
 													className="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors"
 													title="Edit"
 												>
 													<Pencil size={16} />
 												</button>
 												<button
+													type="button"
 													className="w-8 h-8 rounded-full flex items-center justify-center text-error hover:bg-error-container transition-colors"
 													title="Delete"
 												>

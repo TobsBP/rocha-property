@@ -50,10 +50,14 @@ export function FinancingSimulator({ price }: { price: number }) {
 					/>
 				</div>
 				<div>
-					<label className="block text-xs font-semibold text-on-surface-variant mb-1">
+					<label
+						htmlFor="financing-months"
+						className="block text-xs font-semibold text-on-surface-variant mb-1"
+					>
 						Prazo (Meses)
 					</label>
 					<select
+						id="financing-months"
 						value={months}
 						onChange={(e) => setMonths(Number(e.target.value))}
 						className="w-full rounded-lg border border-outline-variant bg-surface-bright px-3 py-2.5 text-sm text-on-surface focus:border-primary outline-none"

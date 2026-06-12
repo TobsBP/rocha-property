@@ -108,7 +108,10 @@ export function HeroSection({
 					</div>
 
 					<div className="flex justify-end mt-4">
-						<button className="bg-primary hover:bg-on-primary-fixed-variant text-on-primary text-sm font-bold py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 flex items-center gap-2">
+						<button
+							type="button"
+							className="bg-primary hover:bg-on-primary-fixed-variant text-on-primary text-sm font-bold py-3 px-8 rounded-lg shadow-md hover:shadow-lg transition-all hover:-translate-y-0.5 flex items-center gap-2"
+						>
 							<Search size={16} />
 							Buscar Imóveis
 						</button>

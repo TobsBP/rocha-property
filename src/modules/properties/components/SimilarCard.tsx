@@ -19,7 +19,10 @@ export function SimilarCard({ property }: { property: Property }) {
 							className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
 						/>
 					)}
-					<button className="absolute top-4 right-4 glass-panel p-2 rounded-full text-on-surface hover:text-primary transition-colors">
+					<button
+						type="button"
+						className="absolute top-4 right-4 glass-panel p-2 rounded-full text-on-surface hover:text-primary transition-colors"
+					>
 						<Heart size={16} />
 					</button>
 					<div className="absolute bottom-4 left-4 bg-surface-container-lowest/90 backdrop-blur-sm px-3 py-1 rounded-md">

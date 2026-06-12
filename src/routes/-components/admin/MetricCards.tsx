@@ -52,9 +52,9 @@ export function MetricCards() {
 
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-			{cards.map((card, i) => (
+			{cards.map((card) => (
 				<div
-					key={i}
+					key={card.label}
 					className="bg-surface rounded-xl border border-surface-variant p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] flex flex-col justify-between hover:border-outline-variant transition-colors group"
 				>
 					<div className="flex justify-between items-start mb-4">
@@ -89,9 +89,10 @@ export function MetricCards() {
 							<div className="flex items-end gap-1 h-12 mt-3 opacity-80">
 								{card.chart.map((h, j) => (
 									<div
+										// biome-ignore lint/suspicious/noArrayIndexKey: barras de gráfico estáticas sem id estável
 										key={j}
 										className={`w-full rounded-t-sm transition-colors ${
-											j === card.chart!.length - 2
+											j === card.chart?.length - 2
 												? "bg-primary shadow-[0_0_10px_rgba(162,5,19,0.3)]"
 												: "bg-surface-container-highest hover:bg-outline-variant"
 										}`}
