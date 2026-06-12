@@ -28,7 +28,7 @@ export function AboutSection() {
 
 				<div className="lg:col-span-7 grid grid-cols-2 gap-3 md:gap-4 mt-6 lg:mt-0">
 					<div className="bg-surface p-4 rounded-xl card-shadow border border-surface-variant flex flex-col items-center justify-center text-center">
-						<span className="text-5xl font-bold text-primary">25+</span>
+						<span className="text-5xl font-bold text-primary">7+</span>
 						<span className="text-xs font-semibold text-on-surface-variant uppercase tracking-wider mt-1">
 							Anos no Mercado
 						</span>
@@ -41,7 +41,7 @@ export function AboutSection() {
 						/>
 					</div>
 					<div className="bg-surface p-4 rounded-xl card-shadow border border-surface-variant flex flex-col items-center justify-center text-center">
-						<span className="text-3xl font-black text-on-surface">5.000+</span>
+						<span className="text-3xl font-black text-on-surface">60+</span>
 						<span className="text-xs font-semibold text-on-surface-variant uppercase tracking-wider mt-1">
 							Imóveis Negociados
 						</span>

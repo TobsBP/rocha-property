@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as ContractsRouteImport } from './routes/contracts'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ImoveisIdRouteImport } from './routes/imoveis.$id'
@@ -23,6 +24,11 @@ const SobreRoute = SobreRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContractsRoute = ContractsRouteImport.update({
+  id: '/contracts',
+  path: '/contracts',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminRoute = AdminRouteImport.update({
@@ -44,6 +50,7 @@ const ImoveisIdRoute = ImoveisIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/contracts': typeof ContractsRoute
   '/login': typeof LoginRoute
   '/sobre': typeof SobreRoute
   '/imoveis/$id': typeof ImoveisIdRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/contracts': typeof ContractsRoute
   '/login': typeof LoginRoute
   '/sobre': typeof SobreRoute
   '/imoveis/$id': typeof ImoveisIdRoute
@@ -59,21 +67,36 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/contracts': typeof ContractsRoute
   '/login': typeof LoginRoute
   '/sobre': typeof SobreRoute
   '/imoveis/$id': typeof ImoveisIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/login' | '/sobre' | '/imoveis/$id'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/contracts'
+    | '/login'
+    | '/sobre'
+    | '/imoveis/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/login' | '/sobre' | '/imoveis/$id'
-  id: '__root__' | '/' | '/admin' | '/login' | '/sobre' | '/imoveis/$id'
+  to: '/' | '/admin' | '/contracts' | '/login' | '/sobre' | '/imoveis/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/contracts'
+    | '/login'
+    | '/sobre'
+    | '/imoveis/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
+  ContractsRoute: typeof ContractsRoute
   LoginRoute: typeof LoginRoute
   SobreRoute: typeof SobreRoute
   ImoveisIdRoute: typeof ImoveisIdRoute
@@ -93,6 +116,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contracts': {
+      id: '/contracts'
+      path: '/contracts'
+      fullPath: '/contracts'
+      preLoaderRoute: typeof ContractsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -122,6 +152,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
+  ContractsRoute: ContractsRoute,
   LoginRoute: LoginRoute,
   SobreRoute: SobreRoute,
   ImoveisIdRoute: ImoveisIdRoute,

@@ -42,9 +42,6 @@ export function Footer() {
 						<span className="flex items-center gap-2">
 							<Mail size={14} /> contato@imoveisrocha.com
 						</span>
-						<span className="flex items-center gap-2">
-							<MapPin size={14} /> Av. Faria Lima, 1000 - SP
-						</span>
 						<div className="flex gap-3 mt-2">
 							<button
 								type="button"

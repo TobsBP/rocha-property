@@ -23,8 +23,8 @@ const AGENT_IMAGE =
 	"https://lh3.googleusercontent.com/aida-public/AB6AXuC3bza3BJK1sQDk4MZyzJLseNiv7m6Opd8ojjCHHz7IwT4Jktg2rL8H_SrreJJv_lCFbxIxOJJdXEja65fohBfomLHQa_CqugcMPwZoPHGRolzudrVIs-TJ5ek2hl2DTfyDMRu0mm2Jx4Pm2IQuoFQa2Y7qs3XL5TkLwUq8Kz1JqUWQTi80PB7Sy50-UArCtelWRgrTKk-MqramVVYvNlmP8Qn6XgtpPDiND_UvxCN7IPLg8SAVV_8QSjJHdC_hqJFo0Cz3BkF7-tzn";
 
 const STATS = [
-	{ value: "25+", label: "Anos no mercado" },
-	{ value: "5.000+", label: "Imóveis negociados" },
+	{ value: "7+", label: "Anos no mercado" },
+	{ value: "50", label: "Imóveis negociados" },
 	{ value: "98%", label: "Clientes satisfeitos" },
 	{ value: "40", label: "Corretores especialistas" },
 ];
