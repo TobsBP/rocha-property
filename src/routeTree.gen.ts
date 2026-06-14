@@ -9,18 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ContractsRouteImport } from './routes/contracts'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ImoveisIdRouteImport } from './routes/imoveis.$id'
 
-const SobreRoute = SobreRouteImport.update({
-  id: '/sobre',
-  path: '/sobre',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -36,6 +31,11 @@ const AdminRoute = AdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -49,68 +49,61 @@ const ImoveisIdRoute = ImoveisIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
   '/contracts': typeof ContractsRoute
   '/login': typeof LoginRoute
-  '/sobre': typeof SobreRoute
   '/imoveis/$id': typeof ImoveisIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
   '/contracts': typeof ContractsRoute
   '/login': typeof LoginRoute
-  '/sobre': typeof SobreRoute
   '/imoveis/$id': typeof ImoveisIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
   '/contracts': typeof ContractsRoute
   '/login': typeof LoginRoute
-  '/sobre': typeof SobreRoute
   '/imoveis/$id': typeof ImoveisIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/admin'
     | '/contracts'
     | '/login'
-    | '/sobre'
     | '/imoveis/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/contracts' | '/login' | '/sobre' | '/imoveis/$id'
+  to: '/' | '/about' | '/admin' | '/contracts' | '/login' | '/imoveis/$id'
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/admin'
     | '/contracts'
     | '/login'
-    | '/sobre'
     | '/imoveis/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRoute
   ContractsRoute: typeof ContractsRoute
   LoginRoute: typeof LoginRoute
-  SobreRoute: typeof SobreRoute
   ImoveisIdRoute: typeof ImoveisIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sobre': {
-      id: '/sobre'
-      path: '/sobre'
-      fullPath: '/sobre'
-      preLoaderRoute: typeof SobreRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -132,6 +125,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -151,10 +151,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   AdminRoute: AdminRoute,
   ContractsRoute: ContractsRoute,
   LoginRoute: LoginRoute,
-  SobreRoute: SobreRoute,
   ImoveisIdRoute: ImoveisIdRoute,
 }
 export const routeTree = rootRouteImport

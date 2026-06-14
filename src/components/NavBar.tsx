@@ -9,7 +9,7 @@ export function NavBar({ activePage = "home" }: { activePage?: string }) {
 		{ label: "Home", to: "/", key: "home" },
 		{ label: "Imóveis", to: "/", key: "imoveis" },
 		{ label: "Contratos", to: "/contracts", key: "contracts" },
-		{ label: "Sobre", to: "/sobre", key: "sobre" },
+		{ label: "Sobre", to: "/about", key: "about" },
 		{ label: "Admin", to: "/admin", key: "admin" },
 	] as const;
 

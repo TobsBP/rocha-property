@@ -3,18 +3,33 @@ import {
 	ArrowRight,
 	Award,
 	Building2,
+	GalleryHorizontal,
 	Handshake,
 	Heart,
+	Info,
 	MapPin,
 	ShieldCheck,
 	Sparkles,
 	Target,
 	Users,
 } from "lucide-react";
+import { useState } from "react";
 import { Footer } from "#/components/Footer";
 import { NavBar } from "#/components/NavBar";
+import { GallerySalesTab } from "#/modules/gallery-sales";
 
-export const Route = createFileRoute("/sobre")({ component: AboutPage });
+export const Route = createFileRoute("/about")({ component: AboutPage });
+
+type Tab = "about" | "gallery";
+
+const TABS: { id: Tab; label: string; icon: React.ReactNode }[] = [
+	{ id: "about", label: "Sobre nós", icon: <Info size={16} /> },
+	{
+		id: "gallery",
+		label: "Galeria de vendas",
+		icon: <GalleryHorizontal size={16} />,
+	},
+];
 
 const HERO_IMAGE =
 	"https://lh3.googleusercontent.com/aida-public/AB6AXuD3gvu9x0XxA1t1soVmGXBkpq52qOwfqjAsLslyVU-F_IjnOPCyOrQLb4TYptF44LmU4BKVX8CBxCpfKBPacwtzxvE5I8rNc-DFt942WViamaluVyuESvzkdjr3aCYlTD_JIz8-xEb2mC_BssDljvSIdsL7tQ4xhdMC-LzIwNA2a01kEWqR_yhQ-8tUUP2n3sTd_UrfOOoXrTOqhut-6gkAqNmCSW6OFCZLiDdQNzA6tMAru0YSKviLmz6ul5a1pyu6QPdQA4mxo68z";
@@ -63,9 +78,11 @@ const TEAM = [
 ];
 
 function AboutPage() {
+	const [activeTab, setActiveTab] = useState<Tab>("about");
+
 	return (
 		<div className="min-h-screen bg-[#f9f9f9] text-on-background font-[Inter,ui-sans-serif,system-ui,sans-serif] antialiased">
-			<NavBar activePage="sobre" />
+			<NavBar activePage="about" />
 
 			{/* Hero */}
 			<header className="relative w-full h-96 md:h-[28rem] flex items-center justify-center overflow-hidden">
@@ -92,7 +109,34 @@ function AboutPage() {
 				</div>
 			</header>
 
+			{/* Tab bar */}
+			<div className="sticky top-20 z-40 bg-surface/90 backdrop-blur-md border-b border-outline-variant/30">
+				<div className="w-full max-w-7xl mx-auto px-4 md:px-10">
+					<div className="flex gap-1 pt-2">
+						{TABS.map((tab) => (
+							<button
+								key={tab.id}
+								type="button"
+								onClick={() => setActiveTab(tab.id)}
+								className={[
+									"inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold rounded-t-lg transition-all",
+									activeTab === tab.id
+										? "text-primary border-b-2 border-primary bg-primary-fixed/20"
+										: "text-on-surface-variant hover:text-primary hover:bg-surface-container-low",
+								].join(" ")}
+							>
+								{tab.icon}
+								{tab.label}
+							</button>
+						))}
+					</div>
+				</div>
+			</div>
+
 			<main className="w-full max-w-7xl mx-auto px-4 md:px-10 py-14 md:py-20 flex flex-col gap-20">
+				{activeTab === "gallery" && <GallerySalesTab />}
+				{activeTab === "about" && (
+				<>
 				{/* Nossa história */}
 				<section className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
 					<div className="relative">
@@ -295,6 +339,8 @@ function AboutPage() {
 						<Award size={18} className="text-primary" /> Reconhecida no mercado
 					</span>
 				</section>
+				</>
+				)}
 			</main>
 
 			<Footer />
