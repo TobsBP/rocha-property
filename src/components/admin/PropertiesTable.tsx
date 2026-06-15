@@ -1,4 +1,5 @@
 import { Building2, Pencil, Trash2 } from "lucide-react";
+import Image from "next/image";
 import { formatPrice } from "#/lib/utils";
 import type { AdminPropertyListItem } from "#/modules/properties";
 import { StatusBadge, useAdminProperties } from "#/modules/properties";
@@ -88,9 +89,9 @@ export function PropertiesTable({
 										<div className="flex items-center gap-3">
 											<div className="h-12 rounded bg-surface-container-low border border-outline-variant flex-shrink-0 flex items-center justify-center w-16 overflow-hidden">
 												{p.imageUrl ? (
-													<img
+													<Image
 														src={p.imageUrl}
-														alt={p.title || p.name}
+														alt={p.title || (p.name as string)}
 														className="w-full h-full object-cover"
 													/>
 												) : (

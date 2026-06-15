@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+"use client";
+
 import {
 	ArrowRight,
 	Award,
@@ -13,12 +14,12 @@ import {
 	Target,
 	Users,
 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { Footer } from "#/components/Footer";
 import { NavBar } from "#/components/NavBar";
 import { GallerySalesTab } from "#/modules/gallery-sales";
-
-export const Route = createFileRoute("/about")({ component: AboutPage });
 
 type Tab = "about" | "gallery";
 
@@ -71,7 +72,7 @@ const VALUES = [
 	},
 ];
 
-function AboutPage() {
+export default function AboutPage() {
 	const [activeTab, setActiveTab] = useState<Tab>("about");
 
 	return (
@@ -79,9 +80,9 @@ function AboutPage() {
 			<NavBar activePage="about" />
 
 			{/* Hero */}
-			<header className="relative w-full h-96 md:h-[28rem] flex items-center justify-center overflow-hidden">
+			<header className="relative w-full h-96 md:h-112 flex items-center justify-center overflow-hidden">
 				<div className="absolute inset-0 z-0">
-					<img
+					<Image
 						src={HERO_IMAGE}
 						alt="Sede da Imóveis Rocha"
 						className="w-full h-full object-cover"
@@ -135,7 +136,7 @@ function AboutPage() {
 						<section className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
 							<div className="relative">
 								<div className="rounded-2xl overflow-hidden card-shadow border border-surface-variant aspect-4/3">
-									<img
+									<Image
 										src={AGENT_IMAGE}
 										alt="Equipe Imóveis Rocha"
 										className="w-full h-full object-cover"
@@ -169,7 +170,7 @@ function AboutPage() {
 									mão do cuidado pessoal que sempre nos definiu.
 								</p>
 								<Link
-									to="/"
+									href="/"
 									className="inline-flex items-center gap-2 text-primary text-sm font-bold no-underline hover:gap-3 transition-all w-fit"
 								>
 									Ver imóveis disponíveis <ArrowRight size={16} />
@@ -275,7 +276,7 @@ function AboutPage() {
 								</p>
 								<div className="flex flex-wrap items-center justify-center gap-3 mt-2">
 									<Link
-										to="/"
+										href="/"
 										className="inline-flex items-center gap-2 bg-on-primary text-primary px-6 py-3 rounded-lg text-sm font-bold no-underline hover:-translate-y-0.5 transition-transform shadow-sm"
 									>
 										<Building2 size={18} /> Ver imóveis

@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router";
 import {
 	Bath,
 	Bed,
@@ -7,21 +6,19 @@ import {
 	MapPin,
 	SquareDashedBottom,
 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { formatPrice } from "#/lib/utils";
 import type { Property } from "../properties.types";
 import { BadgeChip } from "./BadgeChip";
 
 export function PropertyCard({ property }: { property: Property }) {
 	return (
-		<Link
-			to="/imoveis/$id"
-			params={{ id: property.id }}
-			className="no-underline"
-		>
+		<Link href={`/imoveis/${property.id}`} className="no-underline">
 			<article className="bg-surface rounded-xl overflow-hidden card-shadow group cursor-pointer border border-surface-variant hover:-translate-y-1 transition-transform duration-300">
 				<div className="relative aspect-4/3 overflow-hidden bg-surface-container-high">
 					{property.images[0] && (
-						<img
+						<Image
 							src={property.images[0]}
 							alt={property.title}
 							className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

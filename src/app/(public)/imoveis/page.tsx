@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+"use client";
+
 import { FilterX, Home, MapPin, Search } from "lucide-react";
 import { useState } from "react";
 import { Footer } from "#/components/Footer";
@@ -11,11 +12,7 @@ import {
 	useProperties,
 } from "#/modules/properties";
 
-export const Route = createFileRoute("/imoveis/")({
-	component: ImoveisPage,
-});
-
-function ImoveisPage() {
+export default function ImoveisPage() {
 	const [intent, setIntent] = useState<TransactionType | "">("");
 	const [type, setType] = useState<PropertyType | "">("");
 	const [location, setLocation] = useState("");

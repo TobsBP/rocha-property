@@ -1,5 +1,5 @@
-import { Link } from "@tanstack/react-router";
 import { Menu, Moon, Sun, X } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { isAuthenticated } from "#/modules/auth";
 
@@ -14,15 +14,14 @@ export function NavBar({
 	const [mobileOpen, setMobileOpen] = useState(false);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [scrolled, setScrolled] = useState(false);
-	const [theme, setTheme] = useState(() => {
-		if (typeof window !== "undefined") {
-			return localStorage.getItem("theme") || "light";
-		}
-		return "light";
-	});
+	const [theme, setTheme] = useState("light");
+	const [mounted, setMounted] = useState(false);
 
 	useEffect(() => {
 		setIsLoggedIn(isAuthenticated());
+		const stored = localStorage.getItem("theme") || "light";
+		setTheme(stored);
+		setMounted(true);
 	}, []);
 
 	useEffect(() => {
@@ -50,11 +49,11 @@ export function NavBar({
 	const light = transparent && !scrolled && !mobileOpen;
 
 	const links = [
-		{ label: "Home", to: "/", key: "home" },
-		{ label: "Imóveis", to: "/imoveis", key: "imoveis" },
-		{ label: "Contratos", to: "/contracts", key: "contracts" },
-		{ label: "Sobre", to: "/about", key: "about" },
-		...(isLoggedIn ? [{ label: "Admin", to: "/admin", key: "admin" }] : []),
+		{ label: "Home", href: "/", key: "home" },
+		{ label: "Imóveis", href: "/imoveis", key: "imoveis" },
+		{ label: "Contratos", href: "/contracts", key: "contracts" },
+		{ label: "Sobre", href: "/about", key: "about" },
+		...(isLoggedIn ? [{ label: "Admin", href: "/admin", key: "admin" }] : []),
 	] as const;
 
 	return (
@@ -73,7 +72,10 @@ export function NavBar({
 					scrolled ? "h-16" : "h-20",
 				].join(" ")}
 			>
-				<Link to="/" className="flex items-center no-underline h-full shrink-0">
+				<Link
+					href="/"
+					className="flex items-center no-underline h-full shrink-0"
+				>
 					<span
 						style={{ fontFamily: "'Monsieur La Doulaise', cursive" }}
 						className={[
@@ -91,7 +93,7 @@ export function NavBar({
 						return (
 							<Link
 								key={link.key}
-								to={link.to}
+								href={link.href}
 								className={[
 									"group relative text-sm font-medium px-3 py-2 no-underline transition-colors duration-300",
 									light
@@ -120,7 +122,7 @@ export function NavBar({
 
 				<div className="flex items-center gap-1.5">
 					<Link
-						to="/imoveis"
+						href="/imoveis"
 						className={[
 							"hidden md:inline-flex items-center text-sm font-bold px-5 py-2.5 rounded-full no-underline transition-all duration-300 hover:-translate-y-0.5",
 							light
@@ -142,7 +144,13 @@ export function NavBar({
 						aria-label="Alternar tema"
 					>
 						<span className="block transition-transform duration-500 hover:rotate-45">
-							{theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
+							{!mounted ? (
+								<span className="inline-block w-5 h-5" />
+							) : theme === "light" ? (
+								<Moon size={20} />
+							) : (
+								<Sun size={20} />
+							)}
 						</span>
 					</button>
 					<button
@@ -173,7 +181,7 @@ export function NavBar({
 					{links.map((link, i) => (
 						<Link
 							key={link.key}
-							to={link.to}
+							href={link.href}
 							onClick={() => setMobileOpen(false)}
 							style={{
 								transitionDelay: mobileOpen ? `${i * 45 + 60}ms` : "0ms",

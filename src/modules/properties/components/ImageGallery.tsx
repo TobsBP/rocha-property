@@ -1,4 +1,5 @@
 import { Images } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 
 export function ImageGallery({
@@ -18,7 +19,7 @@ export function ImageGallery({
 				className="md:col-span-2 md:row-span-2 relative group cursor-pointer overflow-hidden p-0 border-0 bg-transparent"
 				onClick={() => setActive(0)}
 			>
-				<img
+				<Image
 					src={shown[active] ?? shown[0]}
 					alt={title}
 					className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -31,7 +32,7 @@ export function ImageGallery({
 					className="hidden md:block relative group cursor-pointer overflow-hidden p-0 border-0 bg-transparent"
 					onClick={() => setActive(i + 1)}
 				>
-					<img
+					<Image
 						src={src}
 						alt={`${title} ${i + 2}`}
 						className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"

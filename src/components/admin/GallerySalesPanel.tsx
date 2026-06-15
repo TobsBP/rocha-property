@@ -1,4 +1,5 @@
 import { CalendarDays, ImageOff, Pencil, Plus, Trash2 } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 import type { GallerySale } from "#/modules/gallery-sales";
 import { useDeleteGallerySale, useGallerySales } from "#/modules/gallery-sales";
@@ -102,7 +103,7 @@ export function GallerySalesPanel() {
 								className="rounded-xl border border-surface-variant overflow-hidden group bg-surface-container-lowest hover:border-primary/30 transition-colors"
 							>
 								<div className="aspect-video overflow-hidden bg-surface-container-high relative">
-									<img
+									<Image
 										src={sale.imgUrls[0]}
 										alt={sale.description}
 										className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

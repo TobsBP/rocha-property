@@ -11,9 +11,9 @@
 			"**/src/**/*",
 			"**/.vscode/**/*",
 			"**/index.html",
-			"**/vite.config.ts",
-			"!**/src/routeTree.gen.ts",
-			"!**/src/styles.css"
+			"**/next.config.ts",
+			"!src/app/globals.css",
+			"!src/styles.css"
 		]
 	},
 	"formatter": {
@@ -33,4 +33,3 @@
 		}
 	}
 }
-

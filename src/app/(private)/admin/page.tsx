@@ -1,31 +1,19 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+"use client";
+
 import { Plus } from "lucide-react";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { GallerySalesPanel } from "#/components/admin/GallerySalesPanel";
+import { LeadsList } from "#/components/admin/LeadsList";
+import { LeadsPanel } from "#/components/admin/LeadsPanel";
+import { PropertiesTable } from "#/components/admin/PropertiesTable";
+import { type AdminSection, SideNav } from "#/components/admin/SideNav";
 import { isAuthenticated } from "#/modules/auth";
 import {
 	type AdminPropertyListItem,
 	PropertyFormModal,
 	useDeleteProperty,
 } from "#/modules/properties";
-import { GallerySalesPanel } from "./-components/admin/GallerySalesPanel";
-import { LeadsList } from "./-components/admin/LeadsList";
-import { LeadsPanel } from "./-components/admin/LeadsPanel";
-import { PropertiesTable } from "./-components/admin/PropertiesTable";
-import { type AdminSection, SideNav } from "./-components/admin/SideNav";
-
-export const Route = createFileRoute("/admin")({
-	beforeLoad: () => {
-		if (!isAuthenticated()) {
-			throw redirect({
-				to: "/login",
-				search: {
-					redirect: "/admin",
-				},
-			});
-		}
-	},
-	component: AdminPage,
-});
 
 const SECTION_TITLE: Record<AdminSection, { title: string; subtitle: string }> =
 	{
@@ -47,7 +35,18 @@ const SECTION_TITLE: Record<AdminSection, { title: string; subtitle: string }> =
 		},
 	};
 
-function AdminPage() {
+export default function AdminPage() {
+	const router = useRouter();
+	const [isChecking, setIsChecking] = useState(true);
+
+	useEffect(() => {
+		if (!isAuthenticated()) {
+			router.push("/login?redirect=/admin");
+		} else {
+			setIsChecking(false);
+		}
+	}, [router]);
+
 	const [editingProperty, setEditingProperty] = useState<
 		AdminPropertyListItem | undefined
 	>(undefined);
@@ -57,7 +56,7 @@ function AdminPage() {
 
 	const deleteMutation = useDeleteProperty();
 
-	const { title, subtitle } = SECTION_TITLE[section];
+	const { title, subtitle } = SECTION_TITLE[section] || SECTION_TITLE.overview;
 
 	function handleEdit(p: AdminPropertyListItem) {
 		setEditingProperty(p);
@@ -73,6 +72,10 @@ function AdminPage() {
 		if (!confirmDeleteId) return;
 		await deleteMutation.mutateAsync(confirmDeleteId);
 		setConfirmDeleteId(null);
+	}
+
+	if (isChecking) {
+		return null; // Or a loading spinner
 	}
 
 	return (
@@ -106,7 +109,7 @@ function AdminPage() {
 				</header>
 
 				{/* Section Content */}
-				<div className="p-10 max-w-[1400px] mx-auto flex flex-col gap-6">
+				<div className="p-10 max-w-350 mx-auto flex flex-col gap-6">
 					{section === "overview" && (
 						<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 							<PropertiesTable
@@ -142,13 +145,13 @@ function AdminPage() {
 			{confirmDeleteId && (
 				<button
 					type="button"
-					className="fixed inset-0 z-[110] flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 w-full cursor-default"
+					className="fixed inset-0 z-110 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 w-full cursor-default"
 					onClick={(e) =>
 						e.target === e.currentTarget && setConfirmDeleteId(null)
 					}
 					onKeyDown={(e) => e.key === "Escape" && setConfirmDeleteId(null)}
 				>
-					<div className="bg-surface rounded-2xl shadow-2xl w-full max-w-sm p-6 flex flex-col gap-4 cursor-auto text-left">
+					<div className="bg-surface rounded-2xl shadow-2xl w-full max-sm p-6 flex flex-col gap-4 cursor-auto text-left mx-4">
 						<h2 className="text-base font-semibold text-on-surface">
 							Excluir imóvel?
 						</h2>

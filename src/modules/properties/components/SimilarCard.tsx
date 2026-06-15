@@ -1,19 +1,16 @@
-import { Link } from "@tanstack/react-router";
 import { Bed, Car, Heart, MapPin, Ruler } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { formatPrice } from "#/lib/utils";
 import type { Property } from "../properties.types";
 
 export function SimilarCard({ property }: { property: Property }) {
 	return (
-		<Link
-			to="/imoveis/$id"
-			params={{ id: property.id }}
-			className="no-underline"
-		>
+		<Link href={`/imoveis/${property.id}`} className="no-underline">
 			<div className="bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] overflow-hidden group cursor-pointer border border-surface-variant hover:-translate-y-1 transition-transform duration-300">
 				<div className="relative h-48 overflow-hidden">
 					{property.images[0] && (
-						<img
+						<Image
 							src={property.images[0]}
 							alt={property.title}
 							className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

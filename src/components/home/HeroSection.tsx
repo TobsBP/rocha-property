@@ -27,7 +27,7 @@ export function HeroSection({
 		<header className="hero-grain relative w-full min-h-[88vh] flex items-center justify-center overflow-hidden">
 			{/* Backdrop */}
 			<div className="absolute inset-0 z-0">
-				<img
+				<Image
 					src={HERO_IMAGE}
 					alt="Imóvel de luxo"
 					className="ken-burns w-full h-full object-cover"

@@ -1,14 +1,14 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+"use client";
+
+import Link from "next/link";
 import { LoginForm } from "#/modules/auth";
 
-export const Route = createFileRoute("/login")({ component: LoginPage });
-
-function LoginPage() {
+export default function LoginPage() {
 	return (
 		<div className="flex min-h-screen items-center justify-center px-4 py-12 font-[Inter,ui-sans-serif,system-ui,sans-serif]">
 			<div className="w-full max-w-md">
 				<div className="mb-8 text-center">
-					<Link to="/" className="inline-flex items-center no-underline">
+					<Link href="/" className="inline-flex items-center no-underline">
 						<span
 							style={{ fontFamily: "'Monsieur La Doulaise', cursive" }}
 							className="text-6xl text-primary font-normal"
@@ -33,7 +33,7 @@ function LoginPage() {
 
 				<p className="mt-6 text-center text-sm text-on-surface-variant">
 					Não tem uma conta?{" "}
-					<Link to="/" className="font-medium text-primary no-underline">
+					<Link href="/" className="font-medium text-primary no-underline">
 						Fale com a equipe
 					</Link>
 				</p>

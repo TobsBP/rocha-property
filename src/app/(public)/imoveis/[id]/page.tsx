@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+"use client";
+
 import {
 	ArrowRight,
 	Bath,
@@ -11,6 +12,8 @@ import {
 	Share2,
 	Star,
 } from "lucide-react";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 import { Footer } from "#/components/Footer";
 import { NavBar } from "#/components/NavBar";
 import { formatPrice } from "#/lib/utils";
@@ -23,12 +26,9 @@ import {
 	useSimilarProperties,
 } from "#/modules/properties";
 
-export const Route = createFileRoute("/imoveis/$id")({
-	component: PropertyDetailPage,
-});
-
-function PropertyDetailPage() {
-	const { id } = Route.useParams();
+export default function PropertyDetailPage() {
+	const params = useParams();
+	const id = params.id as string;
 	const { data: property, isLoading } = useProperty(id);
 	const { data: similar = [] } = useSimilarProperties(id);
 
@@ -62,7 +62,7 @@ function PropertyDetailPage() {
 						O imóvel que você procura não está disponível.
 					</p>
 					<Link
-						to="/"
+						href="/"
 						className="text-primary font-bold hover:underline no-underline"
 					>
 						Voltar para o início
@@ -81,7 +81,7 @@ function PropertyDetailPage() {
 				<div className="flex justify-between items-center w-full">
 					<div className="flex items-center gap-2 text-xs font-semibold text-on-surface-variant">
 						<Link
-							to="/"
+							href="/"
 							className="hover:text-primary transition-colors no-underline text-on-surface-variant"
 						>
 							Home

@@ -1,39 +1,61 @@
-# Estágio 1: Build
-FROM node:20-bullseye AS builder
+ARG NODE_VERSION=24.13.0-slim
 
+FROM node:${NODE_VERSION} AS dependencies
+
+# Set working directory
 WORKDIR /app
 
-COPY package.json package-lock.json ./
-RUN npm ci
+# Copy package-related files first to leverage Docker's caching mechanism
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
 
+# Install project dependencies with frozen lockfile for reproducible builds
+RUN --mount=type=cache,target=/root/.npm \
+    --mount=type=cache,target=/usr/local/share/.cache/yarn \
+    --mount=type=cache,target=/root/.local/share/pnpm/store \
+    npm ci --no-audit --no-fund
+
+FROM node:${NODE_VERSION} AS builder
+
+# Set working directory
+WORKDIR /app
+
+# Copy project dependencies from dependencies stage
+COPY --from=dependencies /app/node_modules ./node_modules
+
+# Copy application source code
 COPY . .
 
-# Executa o build (gera a pasta dist/)
+ENV NODE_ENV=production
+
 RUN npm run build
 
-# ---
+FROM node:${NODE_VERSION} AS runner
 
-# Estágio 2: Runtime
-FROM node:20-alpine AS runner
-
+# Set working directory
 WORKDIR /app
 
+# Set production environment variables
 ENV NODE_ENV=production
 ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 tanstack
+# Copy production assets
+COPY --from=builder --chown=node:node /app/public ./public
 
-# Copia a pasta dist/ (que contém client/ e server/)
-COPY --from=builder /app/dist ./dist
+# Set the correct permission for prerender cache
+RUN mkdir .next
+RUN chown node:node .next
 
-# Ajusta permissões para a pasta dist
-RUN chown -R tanstack:nodejs /app/dist
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+COPY --from=builder --chown=node:node /app/.next/standalone ./
+COPY --from=builder --chown=node:node /app/.next/static ./.next/static
 
-USER tanstack
+# Switch to non-root user for security best practices
+USER node
 
+# Expose port 3000 to allow HTTP traffic
 EXPOSE 3000
 
-# O comando de início agora aponta para a pasta dist
-# O entrypoint do servidor Nitro é dist/server/index.mjs
-CMD ["node", "dist/server/index.mjs"]
+# Start Next.js standalone server
+CMD ["node", "server.js"]

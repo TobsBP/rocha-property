@@ -4,7 +4,10 @@
 
 import { getToken } from "#/modules/auth/auth.storage";
 
-export const API_URL = (import.meta.env.VITE_API_URL ?? "").replace(/\/$/, "");
+export const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? "").replace(
+	/\/$/,
+	"",
+);
 
 /** Erro lançado quando a API responde com status fora da faixa 2xx. */
 export class ApiError extends Error {

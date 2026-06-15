@@ -1,5 +1,5 @@
-import { useRouter } from "@tanstack/react-router";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useSignIn } from "../auth.hooks";
 
@@ -13,10 +13,7 @@ export function LoginForm({ redirectTo = "/admin" }: { redirectTo?: string }) {
 
 	function handleSubmit(e: React.FormEvent) {
 		e.preventDefault();
-		mutate(
-			{ email, password },
-			{ onSuccess: () => router.navigate({ to: redirectTo }) },
-		);
+		mutate({ email, password }, { onSuccess: () => router.push(redirectTo) });
 	}
 
 	return (

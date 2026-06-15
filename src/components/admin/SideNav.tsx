@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router";
 import {
 	Award,
 	BarChart2,
@@ -7,6 +6,7 @@ import {
 	LogOut,
 	Users,
 } from "lucide-react";
+import Link from "next/link";
 
 export type AdminSection = "overview" | "properties" | "gallery" | "leads";
 
@@ -21,14 +21,14 @@ export function SideNav({ section, onSection }: Props) {
 			icon: <Award size={18} />,
 			label: "Brokers",
 			key: "brokers",
-			to: "/admin" as const,
+			href: "/admin" as const,
 			isLink: true,
 		},
 		{
 			icon: <BarChart2 size={18} />,
 			label: "Metrics",
 			key: "metrics",
-			to: "/admin" as const,
+			href: "/admin" as const,
 			isLink: true,
 		},
 	];
@@ -96,7 +96,7 @@ export function SideNav({ section, onSection }: Props) {
 					{linkItems.map((item) => (
 						<Link
 							key={item.key}
-							to={item.to}
+							href={item.href}
 							className="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors no-underline text-on-surface-variant hover:bg-surface-variant"
 						>
 							{item.icon}

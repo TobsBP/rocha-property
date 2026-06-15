@@ -80,7 +80,7 @@ export function GallerySalesTab() {
 						className="bg-surface rounded-xl border border-surface-variant card-shadow overflow-hidden group hover:border-primary/40 hover:-translate-y-1 transition-all duration-300"
 					>
 						<div className="aspect-video overflow-hidden bg-surface-container-high">
-							<img
+							<Image
 								src={sale.imgUrls[0]}
 								alt={sale.description}
 								className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

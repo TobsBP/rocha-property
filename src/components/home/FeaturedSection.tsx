@@ -1,5 +1,5 @@
-import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { Reveal } from "#/components/Reveal";
 import type { Property } from "#/modules/properties";
 import { PropertyCard, PropertyCardSkeleton } from "#/modules/properties";
@@ -30,7 +30,7 @@ export function FeaturedSection({
 					</p>
 				</div>
 				<Link
-					to="/imoveis"
+					href="/imoveis"
 					className="group hidden md:inline-flex items-center gap-1.5 text-primary text-sm font-bold no-underline"
 				>
 					Ver todos
@@ -53,7 +53,7 @@ export function FeaturedSection({
 
 			<div className="mt-8 text-center md:hidden">
 				<Link
-					to="/imoveis"
+					href="/imoveis"
 					className="inline-flex w-full items-center justify-center border border-outline text-on-surface py-3 rounded-xl text-sm font-bold no-underline hover:bg-surface-container-low transition-colors"
 				>
 					Ver todos os imóveis

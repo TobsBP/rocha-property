@@ -1,17 +1,16 @@
-import { createFileRoute } from "@tanstack/react-router";
+"use client";
+
 import { useState } from "react";
 import { Footer } from "#/components/Footer";
+import { AboutSection } from "#/components/home/AboutSection";
+import { DifferentialsSection } from "#/components/home/DifferentialsSection";
+import { FeaturedSection } from "#/components/home/FeaturedSection";
+import { HeroSection } from "#/components/home/HeroSection";
 import { NavBar } from "#/components/NavBar";
 import type { TransactionType } from "#/modules/properties";
 import { useProperties } from "#/modules/properties";
-import { AboutSection } from "./-components/home/AboutSection";
-import { DifferentialsSection } from "./-components/home/DifferentialsSection";
-import { FeaturedSection } from "./-components/home/FeaturedSection";
-import { HeroSection } from "./-components/home/HeroSection";
 
-export const Route = createFileRoute("/")({ component: HomePage });
-
-function HomePage() {
+export default function HomePage() {
 	const [intent, setIntent] = useState<TransactionType>("compra");
 	const { data: properties = [], isLoading } = useProperties({ intent });
 

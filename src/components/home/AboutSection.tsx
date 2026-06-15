@@ -1,4 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 import { Reveal } from "#/components/Reveal";
 import { useCountUp } from "./useCountUp";
 
@@ -75,7 +76,7 @@ export function AboutSection() {
 				>
 					<Stat end={7} suffix="+" label="Anos no mercado" emphasis />
 					<div className="col-span-1 row-span-2 rounded-2xl overflow-hidden relative min-h-[220px] group">
-						<img
+						<Image
 							src="about.jpeg"
 							alt="Equipe Imóveis Rocha"
 							className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"

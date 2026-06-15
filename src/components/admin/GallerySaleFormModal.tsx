@@ -136,7 +136,9 @@ export function GallerySaleFormModal({ sale, onClose }: Props) {
 										key={i}
 										className="relative rounded-lg overflow-hidden aspect-video border border-surface-variant group"
 									>
-										<img
+										<Image
+											width={100}
+											height={100}
 											src={url}
 											alt={`Imagem ${i + 1}`}
 											className="w-full h-full object-cover"

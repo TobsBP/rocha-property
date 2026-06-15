@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+"use client";
+
 import {
 	ArrowRight,
 	CheckCircle2,
@@ -17,10 +18,6 @@ import {
 import { Footer } from "#/components/Footer";
 import { NavBar } from "#/components/NavBar";
 import { Reveal } from "#/components/Reveal";
-
-export const Route = createFileRoute("/contracts")({
-	component: ContratosPage,
-});
 
 const HERO_IMAGE =
 	"https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1600&q=80";
@@ -152,7 +149,7 @@ function SectionHeading({
 	);
 }
 
-function ContratosPage() {
+export default function ContratosPage() {
 	return (
 		<div className="min-h-screen bg-background text-foreground font-[Inter,ui-sans-serif,system-ui,sans-serif] antialiased">
 			<NavBar activePage="contracts" transparent />
@@ -160,7 +157,7 @@ function ContratosPage() {
 			{/* Hero */}
 			<header className="hero-grain relative w-full min-h-[78vh] flex items-center justify-center overflow-hidden">
 				<div className="absolute inset-0 z-0">
-					<img
+					<Image
 						src={HERO_IMAGE}
 						alt="Contratos imobiliários"
 						className="ken-burns w-full h-full object-cover"
@@ -202,7 +199,7 @@ function ContratosPage() {
 				</div>
 
 				<div className="absolute bottom-7 left-1/2 -translate-x-1/2 z-10 hidden md:flex">
-					<div className="h-9 w-[22px] rounded-full border border-white/45 flex justify-center pt-2">
+					<div className="h-9 w-5.5 rounded-full border border-white/45 flex justify-center pt-2">
 						<span className="scroll-cue-dot h-1.5 w-1.5 rounded-full bg-white/90" />
 					</div>
 				</div>
@@ -286,7 +283,7 @@ function ContratosPage() {
 										{step.number}
 									</div>
 									{i < STEPS.length - 1 && (
-										<div className="w-0.5 flex-1 my-1 min-h-[2.5rem] bg-gradient-to-b from-primary/50 to-outline-variant" />
+										<div className="w-0.5 flex-1 my-1 min-h-10 bg-linear-to-b from-primary/50 to-outline-variant" />
 									)}
 								</div>
 								<div className={i === STEPS.length - 1 ? "pb-0" : "pb-10"}>
