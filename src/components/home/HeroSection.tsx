@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { Bed, Home, MapPin, Search } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 import type { PropertyType, TransactionType } from "#/modules/properties";
 

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import {
 	ArrowRight,
 	CheckCircle2,
@@ -16,6 +15,7 @@ import {
 	Stamp,
 	Zap,
 } from "lucide-react";
+import Image from "next/image";
 import { Footer } from "#/components/Footer";
 import { NavBar } from "#/components/NavBar";
 import { Reveal } from "#/components/Reveal";

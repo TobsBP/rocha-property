@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { ImagePlus, Loader2, X } from "lucide-react";
+import Image from "next/image";
 import { useRef, useState } from "react";
 import type {
 	CreateGallerySaleInput,
