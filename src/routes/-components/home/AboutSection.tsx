@@ -1,5 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
-import { Reveal } from "./Reveal";
+import { Reveal } from "#/components/Reveal";
 import { useCountUp } from "./useCountUp";
 
 function Stat({

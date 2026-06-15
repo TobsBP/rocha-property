@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
+import { Reveal } from "#/components/Reveal";
 import type { Property } from "#/modules/properties";
 import { PropertyCard, PropertyCardSkeleton } from "#/modules/properties";
-import { Reveal } from "./Reveal";
 
 export function FeaturedSection({
 	properties,

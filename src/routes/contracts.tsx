@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Footer } from "#/components/Footer";
 import { NavBar } from "#/components/NavBar";
+import { Reveal } from "#/components/Reveal";
 
 export const Route = createFileRoute("/contracts")({
 	component: ContratosPage,
@@ -123,175 +124,227 @@ const STEPS = [
 	},
 ];
 
+const SERIF = { fontFamily: "'Fraunces', Georgia, serif" } as const;
+
+function SectionHeading({
+	kicker,
+	title,
+	children,
+}: {
+	kicker: string;
+	title: string;
+	children?: React.ReactNode;
+}) {
+	return (
+		<Reveal className="text-center max-w-2xl mx-auto">
+			<span className="text-xs font-semibold uppercase tracking-[0.28em] text-primary">
+				{kicker}
+			</span>
+			<h2
+				className="mt-2 text-3xl md:text-[2.6rem] font-medium text-on-surface tracking-tight leading-tight"
+				style={SERIF}
+			>
+				{title}
+			</h2>
+			<div className="accent-rule is-revealed mx-auto mt-4" />
+			{children}
+		</Reveal>
+	);
+}
+
 function ContratosPage() {
 	return (
 		<div className="min-h-screen bg-background text-foreground font-[Inter,ui-sans-serif,system-ui,sans-serif] antialiased">
-			<NavBar activePage="contracts" />
+			<NavBar activePage="contracts" transparent />
 
 			{/* Hero */}
-			<header className="relative w-full h-96 md:h-[28rem] flex items-center justify-center overflow-hidden">
+			<header className="hero-grain relative w-full min-h-[78vh] flex items-center justify-center overflow-hidden">
 				<div className="absolute inset-0 z-0">
 					<img
 						src={HERO_IMAGE}
 						alt="Contratos imobiliários"
-						className="w-full h-full object-cover"
+						className="ken-burns w-full h-full object-cover"
 					/>
 					<div className="absolute inset-0 hero-gradient" />
 				</div>
-				<div className="relative z-10 w-full max-w-4xl mx-auto px-4 md:px-10 text-center">
-					<span className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white text-xs font-bold uppercase tracking-[0.16em] px-3 py-1.5 rounded-full mb-4">
+				<div className="relative z-10 w-full max-w-4xl mx-auto px-5 md:px-10 text-center pt-24">
+					<span
+						className="reveal is-revealed inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white text-xs font-semibold uppercase tracking-[0.22em] px-4 py-1.5 rounded-full mb-6"
+						style={{ "--reveal-delay": "80ms" } as React.CSSProperties}
+					>
 						<Stamp size={14} /> Contratos imobiliários
 					</span>
-					<h1 className="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg tracking-tight leading-tight">
-						Contratos seguros
-						<br className="hidden md:block" /> do início ao fim
+					<h1 className="text-white leading-[1.05] tracking-tight">
+						<span
+							className="reveal is-revealed block text-4xl md:text-7xl font-medium"
+							style={
+								{ ...SERIF, "--reveal-delay": "200ms" } as React.CSSProperties
+							}
+						>
+							Contratos seguros
+						</span>
+						<span
+							className="reveal is-revealed block text-4xl md:text-7xl font-medium italic"
+							style={
+								{ ...SERIF, "--reveal-delay": "340ms" } as React.CSSProperties
+							}
+						>
+							do início ao fim
+						</span>
 					</h1>
-					<p className="text-lg md:text-xl font-medium text-surface-container-low max-w-2xl mx-auto drop-shadow-md">
+					<p
+						className="reveal is-revealed text-lg md:text-xl font-medium text-white/85 max-w-2xl mx-auto mt-6 drop-shadow-md"
+						style={{ "--reveal-delay": "480ms" } as React.CSSProperties}
+					>
 						Da elaboração ao registro, cuidamos de cada detalhe jurídico para
 						que você feche negócio com total tranquilidade.
 					</p>
 				</div>
+
+				<div className="absolute bottom-7 left-1/2 -translate-x-1/2 z-10 hidden md:flex">
+					<div className="h-9 w-[22px] rounded-full border border-white/45 flex justify-center pt-2">
+						<span className="scroll-cue-dot h-1.5 w-1.5 rounded-full bg-white/90" />
+					</div>
+				</div>
 			</header>
 
-			<main className="w-full max-w-7xl mx-auto px-4 md:px-10 py-14 md:py-20 flex flex-col gap-20">
+			<main className="w-full max-w-7xl mx-auto px-4 md:px-10 py-16 md:py-28 flex flex-col gap-24 md:gap-32">
 				{/* Por que confiar */}
-				<section className="flex flex-col gap-8">
-					<div className="text-center max-w-2xl mx-auto">
-						<span className="text-xs font-bold uppercase tracking-[0.16em] text-primary">
-							Por que escolher a Imóveis Rocha
-						</span>
-						<h2 className="text-3xl md:text-4xl font-semibold text-on-surface tracking-tight mt-2">
-							Segurança jurídica em cada negócio
-						</h2>
-						<p className="text-base text-on-surface-variant mt-3 leading-relaxed">
+				<section className="flex flex-col gap-10">
+					<SectionHeading
+						kicker="Por que escolher a Imóveis Rocha"
+						title="Segurança jurídica em cada negócio"
+					>
+						<p className="text-base text-on-surface-variant mt-4 leading-relaxed">
 							Contratos mal redigidos são a principal causa de conflitos
 							imobiliários. Nossa equipe elimina esse risco antes que ele
 							aconteça.
 						</p>
-					</div>
+					</SectionHeading>
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-						{WHY_TRUST.map((item) => (
-							<div
-								key={item.title}
-								className="bg-surface rounded-xl border border-surface-variant card-shadow p-6 flex flex-col gap-3 hover:border-primary/40 hover:-translate-y-1 transition-all duration-300"
-							>
-								<div className="w-12 h-12 rounded-lg bg-primary-fixed text-primary flex items-center justify-center">
-									{item.icon}
+						{WHY_TRUST.map((item, i) => (
+							<Reveal key={item.title} delay={i * 100} y={30}>
+								<div className="group h-full bg-surface rounded-2xl border border-surface-variant card-shadow p-6 flex flex-col gap-3 hover:border-primary/40 hover:-translate-y-1.5 transition-all duration-300">
+									<div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center transition-colors duration-300 group-hover:bg-primary group-hover:text-on-primary">
+										{item.icon}
+									</div>
+									<h3 className="text-lg font-bold text-on-surface mt-1">
+										{item.title}
+									</h3>
+									<p className="text-sm text-on-surface-variant leading-relaxed">
+										{item.description}
+									</p>
 								</div>
-								<h3 className="text-lg font-semibold text-on-surface">
-									{item.title}
-								</h3>
-								<p className="text-sm text-on-surface-variant leading-relaxed">
-									{item.description}
-								</p>
-							</div>
+							</Reveal>
 						))}
 					</div>
 				</section>
 
 				{/* Tipos de contrato */}
-				<section className="flex flex-col gap-8">
-					<div className="text-center max-w-2xl mx-auto">
-						<span className="text-xs font-bold uppercase tracking-[0.16em] text-primary">
-							Modalidades
-						</span>
-						<h2 className="text-3xl md:text-4xl font-semibold text-on-surface tracking-tight mt-2">
-							Contratos que elaboramos
-						</h2>
-					</div>
+				<section className="flex flex-col gap-10">
+					<SectionHeading
+						kicker="Modalidades"
+						title="Contratos que elaboramos"
+					/>
 					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-						{CONTRACT_TYPES.map((ct) => (
-							<div
-								key={ct.title}
-								className="bg-surface rounded-xl border border-surface-variant card-shadow p-6 flex flex-row gap-4 items-start hover:border-primary/40 hover:-translate-y-0.5 transition-all duration-300 group"
-							>
-								<div className="w-11 h-11 rounded-lg bg-primary-fixed text-primary flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-on-primary transition-colors duration-300">
-									{ct.icon}
+						{CONTRACT_TYPES.map((ct, i) => (
+							<Reveal key={ct.title} delay={(i % 3) * 90} y={28}>
+								<div className="group h-full bg-surface rounded-2xl border border-surface-variant card-shadow p-6 flex flex-row gap-4 items-start hover:border-primary/40 hover:-translate-y-1 transition-all duration-300">
+									<div className="w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-on-primary transition-colors duration-300">
+										{ct.icon}
+									</div>
+									<div className="flex flex-col gap-1">
+										<h3 className="text-base font-bold text-on-surface leading-tight">
+											{ct.title}
+										</h3>
+										<p className="text-sm text-on-surface-variant leading-relaxed">
+											{ct.description}
+										</p>
+									</div>
 								</div>
-								<div className="flex flex-col gap-1">
-									<h3 className="text-base font-semibold text-on-surface leading-tight">
-										{ct.title}
-									</h3>
-									<p className="text-sm text-on-surface-variant leading-relaxed">
-										{ct.description}
-									</p>
-								</div>
-							</div>
+							</Reveal>
 						))}
 					</div>
 				</section>
 
 				{/* Como funciona */}
-				<section className="flex flex-col gap-10">
-					<div className="text-center max-w-2xl mx-auto">
-						<span className="text-xs font-bold uppercase tracking-[0.16em] text-primary">
-							Nosso processo
-						</span>
-						<h2 className="text-3xl md:text-4xl font-semibold text-on-surface tracking-tight mt-2">
-							Do zero ao contrato assinado
-						</h2>
-					</div>
+				<section className="flex flex-col gap-12">
+					<SectionHeading
+						kicker="Nosso processo"
+						title="Do zero ao contrato assinado"
+					/>
 
-					<div className="relative flex flex-col gap-0">
+					<div className="relative max-w-3xl mx-auto w-full">
 						{STEPS.map((step, i) => (
-							<div key={step.number} className="relative flex gap-6 md:gap-8">
-								{/* Line + circle */}
+							<Reveal
+								key={step.number}
+								delay={i * 90}
+								className="relative flex gap-6 md:gap-8"
+							>
 								<div className="flex flex-col items-center">
-									<div className="w-11 h-11 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-sm shrink-0 z-10">
+									<div className="w-12 h-12 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-sm shrink-0 z-10 shadow-lg shadow-primary/20">
 										{step.number}
 									</div>
 									{i < STEPS.length - 1 && (
-										<div className="w-0.5 flex-1 bg-outline-variant my-1 min-h-[2.5rem]" />
+										<div className="w-0.5 flex-1 my-1 min-h-[2.5rem] bg-gradient-to-b from-primary/50 to-outline-variant" />
 									)}
 								</div>
-								{/* Content */}
-								<div className={`pb-8 ${i === STEPS.length - 1 ? "pb-0" : ""}`}>
-									<h3 className="text-lg font-semibold text-on-surface leading-tight">
+								<div className={i === STEPS.length - 1 ? "pb-0" : "pb-10"}>
+									<h3 className="text-lg font-bold text-on-surface leading-tight">
 										{step.title}
 									</h3>
-									<p className="text-sm text-on-surface-variant mt-1 leading-relaxed max-w-xl">
+									<p className="text-sm text-on-surface-variant mt-1.5 leading-relaxed max-w-xl">
 										{step.description}
 									</p>
 								</div>
-							</div>
+							</Reveal>
 						))}
 					</div>
 				</section>
 
 				{/* CTA */}
-				<section className="relative overflow-hidden rounded-2xl bg-primary text-on-primary px-8 py-12 md:px-14 md:py-16 text-center">
-					<div className="absolute inset-0 opacity-10 pointer-events-none">
-						<ScrollText size={320} className="absolute -right-10 -top-10" />
-					</div>
-					<div className="relative z-10 flex flex-col items-center gap-5">
-						<h2 className="text-3xl md:text-4xl font-bold tracking-tight max-w-2xl">
-							Precisa de um contrato?
-							<br />
-							Fale com a gente.
-						</h2>
-						<p className="text-base md:text-lg text-on-primary/90 max-w-xl">
-							Nossa equipe está pronta para atender você hoje. Consulta inicial
-							gratuita, sem compromisso.
-						</p>
-						<div className="flex flex-wrap items-center justify-center gap-3 mt-2">
-							<button
-								type="button"
-								className="inline-flex items-center gap-2 bg-on-primary text-primary px-6 py-3 rounded-lg text-sm font-bold hover:-translate-y-0.5 transition-transform shadow-sm"
+				<Reveal as="section" y={36}>
+					<div className="relative overflow-hidden rounded-3xl bg-primary text-on-primary px-8 py-14 md:px-14 md:py-20 text-center">
+						<div className="absolute inset-0 opacity-10 pointer-events-none">
+							<ScrollText
+								size={360}
+								className="absolute -right-12 -top-12 float-soft"
+							/>
+						</div>
+						<div className="relative z-10 flex flex-col items-center gap-5">
+							<h2
+								className="text-3xl md:text-5xl font-medium tracking-tight max-w-2xl leading-tight"
+								style={SERIF}
 							>
-								<MessageCircle size={18} /> Chamar no WhatsApp
-							</button>
-							<button
-								type="button"
-								className="inline-flex items-center gap-2 border border-on-primary/40 text-on-primary px-6 py-3 rounded-lg text-sm font-bold hover:bg-on-primary/10 transition-colors"
-							>
-								Ver imóveis disponíveis <ArrowRight size={16} />
-							</button>
+								Precisa de um contrato? Fale com a gente.
+							</h2>
+							<p className="text-base md:text-lg text-on-primary/90 max-w-xl">
+								Nossa equipe está pronta para atender você hoje. Consulta
+								inicial gratuita, sem compromisso.
+							</p>
+							<div className="flex flex-wrap items-center justify-center gap-3 mt-2">
+								<button
+									type="button"
+									className="btn-sheen inline-flex items-center gap-2 bg-on-primary text-primary px-7 py-3.5 rounded-full text-sm font-bold hover:-translate-y-0.5 transition-transform shadow-lg"
+								>
+									<MessageCircle size={18} /> Chamar no WhatsApp
+								</button>
+								<button
+									type="button"
+									className="inline-flex items-center gap-2 border border-on-primary/40 text-on-primary px-7 py-3.5 rounded-full text-sm font-bold hover:bg-on-primary/10 transition-colors"
+								>
+									Ver imóveis disponíveis <ArrowRight size={16} />
+								</button>
+							</div>
 						</div>
 					</div>
-				</section>
+				</Reveal>
 
 				{/* Trust strip */}
-				<section className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-10 text-on-surface-variant">
+				<Reveal
+					as="section"
+					className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-12 text-on-surface-variant"
+				>
 					<span className="flex items-center gap-2 text-sm font-semibold">
 						<Zap size={18} className="text-primary" /> 100% digital
 					</span>
@@ -303,7 +356,7 @@ function ContratosPage() {
 						<CheckCircle2 size={18} className="text-primary" /> Atendimento
 						rápido
 					</span>
-				</section>
+				</Reveal>
 			</main>
 
 			<Footer />
