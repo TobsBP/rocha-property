@@ -1,50 +1,44 @@
-# Estágio 1: Instalação e Build
-FROM node:20-alpine AS builder
+# Estágio 1: Build
+# Usando Debian (bullseye) no build para maior compatibilidade com ferramentas de compilação
+FROM node:20-bullseye AS builder
 
-# Instalar dependências necessárias para compilação (se houver node-gyp ou similares)
-RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Copiar arquivos de definição de pacotes
 COPY package.json package-lock.json ./
-
-# Instalar dependências (incluindo as de desenvolvimento para o build)
 RUN npm ci
 
-# Copiar o restante do código fonte
 COPY . .
 
-# Executar o build da aplicação TanStack Start
-# Isso gera a pasta .output
+# Executa o build
 RUN npm run build
+
+# Depuração: Lista os arquivos para vermos onde o build foi parar
+# Isso ajudará a identificar se a pasta é .output, dist ou outra
+RUN ls -la && (ls -la .output || echo ".output não encontrado") && (ls -la dist || echo "dist não encontrado")
 
 # ---
 
-# Estágio 2: Execução (Runtime)
+# Estágio 2: Runtime
 FROM node:20-alpine AS runner
 
 WORKDIR /app
 
-# Definir para produção
 ENV NODE_ENV=production
 ENV PORT=3000
 
-# Criar um usuário não-root para segurança
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 tanstack
 
-# Copiar apenas o output gerado no estágio anterior
-# O TanStack Start/Nitro empacota o servidor e o cliente em .output
+# Tenta copiar de .output (padrão do Nitro/TanStack Start)
+# Se o seu build estiver gerando em 'dist', mude para /app/dist
 COPY --from=builder /app/.output ./.output
 
-# Ajustar permissões
 RUN chown -R tanstack:nodejs /app/.output
 
 USER tanstack
 
-# Porta que a aplicação vai escutar
 EXPOSE 3000
 
-# Comando para iniciar o servidor
-# No TanStack Start, o entrypoint padrão do Nitro é index.mjs
+# Se o arquivo não estiver em .output/server/index.mjs,
+# o log do 'ls -la' acima nos dirá o caminho correto.
 CMD ["node", ".output/server/index.mjs"]
