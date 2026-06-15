@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { CalendarDays, ImageOff } from "lucide-react";
 import { useGallerySales } from "../gallery-sales.hooks";
 
