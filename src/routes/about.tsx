@@ -71,17 +71,11 @@ const VALUES = [
 	},
 ];
 
-const TEAM = [
-	{ name: "Ricardo Rocha", role: "Fundador & CEO" },
-	{ name: "Mariana Alves", role: "Diretora Comercial" },
-	{ name: "Felipe Santos", role: "Head de Locação" },
-];
-
 function AboutPage() {
 	const [activeTab, setActiveTab] = useState<Tab>("about");
 
 	return (
-		<div className="min-h-screen bg-[#f9f9f9] text-on-background font-[Inter,ui-sans-serif,system-ui,sans-serif] antialiased">
+		<div className="min-h-screen bg-background text-foreground font-[Inter,ui-sans-serif,system-ui,sans-serif] antialiased">
 			<NavBar activePage="about" />
 
 			{/* Hero */}
@@ -136,210 +130,178 @@ function AboutPage() {
 			<main className="w-full max-w-7xl mx-auto px-4 md:px-10 py-14 md:py-20 flex flex-col gap-20">
 				{activeTab === "gallery" && <GallerySalesTab />}
 				{activeTab === "about" && (
-				<>
-				{/* Nossa história */}
-				<section className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-					<div className="relative">
-						<div className="rounded-2xl overflow-hidden card-shadow border border-surface-variant aspect-4/3">
-							<img
-								src={AGENT_IMAGE}
-								alt="Equipe Imóveis Rocha"
-								className="w-full h-full object-cover"
-							/>
-						</div>
-						<div className="absolute -bottom-6 -right-4 md:-right-6 bg-primary text-on-primary rounded-xl px-6 py-4 shadow-[0_8px_24px_rgba(162,5,19,0.35)]">
-							<span className="block text-3xl font-black leading-none">
-								25+
-							</span>
-							<span className="text-xs font-semibold uppercase tracking-wider">
-								Anos de história
-							</span>
-						</div>
-					</div>
-					<div className="flex flex-col gap-4">
-						<span className="text-xs font-bold uppercase tracking-[0.16em] text-primary">
-							Nossa história
-						</span>
-						<h2 className="text-3xl md:text-4xl font-semibold text-on-surface tracking-tight">
-							Tradição construída sobre confiança
-						</h2>
-						<p className="text-base text-on-surface-variant leading-relaxed">
-							A Imóveis Rocha nasceu de um propósito simples: tornar a compra,
-							venda e locação de imóveis uma experiência segura e humana. Ao
-							longo de mais de duas décadas, ajudamos milhares de famílias e
-							investidores a encontrarem o lugar certo.
-						</p>
-						<p className="text-base text-on-surface-variant leading-relaxed">
-							Combinamos o conhecimento profundo do mercado local com
-							ferramentas digitais modernas, oferecendo agilidade sem abrir mão
-							do cuidado pessoal que sempre nos definiu.
-						</p>
-						<Link
-							to="/"
-							className="inline-flex items-center gap-2 text-primary text-sm font-bold no-underline hover:gap-3 transition-all w-fit"
-						>
-							Ver imóveis disponíveis <ArrowRight size={16} />
-						</Link>
-					</div>
-				</section>
-
-				{/* Stats */}
-				<section className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-					{STATS.map((stat) => (
-						<div
-							key={stat.label}
-							className="bg-surface rounded-xl border border-surface-variant card-shadow p-6 flex flex-col items-center text-center"
-						>
-							<span className="text-4xl md:text-5xl font-bold text-primary leading-none">
-								{stat.value}
-							</span>
-							<span className="text-xs font-semibold text-on-surface-variant uppercase tracking-wider mt-2">
-								{stat.label}
-							</span>
-						</div>
-					))}
-				</section>
-
-				{/* Valores */}
-				<section className="flex flex-col gap-8">
-					<div className="text-center max-w-2xl mx-auto">
-						<span className="text-xs font-bold uppercase tracking-[0.16em] text-primary">
-							No que acreditamos
-						</span>
-						<h2 className="text-3xl md:text-4xl font-semibold text-on-surface tracking-tight mt-2">
-							Os valores que guiam cada negócio
-						</h2>
-					</div>
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-						{VALUES.map((value) => (
-							<div
-								key={value.title}
-								className="bg-surface rounded-xl border border-surface-variant card-shadow p-6 flex flex-col gap-3 hover:border-primary/40 hover:-translate-y-1 transition-all duration-300"
-							>
-								<div className="w-12 h-12 rounded-lg bg-primary-fixed text-primary flex items-center justify-center">
-									{value.icon}
-								</div>
-								<h3 className="text-lg font-semibold text-on-surface">
-									{value.title}
-								</h3>
-								<p className="text-sm text-on-surface-variant leading-relaxed">
-									{value.description}
-								</p>
-							</div>
-						))}
-					</div>
-				</section>
-
-				{/* Missão / Visão */}
-				<section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-					<div className="bg-surface-container-low rounded-2xl p-8 relative overflow-hidden">
-						<div className="absolute top-0 right-0 w-48 h-48 bg-primary-container rounded-full mix-blend-multiply filter blur-3xl opacity-20 translate-x-1/3 -translate-y-1/3 pointer-events-none" />
-						<div className="relative z-10 flex flex-col gap-3">
-							<div className="w-12 h-12 rounded-lg bg-primary text-on-primary flex items-center justify-center">
-								<Target size={24} />
-							</div>
-							<h3 className="text-2xl font-semibold text-on-surface">
-								Nossa missão
-							</h3>
-							<p className="text-base text-on-surface-variant leading-relaxed">
-								Realizar o sonho do imóvel ideal com segurança, transparência e
-								um atendimento que coloca as pessoas em primeiro lugar.
-							</p>
-						</div>
-					</div>
-					<div className="bg-surface-container-low rounded-2xl p-8 relative overflow-hidden">
-						<div className="absolute top-0 right-0 w-48 h-48 bg-primary-container rounded-full mix-blend-multiply filter blur-3xl opacity-20 translate-x-1/3 -translate-y-1/3 pointer-events-none" />
-						<div className="relative z-10 flex flex-col gap-3">
-							<div className="w-12 h-12 rounded-lg bg-primary text-on-primary flex items-center justify-center">
-								<Heart size={24} />
-							</div>
-							<h3 className="text-2xl font-semibold text-on-surface">
-								Nossa visão
-							</h3>
-							<p className="text-base text-on-surface-variant leading-relaxed">
-								Ser a imobiliária de referência da região, reconhecida pela
-								excelência, pela inovação e pela confiança de quem nos escolhe.
-							</p>
-						</div>
-					</div>
-				</section>
-
-				{/* Equipe */}
-				<section className="flex flex-col gap-8">
-					<div className="text-center max-w-2xl mx-auto">
-						<span className="text-xs font-bold uppercase tracking-[0.16em] text-primary">
-							Quem cuida de você
-						</span>
-						<h2 className="text-3xl md:text-4xl font-semibold text-on-surface tracking-tight mt-2">
-							Liderança que entende do assunto
-						</h2>
-					</div>
-					<div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-						{TEAM.map((member) => (
-							<div
-								key={member.name}
-								className="bg-surface rounded-xl border border-surface-variant card-shadow overflow-hidden group"
-							>
-								<div className="aspect-square overflow-hidden bg-surface-container-high">
+					<>
+						{/* Nossa história */}
+						<section className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+							<div className="relative">
+								<div className="rounded-2xl overflow-hidden card-shadow border border-surface-variant aspect-4/3">
 									<img
 										src={AGENT_IMAGE}
-										alt={member.name}
-										className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+										alt="Equipe Imóveis Rocha"
+										className="w-full h-full object-cover"
 									/>
 								</div>
-								<div className="p-5">
-									<h3 className="text-lg font-semibold text-on-surface">
-										{member.name}
+								<div className="absolute -bottom-6 -right-4 md:-right-6 bg-primary text-on-primary rounded-xl px-6 py-4 shadow-[0_8px_24px_rgba(162,5,19,0.35)]">
+									<span className="block text-3xl font-black leading-none">
+										25+
+									</span>
+									<span className="text-xs font-semibold uppercase tracking-wider">
+										Anos de história
+									</span>
+								</div>
+							</div>
+							<div className="flex flex-col gap-4">
+								<span className="text-xs font-bold uppercase tracking-[0.16em] text-primary">
+									Nossa história
+								</span>
+								<h2 className="text-3xl md:text-4xl font-semibold text-on-surface tracking-tight">
+									Tradição construída sobre confiança
+								</h2>
+								<p className="text-base text-on-surface-variant leading-relaxed">
+									A Imóveis Rocha nasceu de um propósito simples: tornar a
+									compra, venda e locação de imóveis uma experiência segura e
+									humana. Ao longo de mais de duas décadas, ajudamos milhares de
+									famílias e investidores a encontrarem o lugar certo.
+								</p>
+								<p className="text-base text-on-surface-variant leading-relaxed">
+									Combinamos o conhecimento profundo do mercado local com
+									ferramentas digitais modernas, oferecendo agilidade sem abrir
+									mão do cuidado pessoal que sempre nos definiu.
+								</p>
+								<Link
+									to="/"
+									className="inline-flex items-center gap-2 text-primary text-sm font-bold no-underline hover:gap-3 transition-all w-fit"
+								>
+									Ver imóveis disponíveis <ArrowRight size={16} />
+								</Link>
+							</div>
+						</section>
+
+						{/* Stats */}
+						<section className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+							{STATS.map((stat) => (
+								<div
+									key={stat.label}
+									className="bg-surface rounded-xl border border-surface-variant card-shadow p-6 flex flex-col items-center text-center"
+								>
+									<span className="text-4xl md:text-5xl font-bold text-primary leading-none">
+										{stat.value}
+									</span>
+									<span className="text-xs font-semibold text-on-surface-variant uppercase tracking-wider mt-2">
+										{stat.label}
+									</span>
+								</div>
+							))}
+						</section>
+
+						{/* Valores */}
+						<section className="flex flex-col gap-8">
+							<div className="text-center max-w-2xl mx-auto">
+								<span className="text-xs font-bold uppercase tracking-[0.16em] text-primary">
+									No que acreditamos
+								</span>
+								<h2 className="text-3xl md:text-4xl font-semibold text-on-surface tracking-tight mt-2">
+									Os valores que guiam cada negócio
+								</h2>
+							</div>
+							<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+								{VALUES.map((value) => (
+									<div
+										key={value.title}
+										className="bg-surface rounded-xl border border-surface-variant card-shadow p-6 flex flex-col gap-3 hover:border-primary/40 hover:-translate-y-1 transition-all duration-300"
+									>
+										<div className="w-12 h-12 rounded-lg bg-primary-fixed text-primary flex items-center justify-center">
+											{value.icon}
+										</div>
+										<h3 className="text-lg font-semibold text-on-surface">
+											{value.title}
+										</h3>
+										<p className="text-sm text-on-surface-variant leading-relaxed">
+											{value.description}
+										</p>
+									</div>
+								))}
+							</div>
+						</section>
+
+						{/* Missão / Visão */}
+						<section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+							<div className="bg-surface-container-low rounded-2xl p-8 relative overflow-hidden">
+								<div className="absolute top-0 right-0 w-48 h-48 bg-primary-container rounded-full mix-blend-multiply filter blur-3xl opacity-20 translate-x-1/3 -translate-y-1/3 pointer-events-none" />
+								<div className="relative z-10 flex flex-col gap-3">
+									<div className="w-12 h-12 rounded-lg bg-primary text-on-primary flex items-center justify-center">
+										<Target size={24} />
+									</div>
+									<h3 className="text-2xl font-semibold text-on-surface">
+										Nossa missão
 									</h3>
-									<p className="text-sm text-primary font-medium">
-										{member.role}
+									<p className="text-base text-on-surface-variant leading-relaxed">
+										Realizar o sonho do imóvel ideal com segurança,
+										transparência e um atendimento que coloca as pessoas em
+										primeiro lugar.
 									</p>
 								</div>
 							</div>
-						))}
-					</div>
-				</section>
+							<div className="bg-surface-container-low rounded-2xl p-8 relative overflow-hidden">
+								<div className="absolute top-0 right-0 w-48 h-48 bg-primary-container rounded-full mix-blend-multiply filter blur-3xl opacity-20 translate-x-1/3 -translate-y-1/3 pointer-events-none" />
+								<div className="relative z-10 flex flex-col gap-3">
+									<div className="w-12 h-12 rounded-lg bg-primary text-on-primary flex items-center justify-center">
+										<Heart size={24} />
+									</div>
+									<h3 className="text-2xl font-semibold text-on-surface">
+										Nossa visão
+									</h3>
+									<p className="text-base text-on-surface-variant leading-relaxed">
+										Ser a imobiliária de referência da região, reconhecida pela
+										excelência, pela inovação e pela confiança de quem nos
+										escolhe.
+									</p>
+								</div>
+							</div>
+						</section>
 
-				{/* CTA */}
-				<section className="relative overflow-hidden rounded-2xl bg-primary text-on-primary px-8 py-12 md:px-14 md:py-16 text-center">
-					<div className="absolute inset-0 opacity-10 pointer-events-none">
-						<Award size={320} className="absolute -right-10 -top-10" />
-					</div>
-					<div className="relative z-10 flex flex-col items-center gap-5">
-						<h2 className="text-3xl md:text-4xl font-bold tracking-tight max-w-2xl">
-							Pronto para encontrar seu próximo imóvel?
-						</h2>
-						<p className="text-base md:text-lg text-on-primary/90 max-w-xl">
-							Nossa equipe está pronta para ajudar você em cada passo da
-							jornada.
-						</p>
-						<div className="flex flex-wrap items-center justify-center gap-3 mt-2">
-							<Link
-								to="/"
-								className="inline-flex items-center gap-2 bg-on-primary text-primary px-6 py-3 rounded-lg text-sm font-bold no-underline hover:-translate-y-0.5 transition-transform shadow-sm"
-							>
-								<Building2 size={18} /> Ver imóveis
-							</Link>
-							<span className="inline-flex items-center gap-2 text-sm font-medium text-on-primary/90">
-								<MapPin size={16} /> Av. Faria Lima, 1000 — São Paulo
+						{/* CTA */}
+						<section className="relative overflow-hidden rounded-2xl bg-primary text-on-primary px-8 py-12 md:px-14 md:py-16 text-center">
+							<div className="absolute inset-0 opacity-10 pointer-events-none">
+								<Award size={320} className="absolute -right-10 -top-10" />
+							</div>
+							<div className="relative z-10 flex flex-col items-center gap-5">
+								<h2 className="text-3xl md:text-4xl font-bold tracking-tight max-w-2xl">
+									Pronto para encontrar seu próximo imóvel?
+								</h2>
+								<p className="text-base md:text-lg text-on-primary/90 max-w-xl">
+									Nossa equipe está pronta para ajudar você em cada passo da
+									jornada.
+								</p>
+								<div className="flex flex-wrap items-center justify-center gap-3 mt-2">
+									<Link
+										to="/"
+										className="inline-flex items-center gap-2 bg-on-primary text-primary px-6 py-3 rounded-lg text-sm font-bold no-underline hover:-translate-y-0.5 transition-transform shadow-sm"
+									>
+										<Building2 size={18} /> Ver imóveis
+									</Link>
+									<span className="inline-flex items-center gap-2 text-sm font-medium text-on-primary/90">
+										<MapPin size={16} /> Av. Faria Lima, 1000 — São Paulo
+									</span>
+								</div>
+							</div>
+						</section>
+
+						{/* Faixa de credibilidade */}
+						<section className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-10 text-on-surface-variant">
+							<span className="flex items-center gap-2 text-sm font-semibold">
+								<Users size={18} className="text-primary" /> Atendimento humano
 							</span>
-						</div>
-					</div>
-				</section>
-
-				{/* Faixa de credibilidade */}
-				<section className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-10 text-on-surface-variant">
-					<span className="flex items-center gap-2 text-sm font-semibold">
-						<Users size={18} className="text-primary" /> Atendimento humano
-					</span>
-					<span className="flex items-center gap-2 text-sm font-semibold">
-						<ShieldCheck size={18} className="text-primary" /> Negócios seguros
-					</span>
-					<span className="flex items-center gap-2 text-sm font-semibold">
-						<Award size={18} className="text-primary" /> Reconhecida no mercado
-					</span>
-				</section>
-				</>
+							<span className="flex items-center gap-2 text-sm font-semibold">
+								<ShieldCheck size={18} className="text-primary" /> Negócios
+								seguros
+							</span>
+							<span className="flex items-center gap-2 text-sm font-semibold">
+								<Award size={18} className="text-primary" /> Reconhecida no
+								mercado
+							</span>
+						</section>
+					</>
 				)}
 			</main>
 

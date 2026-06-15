@@ -87,12 +87,13 @@ export function GallerySaleFormModal({ sale, onClose }: Props) {
 	}
 
 	return (
-		<div
-			className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4"
+		<button
+			type="button"
+			className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 w-full cursor-default"
 			onClick={(e) => e.target === e.currentTarget && onClose()}
 			onKeyDown={(e) => e.key === "Escape" && onClose()}
 		>
-			<div className="bg-surface rounded-2xl shadow-2xl w-full max-w-lg flex flex-col overflow-hidden max-h-[90vh]">
+			<div className="bg-surface rounded-2xl shadow-2xl w-full max-w-lg flex flex-col overflow-hidden max-h-[90vh] cursor-auto">
 				{/* Header */}
 				<div className="flex items-center justify-between px-6 py-4 border-b border-surface-variant">
 					<h2 className="text-lg font-semibold text-on-surface">
@@ -156,7 +157,10 @@ export function GallerySaleFormModal({ sale, onClose }: Props) {
 						<button
 							type="button"
 							onClick={() => fileInputRef.current?.click()}
-							onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+							onDragOver={(e) => {
+								e.preventDefault();
+								setDragOver(true);
+							}}
 							onDragLeave={() => setDragOver(false)}
 							onDrop={handleDrop}
 							disabled={uploading}
@@ -244,6 +248,6 @@ export function GallerySaleFormModal({ sale, onClose }: Props) {
 					</div>
 				</form>
 			</div>
-		</div>
+		</button>
 	);
 }

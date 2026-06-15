@@ -1,13 +1,13 @@
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import type { QueryClient } from "@tanstack/react-query";
 import {
-	Link,
 	createRootRouteWithContext,
 	HeadContent,
+	Link,
 	Scripts,
 } from "@tanstack/react-router";
-import { House, SearchX } from "lucide-react";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { House, SearchX } from "lucide-react";
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 import appCss from "../styles.css?url";
 
@@ -33,7 +33,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 			{ rel: "stylesheet", href: appCss },
 			{
 				rel: "stylesheet",
-				href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap",
+				href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&family=Monsieur+La+Doulaise&display=swap",
 			},
 		],
 	}),
@@ -43,7 +43,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function NotFound() {
 	return (
-		<div className="min-h-screen bg-[#f9f9f9] flex flex-col items-center justify-center gap-6 px-4 font-[Inter,ui-sans-serif,system-ui,sans-serif]">
+		<div className="min-h-screen bg-background flex flex-col items-center justify-center gap-6 px-4 font-[Inter,ui-sans-serif,system-ui,sans-serif]">
 			<SearchX size={56} className="text-outline" strokeWidth={1.5} />
 			<div className="text-center">
 				<h1 className="text-6xl font-black text-primary leading-none">404</h1>

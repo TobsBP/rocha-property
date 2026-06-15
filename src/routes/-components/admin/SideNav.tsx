@@ -1,5 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { Award, BarChart2, Building2, GalleryHorizontal, LogOut, Users } from "lucide-react";
+import {
+	Award,
+	BarChart2,
+	Building2,
+	GalleryHorizontal,
+	LogOut,
+	Users,
+} from "lucide-react";
 
 export type AdminSection = "overview" | "gallery";
 
@@ -44,7 +51,11 @@ export function SideNav({ section, onSection }: Props) {
 		},
 	];
 
-	const sectionItems: { icon: React.ReactNode; label: string; key: AdminSection }[] = [
+	const sectionItems: {
+		icon: React.ReactNode;
+		label: string;
+		key: AdminSection;
+	}[] = [
 		{
 			icon: <GalleryHorizontal size={18} />,
 			label: "Gallery Sales",

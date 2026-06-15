@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Building2 } from "lucide-react";
 import { LoginForm } from "#/modules/auth";
 
 export const Route = createFileRoute("/login")({ component: LoginPage });
@@ -9,12 +8,12 @@ function LoginPage() {
 		<div className="flex min-h-screen items-center justify-center px-4 py-12 font-[Inter,ui-sans-serif,system-ui,sans-serif]">
 			<div className="w-full max-w-md">
 				<div className="mb-8 text-center">
-					<Link to="/" className="inline-flex items-center gap-2 no-underline">
-						<span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary text-on-primary shadow-[0_4px_14px_rgba(162,5,19,0.3)]">
-							<Building2 size={22} />
-						</span>
-						<span className="text-2xl font-black tracking-tight text-primary">
-							Imóveis Rocha
+					<Link to="/" className="inline-flex items-center no-underline">
+						<span
+							style={{ fontFamily: "'Monsieur La Doulaise', cursive" }}
+							className="text-6xl text-primary font-normal"
+						>
+							Fabiana Rocha
 						</span>
 					</Link>
 				</div>

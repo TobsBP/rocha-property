@@ -69,8 +69,8 @@ export function GallerySalesPanel() {
 				{isLoading ? (
 					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-5">
 						{Array.from({ length: 6 }).map((_, i) => (
-							// biome-ignore lint/suspicious/noArrayIndexKey: skeleton
 							<div
+								// biome-ignore lint/suspicious/noArrayIndexKey: skeleton
 								key={i}
 								className="rounded-xl border border-surface-variant overflow-hidden animate-pulse"
 							>
@@ -152,12 +152,15 @@ export function GallerySalesPanel() {
 			)}
 
 			{confirmDeleteId && (
-				<div
-					className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4"
-					onClick={(e) => e.target === e.currentTarget && setConfirmDeleteId(null)}
+				<button
+					type="button"
+					className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 w-full cursor-default"
+					onClick={(e) =>
+						e.target === e.currentTarget && setConfirmDeleteId(null)
+					}
 					onKeyDown={(e) => e.key === "Escape" && setConfirmDeleteId(null)}
 				>
-					<div className="bg-surface rounded-2xl shadow-2xl w-full max-w-sm p-6 flex flex-col gap-4">
+					<div className="bg-surface rounded-2xl shadow-2xl w-full max-w-sm p-6 flex flex-col gap-4 cursor-auto text-left">
 						<h2 className="text-base font-semibold text-on-surface">
 							Excluir item da galeria?
 						</h2>
@@ -182,7 +185,7 @@ export function GallerySalesPanel() {
 							</button>
 						</div>
 					</div>
-				</div>
+				</button>
 			)}
 		</>
 	);

@@ -125,7 +125,7 @@ const STEPS = [
 
 function ContratosPage() {
 	return (
-		<div className="min-h-screen bg-[#f9f9f9] text-on-background font-[Inter,ui-sans-serif,system-ui,sans-serif] antialiased">
+		<div className="min-h-screen bg-background text-foreground font-[Inter,ui-sans-serif,system-ui,sans-serif] antialiased">
 			<NavBar activePage="contracts" />
 
 			{/* Hero */}

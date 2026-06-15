@@ -1,12 +1,15 @@
-import { Camera, Mail, MapPin, Phone, Share2 } from "lucide-react";
+import { Camera, Mail, Phone, Share2 } from "lucide-react";
 
 export function Footer() {
 	return (
 		<footer className="bg-surface-container-highest w-full py-10 border-t border-surface-variant mt-10">
 			<div className="grid grid-cols-1 md:grid-cols-4 gap-6 px-4 md:px-10 max-w-[1280px] mx-auto">
 				<div className="md:col-span-2">
-					<div className="text-xl font-black text-on-surface tracking-tight mb-2">
-						Imóveis Rocha
+					<div
+						style={{ fontFamily: "'Monsieur La Doulaise', cursive" }}
+						className="text-5xl text-primary font-normal mb-4"
+					>
+						Fabiana Rocha
 					</div>
 					<p className="text-sm text-on-secondary-container max-w-sm leading-relaxed">
 						Especialistas em conectar pessoas aos melhores imóveis, garantindo

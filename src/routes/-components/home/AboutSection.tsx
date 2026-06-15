@@ -1,6 +1,3 @@
-const AGENT_IMAGE =
-	"https://lh3.googleusercontent.com/aida-public/AB6AXuC3bza3BJK1sQDk4MZyzJLseNiv7m6Opd8ojjCHHz7IwT4Jktg2rL8H_SrreJJv_lCFbxIxOJJdXEja65fohBfomLHQa_CqugcMPwZoPHGRolzudrVIs-TJ5ek2hl2DTfyDMRu0mm2Jx4Pm2IQuoFQa2Y7qs3XL5TkLwUq8Kz1JqUWQTi80PB7Sy50-UArCtelWRgrTKk-MqramVVYvNlmP8Qn6XgtpPDiND_UvxCN7IPLg8SAVV_8QSjJHdC_hqJFo0Cz3BkF7-tzn";
-
 export function AboutSection() {
 	return (
 		<section className="bg-surface-container-low rounded-2xl p-6 md:p-10 overflow-hidden relative">
@@ -35,7 +32,7 @@ export function AboutSection() {
 					</div>
 					<div className="col-span-1 row-span-2 rounded-xl overflow-hidden relative min-h-[200px]">
 						<img
-							src={AGENT_IMAGE}
+							src={"about.jpeg"}
 							alt="Equipe Imóveis Rocha"
 							className="w-full h-full object-cover"
 						/>

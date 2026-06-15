@@ -1,6 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { Bell, Plus } from "lucide-react";
 import { useState } from "react";
+import { isAuthenticated } from "#/modules/auth";
 import { PropertyFormModal } from "#/modules/properties";
 import { GallerySalesPanel } from "./-components/admin/GallerySalesPanel";
 import { LeadsPanel } from "./-components/admin/LeadsPanel";
@@ -8,18 +9,31 @@ import { MetricCards } from "./-components/admin/MetricCards";
 import { PropertiesTable } from "./-components/admin/PropertiesTable";
 import { type AdminSection, SideNav } from "./-components/admin/SideNav";
 
-export const Route = createFileRoute("/admin")({ component: AdminPage });
+export const Route = createFileRoute("/admin")({
+	beforeLoad: () => {
+		if (!isAuthenticated()) {
+			throw redirect({
+				to: "/login",
+				search: {
+					redirect: "/admin",
+				},
+			});
+		}
+	},
+	component: AdminPage,
+});
 
-const SECTION_TITLE: Record<AdminSection, { title: string; subtitle: string }> = {
-	overview: {
-		title: "Overview",
-		subtitle: "Here's what's happening with your portfolio today.",
-	},
-	gallery: {
-		title: "Gallery Sales",
-		subtitle: "Manage sold properties shown on the About page.",
-	},
-};
+const SECTION_TITLE: Record<AdminSection, { title: string; subtitle: string }> =
+	{
+		overview: {
+			title: "Overview",
+			subtitle: "Here's what's happening with your portfolio today.",
+		},
+		gallery: {
+			title: "Gallery Sales",
+			subtitle: "Manage sold properties shown on the About page.",
+		},
+	};
 
 function AdminPage() {
 	const [showForm, setShowForm] = useState(false);
@@ -29,14 +43,14 @@ function AdminPage() {
 
 	return (
 		<div
-			className="min-h-screen bg-[#f9f9f9] text-on-background font-[Inter,ui-sans-serif,system-ui,sans-serif] antialiased"
+			className="min-h-screen bg-background text-foreground font-[Inter,ui-sans-serif,system-ui,sans-serif] antialiased"
 			style={{ overflowX: "hidden" }}
 		>
 			<SideNav section={section} onSection={setSection} />
 
 			<main className="ml-64 min-h-screen pb-10">
 				{/* Header */}
-				<header className="sticky top-0 z-40 bg-[#f9f9f9]/80 backdrop-blur-md border-b border-surface-variant px-10 py-4 flex justify-between items-center">
+				<header className="sticky top-0 z-40 bg-background/80 backdrop-blur-md border-b border-surface-variant px-10 py-4 flex justify-between items-center">
 					<div>
 						<h1 className="text-3xl font-semibold text-on-surface tracking-tight">
 							{title}

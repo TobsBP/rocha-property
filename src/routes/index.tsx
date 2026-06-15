@@ -15,7 +15,7 @@ function HomePage() {
 	const { data: properties = [], isLoading } = useProperties({ intent });
 
 	return (
-		<div className="min-h-screen bg-[#f9f9f9] text-on-background font-[Inter,ui-sans-serif,system-ui,sans-serif] antialiased">
+		<div className="min-h-screen bg-background text-foreground font-[Inter,ui-sans-serif,system-ui,sans-serif] antialiased">
 			<NavBar activePage="home" />
 			<HeroSection intent={intent} setIntent={setIntent} />
 			<main className="w-full max-w-7xl mx-auto px-4 md:px-10 py-10 md:py-20 flex flex-col gap-20">

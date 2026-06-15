@@ -45,7 +45,9 @@ export async function fetchGallerySale(id: string): Promise<GallerySale> {
 	return found;
 }
 
-export async function uploadGallerySaleImages(files: File[]): Promise<string[]> {
+export async function uploadGallerySaleImages(
+	files: File[],
+): Promise<string[]> {
 	const formData = new FormData();
 	for (const file of files) formData.append("file", file);
 

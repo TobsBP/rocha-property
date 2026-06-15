@@ -34,7 +34,7 @@ function PropertyDetailPage() {
 
 	if (isLoading) {
 		return (
-			<div className="min-h-screen bg-[#f9f9f9] font-[Inter,ui-sans-serif,system-ui,sans-serif]">
+			<div className="min-h-screen bg-background font-[Inter,ui-sans-serif,system-ui,sans-serif]">
 				<NavBar activePage="imoveis" />
 				<div className="max-w-7xl mx-auto px-4 md:px-10 py-10">
 					<div className="animate-pulse flex flex-col gap-6">
@@ -52,7 +52,7 @@ function PropertyDetailPage() {
 
 	if (!property) {
 		return (
-			<div className="min-h-screen bg-[#f9f9f9] font-[Inter,ui-sans-serif,system-ui,sans-serif]">
+			<div className="min-h-screen bg-background font-[Inter,ui-sans-serif,system-ui,sans-serif]">
 				<NavBar activePage="imoveis" />
 				<div className="max-w-7xl mx-auto px-4 md:px-10 py-20 text-center">
 					<h1 className="text-2xl font-semibold text-on-surface mb-2">
@@ -73,7 +73,7 @@ function PropertyDetailPage() {
 	}
 
 	return (
-		<div className="min-h-screen bg-[#f9f9f9] text-on-background font-[Inter,ui-sans-serif,system-ui,sans-serif] antialiased">
+		<div className="min-h-screen bg-background text-foreground font-[Inter,ui-sans-serif,system-ui,sans-serif] antialiased">
 			<NavBar activePage="imoveis" />
 
 			<main className="max-w-7xl mx-auto px-4 md:px-10 py-6 flex flex-col gap-6">
