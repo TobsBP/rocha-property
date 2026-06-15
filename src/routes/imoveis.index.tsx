@@ -50,10 +50,14 @@ function ImoveisPage() {
 				<section className="bg-surface-container-low rounded-2xl p-6 mb-10 border border-surface-variant shadow-sm">
 					<div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
 						<div className="flex flex-col gap-1.5">
-							<label className="text-xs font-bold text-on-surface-variant uppercase tracking-wider">
+							<label
+								htmlFor="intent"
+								className="text-xs font-bold text-on-surface-variant uppercase tracking-wider"
+							>
 								Finalidade
 							</label>
 							<select
+								id="intent"
 								value={intent}
 								onChange={(e) =>
 									setIntent(e.target.value as TransactionType | "")
@@ -67,7 +71,10 @@ function ImoveisPage() {
 						</div>
 
 						<div className="flex flex-col gap-1.5">
-							<label className="text-xs font-bold text-on-surface-variant uppercase tracking-wider">
+							<label
+								htmlFor="type"
+								className="text-xs font-bold text-on-surface-variant uppercase tracking-wider"
+							>
 								Tipo de Imóvel
 							</label>
 							<div className="relative">
@@ -76,6 +83,7 @@ function ImoveisPage() {
 									className="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant"
 								/>
 								<select
+									id="type"
 									value={type}
 									onChange={(e) => setType(e.target.value as PropertyType | "")}
 									className="w-full h-11 pl-10 pr-3 rounded-lg border border-outline-variant bg-surface text-sm focus:ring-2 focus:ring-primary/20 outline-none transition-all appearance-none"
@@ -92,7 +100,10 @@ function ImoveisPage() {
 						</div>
 
 						<div className="flex flex-col gap-1.5">
-							<label className="text-xs font-bold text-on-surface-variant uppercase tracking-wider">
+							<label
+								htmlFor="location"
+								className="text-xs font-bold text-on-surface-variant uppercase tracking-wider"
+							>
 								Localização
 							</label>
 							<div className="relative">
@@ -101,6 +112,7 @@ function ImoveisPage() {
 									className="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant"
 								/>
 								<input
+									id="location"
 									type="text"
 									placeholder="Cidade ou bairro"
 									value={location}
