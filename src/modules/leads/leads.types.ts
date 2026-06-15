@@ -1,17 +1,13 @@
-export type LeadType = "viewing" | "question" | "seller";
-export type LeadIntent = "high" | "medium" | "low";
-
 export interface Lead {
 	id: string;
 	name: string;
 	email: string;
 	phone: string;
 	message: string;
-	propertyId?: string;
-	propertyTitle?: string;
-	type: LeadType;
-	intent: LeadIntent;
+	propertyId?: string | null;
+	propertyName?: string | null;
 	createdAt: string;
+	updatedAt: string;
 }
 
 export interface LeadInput {

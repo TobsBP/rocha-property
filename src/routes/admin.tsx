@@ -8,6 +8,7 @@ import {
 	useDeleteProperty,
 } from "#/modules/properties";
 import { GallerySalesPanel } from "./-components/admin/GallerySalesPanel";
+import { LeadsList } from "./-components/admin/LeadsList";
 import { LeadsPanel } from "./-components/admin/LeadsPanel";
 import { PropertiesTable } from "./-components/admin/PropertiesTable";
 import { type AdminSection, SideNav } from "./-components/admin/SideNav";
@@ -35,6 +36,10 @@ const SECTION_TITLE: Record<AdminSection, { title: string; subtitle: string }> =
 		gallery: {
 			title: "Gallery Sales",
 			subtitle: "Manage sold properties shown on the About page.",
+		},
+		leads: {
+			title: "Leads Inbox",
+			subtitle: "Manage and reply to potential clients.",
 		},
 	};
 
@@ -116,6 +121,7 @@ function AdminPage() {
 					)}
 
 					{section === "gallery" && <GallerySalesPanel />}
+					{section === "leads" && <LeadsList />}
 				</div>
 			</main>
 

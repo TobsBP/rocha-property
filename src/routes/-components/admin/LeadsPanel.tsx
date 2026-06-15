@@ -1,6 +1,6 @@
 import { timeAgo } from "#/lib/utils";
 import type { Lead } from "#/modules/leads";
-import { LeadTypeBadge, useLeads } from "#/modules/leads";
+import { useLeads } from "#/modules/leads";
 
 export function LeadsPanel() {
 	const { data: response, isLoading } = useLeads();
@@ -46,7 +46,15 @@ export function LeadsPanel() {
 								<p className="text-xs text-on-surface-variant mb-3 line-clamp-2 leading-relaxed">
 									{lead.message}
 								</p>
-								<LeadTypeBadge type={lead.type} intent={lead.intent} />
+								{lead.propertyName ? (
+									<span className="text-[10px] font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded w-fit inline-block">
+										{lead.propertyName}
+									</span>
+								) : (
+									<span className="text-[10px] font-medium text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded w-fit inline-block">
+										Contato Geral
+									</span>
+								)}
 							</div>
 						))}
 			</div>
