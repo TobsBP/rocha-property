@@ -8,7 +8,7 @@ import {
 	Users,
 } from "lucide-react";
 
-export type AdminSection = "overview" | "gallery" | "leads";
+export type AdminSection = "overview" | "properties" | "gallery" | "leads";
 
 interface Props {
 	section: AdminSection;
@@ -17,13 +17,6 @@ interface Props {
 
 export function SideNav({ section, onSection }: Props) {
 	const linkItems = [
-		{
-			icon: <Building2 size={18} />,
-			label: "Properties",
-			key: "properties",
-			to: "/" as const,
-			isLink: true,
-		},
 		{
 			icon: <Award size={18} />,
 			label: "Brokers",
@@ -44,13 +37,16 @@ export function SideNav({ section, onSection }: Props) {
 		icon: React.ReactNode;
 		label: string;
 		key: AdminSection;
-		badge?: number;
 	}[] = [
+		{
+			icon: <Building2 size={18} />,
+			label: "Properties",
+			key: "properties",
+		},
 		{
 			icon: <Users size={18} />,
 			label: "Leads",
 			key: "leads",
-			badge: 12,
 		},
 		{
 			icon: <GalleryHorizontal size={18} />,
@@ -92,11 +88,6 @@ export function SideNav({ section, onSection }: Props) {
 						>
 							{item.icon}
 							<span className="text-sm flex-grow">{item.label}</span>
-							{item.badge && (
-								<span className="bg-error-container text-on-error-container text-xs font-semibold px-2 py-0.5 rounded-full">
-									{item.badge}
-								</span>
-							)}
 						</button>
 					</li>
 				))}

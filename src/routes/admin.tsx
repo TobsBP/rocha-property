@@ -1,5 +1,5 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { Bell, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useState } from "react";
 import { isAuthenticated } from "#/modules/auth";
 import {
@@ -33,6 +33,10 @@ const SECTION_TITLE: Record<AdminSection, { title: string; subtitle: string }> =
 			title: "Overview",
 			subtitle: "Here's what's happening with your portfolio today.",
 		},
+		properties: {
+			title: "Properties",
+			subtitle: "Manage all your property listings.",
+		},
 		gallery: {
 			title: "Gallery Sales",
 			subtitle: "Manage sold properties shown on the About page.",
@@ -48,7 +52,7 @@ function AdminPage() {
 		AdminPropertyListItem | undefined
 	>(undefined);
 	const [showForm, setShowForm] = useState(false);
-	const [section, setSection] = useState<AdminSection>("overview");
+	const [section, setSection] = useState<AdminSection>("properties");
 	const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
 	const deleteMutation = useDeleteProperty();
@@ -87,15 +91,8 @@ function AdminPage() {
 						</h1>
 						<p className="text-sm text-on-surface-variant mt-0.5">{subtitle}</p>
 					</div>
-					<div className="flex items-center gap-4">
-						<button
-							type="button"
-							className="w-10 h-10 rounded-full border border-surface-variant bg-surface flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors relative"
-						>
-							<Bell size={18} />
-							<span className="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full" />
-						</button>
-						{section === "overview" && (
+					{section === "properties" && (
+						<div className="flex items-center gap-4">
 							<button
 								type="button"
 								onClick={handleAdd}
@@ -104,12 +101,12 @@ function AdminPage() {
 								<Plus size={18} />
 								Add New Property
 							</button>
-						)}
-					</div>
+						</div>
+					)}
 				</header>
 
 				{/* Section Content */}
-				<div className="p-10 max-w-400 mx-auto flex flex-col gap-6">
+				<div className="p-10 max-w-[1400px] mx-auto flex flex-col gap-6">
 					{section === "overview" && (
 						<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 							<PropertiesTable
@@ -118,6 +115,13 @@ function AdminPage() {
 							/>
 							<LeadsPanel />
 						</div>
+					)}
+
+					{section === "properties" && (
+						<PropertiesTable
+							onEdit={handleEdit}
+							onDelete={setConfirmDeleteId}
+						/>
 					)}
 
 					{section === "gallery" && <GallerySalesPanel />}

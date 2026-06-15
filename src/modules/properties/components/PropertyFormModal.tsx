@@ -119,7 +119,7 @@ export function PropertyFormModal({
 				onClick={onClose}
 				className="absolute inset-0 cursor-default"
 			/>
-			<div className="relative my-8 w-full max-w-2xl rounded-2xl border border-surface-variant bg-surface-container-lowest shadow-[0_12px_48px_rgba(0,0,0,0.18)]">
+			<div className="relative my-8 w-full max-w-4xl rounded-2xl border border-surface-variant bg-surface-container-lowest shadow-[0_12px_48px_rgba(0,0,0,0.18)]">
 				<header className="sticky top-0 flex items-center justify-between rounded-t-2xl border-b border-surface-variant bg-surface-container-lowest px-6 py-4">
 					<div>
 						<h2 className="text-lg font-semibold text-on-surface">

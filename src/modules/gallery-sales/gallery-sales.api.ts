@@ -11,13 +11,13 @@ export async function fetchGallerySales(
 	page = 1,
 	limit = 10,
 ): Promise<Paginated<GallerySale>> {
-	return api.get<Paginated<GallerySale>>("/gallery-sales", {
+	return api.get<Paginated<GallerySale>>("/gallery", {
 		params: { page, limit },
 	});
 }
 
 export async function fetchGallerySale(id: string): Promise<GallerySale> {
-	return api.get<GallerySale>(`/gallery-sales/${id}`);
+	return api.get<GallerySale>(`/gallery/${id}`);
 }
 
 export async function uploadGallerySaleImages(
@@ -27,7 +27,7 @@ export async function uploadGallerySaleImages(
 	for (const file of files) formData.append("file", file);
 
 	const token = getToken();
-	const response = await fetch(`${API_URL}/gallery-sales/img`, {
+	const response = await fetch(`${API_URL}/gallery/img`, {
 		method: "POST",
 		headers: token ? { Authorization: `Bearer ${token}` } : {},
 		body: formData,
@@ -45,16 +45,16 @@ export async function uploadGallerySaleImages(
 export async function createGallerySale(
 	input: CreateGallerySaleInput,
 ): Promise<GallerySale> {
-	return api.post<GallerySale>("/gallery-sales", input);
+	return api.post<GallerySale>("/gallery", input);
 }
 
 export async function updateGallerySale(
 	id: string,
 	input: UpdateGallerySaleInput,
 ): Promise<GallerySale> {
-	return api.patch<GallerySale>(`/gallery-sales/${id}`, input);
+	return api.patch<GallerySale>(`/gallery/${id}`, input);
 }
 
 export async function deleteGallerySale(id: string): Promise<void> {
-	return api.delete<void>("/gallery-sales", { body: { id } });
+	return api.delete<void>("/gallery", { body: { id } });
 }
