@@ -33,7 +33,7 @@ export function NavBar({ activePage = "home" }: { activePage?: string }) {
 
 	const links = [
 		{ label: "Home", to: "/", key: "home" },
-		{ label: "Imóveis", to: "/", key: "imoveis" },
+		{ label: "Imóveis", to: "/imoveis", key: "imoveis" },
 		{ label: "Contratos", to: "/contracts", key: "contracts" },
 		{ label: "Sobre", to: "/about", key: "about" },
 		...(isLoggedIn ? [{ label: "Admin", to: "/admin", key: "admin" }] : []),

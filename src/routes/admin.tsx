@@ -2,10 +2,13 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 import { Bell, Plus } from "lucide-react";
 import { useState } from "react";
 import { isAuthenticated } from "#/modules/auth";
-import { PropertyFormModal } from "#/modules/properties";
+import {
+	type AdminPropertyListItem,
+	PropertyFormModal,
+	useDeleteProperty,
+} from "#/modules/properties";
 import { GallerySalesPanel } from "./-components/admin/GallerySalesPanel";
 import { LeadsPanel } from "./-components/admin/LeadsPanel";
-import { MetricCards } from "./-components/admin/MetricCards";
 import { PropertiesTable } from "./-components/admin/PropertiesTable";
 import { type AdminSection, SideNav } from "./-components/admin/SideNav";
 
@@ -36,10 +39,32 @@ const SECTION_TITLE: Record<AdminSection, { title: string; subtitle: string }> =
 	};
 
 function AdminPage() {
+	const [editingProperty, setEditingProperty] = useState<
+		AdminPropertyListItem | undefined
+	>(undefined);
 	const [showForm, setShowForm] = useState(false);
 	const [section, setSection] = useState<AdminSection>("overview");
+	const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+
+	const deleteMutation = useDeleteProperty();
 
 	const { title, subtitle } = SECTION_TITLE[section];
+
+	function handleEdit(p: AdminPropertyListItem) {
+		setEditingProperty(p);
+		setShowForm(true);
+	}
+
+	function handleAdd() {
+		setEditingProperty(undefined);
+		setShowForm(true);
+	}
+
+	async function confirmDelete() {
+		if (!confirmDeleteId) return;
+		await deleteMutation.mutateAsync(confirmDeleteId);
+		setConfirmDeleteId(null);
+	}
 
 	return (
 		<div
@@ -68,7 +93,7 @@ function AdminPage() {
 						{section === "overview" && (
 							<button
 								type="button"
-								onClick={() => setShowForm(true)}
+								onClick={handleAdd}
 								className="bg-primary text-on-primary text-sm font-medium px-5 py-2 rounded-lg flex items-center gap-2 hover:shadow-[0_4px_14px_rgba(162,5,19,0.3)] hover:-translate-y-0.5 transition-all duration-200"
 							>
 								<Plus size={18} />
@@ -81,20 +106,65 @@ function AdminPage() {
 				{/* Section Content */}
 				<div className="p-10 max-w-400 mx-auto flex flex-col gap-6">
 					{section === "overview" && (
-						<>
-							<MetricCards />
-							<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-								<PropertiesTable />
-								<LeadsPanel />
-							</div>
-						</>
+						<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+							<PropertiesTable
+								onEdit={handleEdit}
+								onDelete={setConfirmDeleteId}
+							/>
+							<LeadsPanel />
+						</div>
 					)}
 
 					{section === "gallery" && <GallerySalesPanel />}
 				</div>
 			</main>
 
-			{showForm && <PropertyFormModal onClose={() => setShowForm(false)} />}
+			{showForm && (
+				<PropertyFormModal
+					property={editingProperty}
+					onClose={() => {
+						setShowForm(false);
+						setEditingProperty(undefined);
+					}}
+				/>
+			)}
+
+			{confirmDeleteId && (
+				<button
+					type="button"
+					className="fixed inset-0 z-[110] flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 w-full cursor-default"
+					onClick={(e) =>
+						e.target === e.currentTarget && setConfirmDeleteId(null)
+					}
+					onKeyDown={(e) => e.key === "Escape" && setConfirmDeleteId(null)}
+				>
+					<div className="bg-surface rounded-2xl shadow-2xl w-full max-w-sm p-6 flex flex-col gap-4 cursor-auto text-left">
+						<h2 className="text-base font-semibold text-on-surface">
+							Excluir imóvel?
+						</h2>
+						<p className="text-sm text-on-surface-variant">
+							Essa ação não pode ser desfeita e removerá o imóvel do site.
+						</p>
+						<div className="flex justify-end gap-3">
+							<button
+								type="button"
+								onClick={() => setConfirmDeleteId(null)}
+								className="px-4 py-2 rounded-lg text-sm font-medium text-on-surface-variant hover:bg-surface-container-high transition-colors"
+							>
+								Cancelar
+							</button>
+							<button
+								type="button"
+								onClick={confirmDelete}
+								disabled={deleteMutation.isPending}
+								className="px-4 py-2 rounded-lg text-sm font-semibold bg-error text-on-error hover:opacity-90 transition-opacity disabled:opacity-60"
+							>
+								{deleteMutation.isPending ? "Excluindo…" : "Excluir"}
+							</button>
+						</div>
+					</div>
+				</button>
+			)}
 		</div>
 	);
 }

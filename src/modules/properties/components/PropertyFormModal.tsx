@@ -1,7 +1,8 @@
 import { X } from "lucide-react";
-import { useState } from "react";
-import { useCreateProperty } from "../properties.hooks";
+import { useEffect, useState } from "react";
+import { useCreateProperty, useUpdateProperty } from "../properties.hooks";
 import type {
+	AdminPropertyListItem,
 	CreatePropertyInput,
 	PropertyPurpose,
 	PropertyStatus,
@@ -56,9 +57,47 @@ const inputClass =
 	"w-full rounded-lg border border-outline-variant bg-surface-bright px-3 py-2.5 text-sm text-on-surface outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary";
 const labelClass = "mb-1 block text-xs font-semibold text-on-surface-variant";
 
-export function PropertyFormModal({ onClose }: { onClose: () => void }) {
+export function PropertyFormModal({
+	property,
+	onClose,
+}: {
+	property?: AdminPropertyListItem;
+	onClose: () => void;
+}) {
+	const isEdit = Boolean(property);
 	const [form, setForm] = useState<CreatePropertyInput>(EMPTY);
-	const { mutate, isPending, error } = useCreateProperty();
+
+	useEffect(() => {
+		if (property) {
+			setForm({
+				title: property.title || property.name || "",
+				description: property.description || "",
+				price: property.price || "",
+				condoFee: property.condoFee || "",
+				type: property.type || "casa",
+				purpose: property.purpose || "venda",
+				status: property.status || "active",
+				area: property.area || 0,
+				bedrooms: property.bedrooms || 0,
+				suites: property.suites || 0,
+				bathrooms: property.bathrooms || 0,
+				parkingSpaces: property.parkingSpaces || 0,
+				isExclusive: property.isExclusive || false,
+				isNew: property.isNew || false,
+				addressStreet: property.addressStreet || "",
+				neighborhood: property.neighborhood || "",
+				city: property.city || "",
+				state: property.state || "",
+				imageUrl: property.imageUrl || "",
+				brokerId: property.brokerId || "",
+			});
+		}
+	}, [property]);
+
+	const createMutation = useCreateProperty();
+	const updateMutation = useUpdateProperty(property?.id || "");
+	const mutation = isEdit ? updateMutation : createMutation;
+	const { mutate, isPending, error } = mutation;
 
 	function set<K extends keyof CreatePropertyInput>(
 		key: K,
@@ -84,10 +123,12 @@ export function PropertyFormModal({ onClose }: { onClose: () => void }) {
 				<header className="sticky top-0 flex items-center justify-between rounded-t-2xl border-b border-surface-variant bg-surface-container-lowest px-6 py-4">
 					<div>
 						<h2 className="text-lg font-semibold text-on-surface">
-							Novo Imóvel
+							{isEdit ? "Editar Imóvel" : "Novo Imóvel"}
 						</h2>
 						<p className="text-sm text-on-surface-variant">
-							Preencha os dados para cadastrar.
+							{isEdit
+								? "Altere os dados para atualizar o cadastro."
+								: "Preencha os dados para cadastrar."}
 						</p>
 					</div>
 					<button
@@ -105,7 +146,7 @@ export function PropertyFormModal({ onClose }: { onClose: () => void }) {
 						<div className="rounded-lg bg-error-container px-4 py-3 text-sm font-medium text-on-error-container">
 							{error instanceof Error
 								? error.message
-								: "Não foi possível cadastrar o imóvel."}
+								: "Não foi possível concluir a operação."}
 						</div>
 					)}
 
@@ -362,7 +403,11 @@ export function PropertyFormModal({ onClose }: { onClose: () => void }) {
 							disabled={isPending}
 							className="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-on-primary shadow-sm transition-all duration-200 hover:-translate-y-[1px] hover:bg-on-primary-fixed-variant hover:shadow-md disabled:opacity-70"
 						>
-							{isPending ? "Salvando…" : "Cadastrar Imóvel"}
+							{isPending
+								? "Salvando…"
+								: isEdit
+									? "Salvar Alterações"
+									: "Cadastrar Imóvel"}
 						</button>
 					</div>
 				</form>

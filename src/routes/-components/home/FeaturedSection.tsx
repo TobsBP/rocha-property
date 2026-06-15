@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import type { Property } from "#/modules/properties";
 import { PropertyCard, PropertyCardSkeleton } from "#/modules/properties";
@@ -20,12 +21,12 @@ export function FeaturedSection({
 						As melhores oportunidades selecionadas para você.
 					</p>
 				</div>
-				<button
-					type="button"
-					className="hidden md:flex items-center gap-1 text-primary text-sm font-bold hover:underline bg-transparent border-0 cursor-pointer"
+				<Link
+					to="/imoveis"
+					className="hidden md:flex items-center gap-1 text-primary text-sm font-bold hover:underline no-underline"
 				>
 					Ver todos <ArrowRight size={16} />
-				</button>
+				</Link>
 			</div>
 
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -34,13 +35,13 @@ export function FeaturedSection({
 					: properties.map((p) => <PropertyCard key={p.id} property={p} />)}
 			</div>
 
-			<div className="mt-4 text-center md:hidden">
-				<button
-					type="button"
-					className="w-full border border-outline text-on-surface py-3 rounded-lg text-sm font-bold"
+			<div className="mt-8 text-center md:hidden">
+				<Link
+					to="/imoveis"
+					className="inline-flex w-full items-center justify-center border border-outline text-on-surface py-3 rounded-lg text-sm font-bold no-underline hover:bg-surface-container-low transition-colors"
 				>
 					Ver todos os imóveis
-				</button>
+				</Link>
 			</div>
 		</section>
 	);

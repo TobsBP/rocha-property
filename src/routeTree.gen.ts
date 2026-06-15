@@ -10,15 +10,22 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as ImoveisRouteImport } from './routes/imoveis'
 import { Route as ContractsRouteImport } from './routes/contracts'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ImoveisIndexRouteImport } from './routes/imoveis.index'
 import { Route as ImoveisIdRouteImport } from './routes/imoveis.$id'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImoveisRoute = ImoveisRouteImport.update({
+  id: '/imoveis',
+  path: '/imoveis',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContractsRoute = ContractsRouteImport.update({
@@ -41,10 +48,15 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ImoveisIndexRoute = ImoveisIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ImoveisRoute,
+} as any)
 const ImoveisIdRoute = ImoveisIdRouteImport.update({
-  id: '/imoveis/$id',
-  path: '/imoveis/$id',
-  getParentRoute: () => rootRouteImport,
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ImoveisRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -52,8 +64,10 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
   '/contracts': typeof ContractsRoute
+  '/imoveis': typeof ImoveisRouteWithChildren
   '/login': typeof LoginRoute
   '/imoveis/$id': typeof ImoveisIdRoute
+  '/imoveis/': typeof ImoveisIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +76,7 @@ export interface FileRoutesByTo {
   '/contracts': typeof ContractsRoute
   '/login': typeof LoginRoute
   '/imoveis/$id': typeof ImoveisIdRoute
+  '/imoveis': typeof ImoveisIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -69,8 +84,10 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
   '/contracts': typeof ContractsRoute
+  '/imoveis': typeof ImoveisRouteWithChildren
   '/login': typeof LoginRoute
   '/imoveis/$id': typeof ImoveisIdRoute
+  '/imoveis/': typeof ImoveisIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -79,18 +96,29 @@ export interface FileRouteTypes {
     | '/about'
     | '/admin'
     | '/contracts'
+    | '/imoveis'
     | '/login'
     | '/imoveis/$id'
+    | '/imoveis/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/admin' | '/contracts' | '/login' | '/imoveis/$id'
-  id:
-    | '__root__'
+  to:
     | '/'
     | '/about'
     | '/admin'
     | '/contracts'
     | '/login'
     | '/imoveis/$id'
+    | '/imoveis'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/contracts'
+    | '/imoveis'
+    | '/login'
+    | '/imoveis/$id'
+    | '/imoveis/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -98,8 +126,8 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRoute
   ContractsRoute: typeof ContractsRoute
+  ImoveisRoute: typeof ImoveisRouteWithChildren
   LoginRoute: typeof LoginRoute
-  ImoveisIdRoute: typeof ImoveisIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -109,6 +137,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/imoveis': {
+      id: '/imoveis'
+      path: '/imoveis'
+      fullPath: '/imoveis'
+      preLoaderRoute: typeof ImoveisRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contracts': {
@@ -139,23 +174,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/imoveis/': {
+      id: '/imoveis/'
+      path: '/'
+      fullPath: '/imoveis/'
+      preLoaderRoute: typeof ImoveisIndexRouteImport
+      parentRoute: typeof ImoveisRoute
+    }
     '/imoveis/$id': {
       id: '/imoveis/$id'
-      path: '/imoveis/$id'
+      path: '/$id'
       fullPath: '/imoveis/$id'
       preLoaderRoute: typeof ImoveisIdRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof ImoveisRoute
     }
   }
 }
+
+interface ImoveisRouteChildren {
+  ImoveisIdRoute: typeof ImoveisIdRoute
+  ImoveisIndexRoute: typeof ImoveisIndexRoute
+}
+
+const ImoveisRouteChildren: ImoveisRouteChildren = {
+  ImoveisIdRoute: ImoveisIdRoute,
+  ImoveisIndexRoute: ImoveisIndexRoute,
+}
+
+const ImoveisRouteWithChildren =
+  ImoveisRoute._addFileChildren(ImoveisRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdminRoute: AdminRoute,
   ContractsRoute: ContractsRoute,
+  ImoveisRoute: ImoveisRouteWithChildren,
   LoginRoute: LoginRoute,
-  ImoveisIdRoute: ImoveisIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

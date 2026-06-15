@@ -1,10 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
 	createProperty,
+	deleteProperty,
 	fetchAdminProperties,
 	fetchProperties,
 	fetchProperty,
 	fetchSimilarProperties,
+	updateProperty,
 } from "./properties.api";
 import type { CreatePropertyInput, PropertyFilters } from "./properties.types";
 
@@ -57,6 +59,30 @@ export function useCreateProperty() {
 		mutationFn: (input: CreatePropertyInput) => createProperty(input),
 		onSuccess: () => {
 			void queryClient.invalidateQueries({ queryKey: propertyKeys.admin() });
+			void queryClient.invalidateQueries({ queryKey: propertyKeys.all });
+		},
+	});
+}
+
+export function useUpdateProperty(id: string) {
+	const queryClient = useQueryClient();
+	return useMutation({
+		mutationFn: (input: CreatePropertyInput) => updateProperty(id, input),
+		onSuccess: () => {
+			void queryClient.invalidateQueries({ queryKey: propertyKeys.admin() });
+			void queryClient.invalidateQueries({ queryKey: propertyKeys.all });
+			void queryClient.invalidateQueries({ queryKey: propertyKeys.detail(id) });
+		},
+	});
+}
+
+export function useDeleteProperty() {
+	const queryClient = useQueryClient();
+	return useMutation({
+		mutationFn: (id: string) => deleteProperty(id),
+		onSuccess: () => {
+			void queryClient.invalidateQueries({ queryKey: propertyKeys.admin() });
+			void queryClient.invalidateQueries({ queryKey: propertyKeys.all });
 		},
 	});
 }

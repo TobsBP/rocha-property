@@ -9,7 +9,13 @@ function formatPriceLabel(price: string): string {
 	return price !== "" && Number.isFinite(num) ? formatPrice(num) : price;
 }
 
-export function PropertiesTable() {
+export function PropertiesTable({
+	onEdit,
+	onDelete,
+}: {
+	onEdit: (p: AdminPropertyListItem) => void;
+	onDelete: (id: string) => void;
+}) {
 	const { data, isLoading } = useAdminProperties();
 	const properties = Array.isArray(data) ? data : [];
 
@@ -98,6 +104,7 @@ export function PropertiesTable() {
 											<div className="flex items-center justify-end gap-2 transition-opacity">
 												<button
 													type="button"
+													onClick={() => onEdit(p)}
 													className="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors"
 													title="Edit"
 												>
@@ -105,6 +112,7 @@ export function PropertiesTable() {
 												</button>
 												<button
 													type="button"
+													onClick={() => onDelete(p.id)}
 													className="w-8 h-8 rounded-full flex items-center justify-center text-error hover:bg-error-container transition-colors"
 													title="Delete"
 												>

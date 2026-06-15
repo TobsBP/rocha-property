@@ -109,3 +109,16 @@ export async function createProperty(
 ): Promise<AdminProperty> {
 	return api.post<AdminProperty>("/properties", input);
 }
+
+/** Atualiza um imóvel existente (requer auth). */
+export async function updateProperty(
+	id: string,
+	input: CreatePropertyInput,
+): Promise<AdminProperty> {
+	return api.patch<AdminProperty>(`/properties/${id}`, input);
+}
+
+/** Remove um imóvel (requer auth). */
+export async function deleteProperty(id: string): Promise<void> {
+	return api.delete("/properties", { body: { id } });
+}
