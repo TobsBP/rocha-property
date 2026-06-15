@@ -1,5 +1,4 @@
-import { api, isApiConfigured } from "#/lib/api";
-import { MOCK_PROPERTIES } from "./properties.mocks";
+import { api } from "#/lib/api";
 import type {
 	AdminProperty,
 	AdminPropertyListItem,
@@ -8,8 +7,6 @@ import type {
 	Property,
 	PropertyFilters,
 } from "./properties.types";
-
-const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 /** Converte o imóvel achatado da API no `Property` aninhado que a UI usa. */
 function mapApiToProperty(item: AdminPropertyListItem): Property {
@@ -44,54 +41,34 @@ function mapApiToProperty(item: AdminPropertyListItem): Property {
 export async function fetchProperties(
 	filters?: PropertyFilters,
 ): Promise<Property[]> {
-	if (isApiConfigured) {
-		const res = await api.get<Paginated<AdminPropertyListItem>>("/properties", {
-			params: { page: 1, limit: 20 },
-		});
-		const items = Array.isArray(res?.data) ? res.data : [];
-		let mapped = items.map(mapApiToProperty);
-		if (filters?.intent)
-			mapped = mapped.filter((p) => p.transactionType === filters.intent);
-		if (filters?.type) mapped = mapped.filter((p) => p.type === filters.type);
-		return mapped;
-	}
+	const res = await api.get<Paginated<AdminPropertyListItem>>("/properties", {
+		params: { page: 1, limit: 20 },
+	});
+	const items = Array.isArray(res?.data) ? res.data : [];
+	let mapped = items.map(mapApiToProperty);
 
-	// Fallback mock — sem backend configurado.
-	await delay(300);
-	let result = [...MOCK_PROPERTIES];
 	if (filters?.intent)
-		result = result.filter((p) => p.transactionType === filters.intent);
-	if (filters?.type) result = result.filter((p) => p.type === filters.type);
+		mapped = mapped.filter((p) => p.transactionType === filters.intent);
+	if (filters?.type) mapped = mapped.filter((p) => p.type === filters.type);
 	if (filters?.bedrooms)
-		result = result.filter((p) => p.bedrooms >= (filters.bedrooms ?? 0));
+		mapped = mapped.filter((p) => p.bedrooms >= (filters.bedrooms ?? 0));
 	if (filters?.minPrice)
-		result = result.filter((p) => p.price >= (filters.minPrice ?? 0));
+		mapped = mapped.filter((p) => p.price >= (filters.minPrice ?? 0));
 	if (filters?.maxPrice)
-		result = result.filter((p) => p.price <= (filters.maxPrice ?? Infinity));
-	return result.slice(0, 3);
+		mapped = mapped.filter((p) => p.price <= (filters.maxPrice ?? Infinity));
+
+	return mapped;
 }
 
 export async function fetchProperty(id: string): Promise<Property | null> {
-	if (isApiConfigured) {
-		const item = await api.get<AdminPropertyListItem | null>(
-			`/properties/${id}`,
-		);
-		return item ? mapApiToProperty(item) : null;
-	}
-
-	await delay(200);
-	return MOCK_PROPERTIES.find((p) => p.id === id) ?? null;
+	const item = await api.get<AdminPropertyListItem | null>(`/properties/${id}`);
+	return item ? mapApiToProperty(item) : null;
 }
 
 export async function fetchSimilarProperties(id: string): Promise<Property[]> {
-	if (isApiConfigured) {
-		// Sem endpoint dedicado: reaproveita a listagem e remove o atual.
-		const all = await fetchProperties();
-		return all.filter((p) => p.id !== id).slice(0, 3);
-	}
-
-	await delay(300);
-	return MOCK_PROPERTIES.filter((p) => p.id !== id).slice(0, 3);
+	// Sem endpoint dedicado: reaproveita a listagem e remove o atual.
+	const all = await fetchProperties();
+	return all.filter((p) => p.id !== id).slice(0, 3);
 }
 
 /**

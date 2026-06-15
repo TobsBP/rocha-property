@@ -1,15 +1,10 @@
 /**
  * Cliente HTTP tipado para falar com a API.
- *
- * A base da API vem de `VITE_API_URL`. Quando essa variável não está
- * configurada, `isApiConfigured` fica `false` e os módulos caem no mock
- * data — assim o app continua funcionando sem um backend rodando.
  */
 
 import { getToken } from "#/modules/auth/auth.storage";
 
 export const API_URL = (import.meta.env.VITE_API_URL ?? "").replace(/\/$/, "");
-export const isApiConfigured = API_URL.length > 0;
 
 /** Erro lançado quando a API responde com status fora da faixa 2xx. */
 export class ApiError extends Error {

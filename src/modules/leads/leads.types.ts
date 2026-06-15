@@ -21,3 +21,8 @@ export interface LeadInput {
 	message: string;
 	propertyId?: string;
 }
+
+export interface PaginatedLeads {
+	rows: Lead[];
+	total: number;
+}

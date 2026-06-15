@@ -3,7 +3,8 @@ import type { Lead } from "#/modules/leads";
 import { LeadTypeBadge, useLeads } from "#/modules/leads";
 
 export function LeadsPanel() {
-	const { data: leads = [], isLoading } = useLeads();
+	const { data, isLoading } = useLeads();
+	const leads = data?.rows ?? [];
 
 	return (
 		<div className="lg:col-span-1 bg-surface rounded-xl border border-surface-variant shadow-[0_4px_20px_rgba(0,0,0,0.02)] flex flex-col">

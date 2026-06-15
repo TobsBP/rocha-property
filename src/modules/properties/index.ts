@@ -8,5 +8,4 @@ export { SimilarCard } from "./components/SimilarCard";
 export { StatusBadge } from "./components/StatusBadge";
 export * from "./properties.api";
 export * from "./properties.hooks";
-export { MOCK_PROPERTIES } from "./properties.mocks";
 export * from "./properties.types";
