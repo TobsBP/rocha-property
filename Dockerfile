@@ -1,5 +1,4 @@
 # Estágio 1: Build
-# Usando Debian (bullseye) no build para maior compatibilidade com ferramentas de compilação
 FROM node:20-bullseye AS builder
 
 WORKDIR /app
@@ -9,12 +8,8 @@ RUN npm ci
 
 COPY . .
 
-# Executa o build
+# Executa o build (gera a pasta dist/)
 RUN npm run build
-
-# Depuração: Lista os arquivos para vermos onde o build foi parar
-# Isso ajudará a identificar se a pasta é .output, dist ou outra
-RUN ls -la && (ls -la .output || echo ".output não encontrado") && (ls -la dist || echo "dist não encontrado")
 
 # ---
 
@@ -29,16 +24,16 @@ ENV PORT=3000
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 tanstack
 
-# Tenta copiar de .output (padrão do Nitro/TanStack Start)
-# Se o seu build estiver gerando em 'dist', mude para /app/dist
-COPY --from=builder /app/.output ./.output
+# Copia a pasta dist/ (que contém client/ e server/)
+COPY --from=builder /app/dist ./dist
 
-RUN chown -R tanstack:nodejs /app/.output
+# Ajusta permissões para a pasta dist
+RUN chown -R tanstack:nodejs /app/dist
 
 USER tanstack
 
 EXPOSE 3000
 
-# Se o arquivo não estiver em .output/server/index.mjs,
-# o log do 'ls -la' acima nos dirá o caminho correto.
-CMD ["node", ".output/server/index.mjs"]
+# O comando de início agora aponta para a pasta dist
+# O entrypoint do servidor Nitro é dist/server/index.mjs
+CMD ["node", "dist/server/index.mjs"]
