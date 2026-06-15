@@ -15,9 +15,6 @@ interface Props {
 	onSection: (s: AdminSection) => void;
 }
 
-const ADMIN_AVATAR =
-	"https://lh3.googleusercontent.com/aida-public/AB6AXuCxrjSktGOUhtcMl3bJouvr0F44M6ZyIcDJnt4Q79rGDhW-6sVTeMDJYo_J7-jY8Roi45-jgS-QuX8zOt7gTjW608VSNB80wD5v3bRdfTbdRMjCZTb818S7_SY_oVdY5DZ_vg4pGrSm7loNH5scU7f7BxC8IKOxV51VBEePfCxGkWHE21TskBRdVDY6yZQoF77QEASZp0pt8OcodCe-Zq4quDy2kdoAWg0z_ZMCh0sv2CR3upAGblw23l0Lo61QoG8QJmO7Q2Ah9T1-";
-
 export function SideNav({ section, onSection }: Props) {
 	const linkItems = [
 		{
@@ -65,24 +62,6 @@ export function SideNav({ section, onSection }: Props) {
 
 	return (
 		<nav className="h-screen w-64 fixed left-0 top-0 bg-surface-container-low shadow-lg flex flex-col p-4 gap-1 z-50">
-			<div className="mb-6 px-2 flex items-center gap-3">
-				<div className="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant flex-shrink-0">
-					<img
-						src={ADMIN_AVATAR}
-						alt="Admin"
-						className="w-full h-full object-cover"
-					/>
-				</div>
-				<div className="min-w-0">
-					<h2 className="text-sm font-bold text-primary truncate">
-						Admin Portal
-					</h2>
-					<p className="text-xs text-on-surface-variant truncate">
-						Management Console
-					</p>
-				</div>
-			</div>
-
 			<ul className="flex flex-col gap-1 flex-grow">
 				<li>
 					<button

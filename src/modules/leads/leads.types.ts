@@ -23,6 +23,11 @@ export interface LeadInput {
 }
 
 export interface PaginatedLeads {
-	rows: Lead[];
-	total: number;
+	data: Lead[];
+	meta: {
+		total: number;
+		page: number;
+		limit: number;
+		totalPages: number;
+	};
 }
