@@ -14,13 +14,14 @@ export function NavBar({
 	const [mobileOpen, setMobileOpen] = useState(false);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [scrolled, setScrolled] = useState(false);
-	const [theme, setTheme] = useState("light");
+	const [theme, setTheme] = useState<"light" | "dark">(() => {
+		if (typeof window === "undefined") return "light";
+		return (localStorage.getItem("theme") as "light" | "dark") || "light";
+	});
 	const [mounted, setMounted] = useState(false);
 
 	useEffect(() => {
 		setIsLoggedIn(isAuthenticated());
-		const stored = localStorage.getItem("theme") || "light";
-		setTheme(stored);
 		setMounted(true);
 	}, []);
 
