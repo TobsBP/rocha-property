@@ -77,9 +77,10 @@ export function AboutSection() {
 					<Stat end={7} suffix="+" label="Anos no mercado" emphasis />
 					<div className="col-span-1 row-span-2 rounded-2xl overflow-hidden relative min-h-[220px] group">
 						<Image
-							src="about.jpeg"
+							src="/about.jpeg"
 							alt="Equipe Imóveis Rocha"
-							className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+							fill
+							className="object-cover transition-transform duration-700 group-hover:scale-105"
 						/>
 						<div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
 					</div>

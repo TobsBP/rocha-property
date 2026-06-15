@@ -3,9 +3,6 @@ import Image from "next/image";
 import { useState } from "react";
 import type { PropertyType, TransactionType } from "#/modules/properties";
 
-const HERO_IMAGE =
-	"https://lh3.googleusercontent.com/aida-public/AB6AXuD3gvu9x0XxA1t1soVmGXBkpq52qOwfqjAsLslyVU-F_IjnOPCyOrQLb4TYptF44LmU4BKVX8CBxCpfKBPacwtzxvE5I8rNc-DFt942WViamaluVyuESvzkdjr3aCYlTD_JIz8-xEb2mC_BssDljvSIdsL7tQ4xhdMC-LzIwNA2a01kEWqR_yhQ-8tUUP2n3sTd_UrfOOoXrTOqhut-6gkAqNmCSW6OFCZLiDdQNzA6tMAru0YSKviLmz6ul5a1pyu6QPdQA4mxo68z";
-
 const INTENTS: { value: TransactionType; label: string }[] = [
 	{ value: "compra", label: "Comprar" },
 	{ value: "aluguel", label: "Alugar" },
@@ -29,7 +26,8 @@ export function HeroSection({
 			{/* Backdrop */}
 			<div className="absolute inset-0 z-0">
 				<Image
-					src={HERO_IMAGE}
+					fill
+					src={"/img-4.jpeg"}
 					alt="Imóvel de luxo"
 					className="ken-burns w-full h-full object-cover"
 				/>

@@ -160,6 +160,7 @@ export default function ContratosPage() {
 				<div className="absolute inset-0 z-0">
 					<Image
 						src={HERO_IMAGE}
+						fill
 						alt="Contratos imobiliários"
 						className="ken-burns w-full h-full object-cover"
 					/>

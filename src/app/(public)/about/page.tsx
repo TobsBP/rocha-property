@@ -32,12 +32,6 @@ const TABS: { id: Tab; label: string; icon: React.ReactNode }[] = [
 	},
 ];
 
-const HERO_IMAGE =
-	"https://lh3.googleusercontent.com/aida-public/AB6AXuD3gvu9x0XxA1t1soVmGXBkpq52qOwfqjAsLslyVU-F_IjnOPCyOrQLb4TYptF44LmU4BKVX8CBxCpfKBPacwtzxvE5I8rNc-DFt942WViamaluVyuESvzkdjr3aCYlTD_JIz8-xEb2mC_BssDljvSIdsL7tQ4xhdMC-LzIwNA2a01kEWqR_yhQ-8tUUP2n3sTd_UrfOOoXrTOqhut-6gkAqNmCSW6OFCZLiDdQNzA6tMAru0YSKviLmz6ul5a1pyu6QPdQA4mxo68z";
-
-const AGENT_IMAGE =
-	"https://lh3.googleusercontent.com/aida-public/AB6AXuC3bza3BJK1sQDk4MZyzJLseNiv7m6Opd8ojjCHHz7IwT4Jktg2rL8H_SrreJJv_lCFbxIxOJJdXEja65fohBfomLHQa_CqugcMPwZoPHGRolzudrVIs-TJ5ek2hl2DTfyDMRu0mm2Jx4Pm2IQuoFQa2Y7qs3XL5TkLwUq8Kz1JqUWQTi80PB7Sy50-UArCtelWRgrTKk-MqramVVYvNlmP8Qn6XgtpPDiND_UvxCN7IPLg8SAVV_8QSjJHdC_hqJFo0Cz3BkF7-tzn";
-
 const STATS = [
 	{ value: "7+", label: "Anos no mercado" },
 	{ value: "50", label: "Imóveis negociados" },
@@ -83,8 +77,9 @@ export default function AboutPage() {
 			<header className="relative w-full h-96 md:h-112 flex items-center justify-center overflow-hidden">
 				<div className="absolute inset-0 z-0">
 					<Image
-						src={HERO_IMAGE}
+						src={"/img-1.jpeg"}
 						alt="Sede da Imóveis Rocha"
+						fill
 						className="w-full h-full object-cover"
 					/>
 					<div className="absolute inset-0 hero-gradient" />
@@ -137,7 +132,8 @@ export default function AboutPage() {
 							<div className="relative">
 								<div className="rounded-2xl overflow-hidden card-shadow border border-surface-variant aspect-4/3">
 									<Image
-										src={AGENT_IMAGE}
+										src={"/img-2.jpeg"}
+										fill
 										alt="Equipe Imóveis Rocha"
 										className="w-full h-full object-cover"
 									/>
