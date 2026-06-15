@@ -31,12 +31,6 @@ const WHY_TRUST = [
 			"Cada contrato é redigido sob medida para as condições do negócio, sem cláusulas genéricas que geram dúvidas.",
 	},
 	{
-		icon: <ShieldCheck size={24} />,
-		title: "Revisão jurídica",
-		description:
-			"Especialistas analisam cada cláusula para garantir que seus interesses estejam protegidos em todos os cenários.",
-	},
-	{
 		icon: <CheckCircle2 size={24} />,
 		title: "Conformidade legal",
 		description:
