@@ -15,8 +15,8 @@ export function NavBar({
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [scrolled, setScrolled] = useState(false);
 	const [theme, setTheme] = useState<"light" | "dark">(() => {
-		if (typeof window === "undefined") return "light";
-		return (localStorage.getItem("theme") as "light" | "dark") || "light";
+		if (typeof window === "undefined") return "dark";
+		return (localStorage.getItem("theme") as "light" | "dark") || "dark";
 	});
 	const [mounted, setMounted] = useState(false);
 
