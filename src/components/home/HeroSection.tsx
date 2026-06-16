@@ -27,6 +27,8 @@ export function HeroSection({
 			<div className="absolute inset-0 z-0">
 				<Image
 					fill
+					priority
+					sizes="100vw"
 					src={"/img-4.jpeg"}
 					alt="Imóvel de luxo"
 					className="ken-burns w-full h-full object-cover"

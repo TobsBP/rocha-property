@@ -82,6 +82,8 @@ export function GallerySalesTab() {
 					>
 						<div className="aspect-video overflow-hidden bg-surface-container-high">
 							<Image
+								width={300}
+								height={200}
 								src={sale.imgUrls[0]}
 								alt={sale.description}
 								className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

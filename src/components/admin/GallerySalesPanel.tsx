@@ -45,16 +45,16 @@ export function GallerySalesPanel() {
 
 	return (
 		<>
-			<div className="bg-surface rounded-xl border border-surface-variant shadow-[0_4px_20px_rgba(0,0,0,0.02)] overflow-hidden flex flex-col">
+			<div className="bg-surface rounded-2xl border border-surface-variant shadow-[0_4px_20px_rgba(0,0,0,0.02)] overflow-hidden flex flex-col">
 				<div className="p-5 border-b border-surface-variant flex justify-between items-center">
 					<div>
 						<h3 className="text-lg font-semibold text-on-surface">
-							Galeria de vendas
+							Galeria de Vendas
 						</h3>
 						<p className="text-xs text-on-surface-variant mt-0.5">
-							{data?.meta.total ?? 0} imóvel
-							{(data?.meta.total ?? 0) !== 1 ? "is" : ""} cadastrado
-							{(data?.meta.total ?? 0) !== 1 ? "s" : ""}
+							{(data?.meta.total ?? 0) === 1
+								? "1 imóvel cadastrado"
+								: `${data?.meta.total ?? 0} imóveis cadastrados`}
 						</p>
 					</div>
 					<button
@@ -104,6 +104,8 @@ export function GallerySalesPanel() {
 							>
 								<div className="aspect-video overflow-hidden bg-surface-container-high relative">
 									<Image
+										width={300}
+										height={200}
 										src={sale.imgUrls[0]}
 										alt={sale.description}
 										className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

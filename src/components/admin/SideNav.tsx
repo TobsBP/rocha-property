@@ -1,12 +1,14 @@
+"use client";
+
 import {
-	Award,
-	BarChart2,
 	Building2,
 	GalleryHorizontal,
+	LayoutDashboard,
 	LogOut,
 	Users,
 } from "lucide-react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { clearToken } from "#/modules/auth";
 
 export type AdminSection = "overview" | "properties" | "gallery" | "leads";
 
@@ -15,72 +17,63 @@ interface Props {
 	onSection: (s: AdminSection) => void;
 }
 
-export function SideNav({ section, onSection }: Props) {
-	const linkItems = [
-		{
-			icon: <Award size={18} />,
-			label: "Brokers",
-			key: "brokers",
-			href: "/admin" as const,
-			isLink: true,
-		},
-		{
-			icon: <BarChart2 size={18} />,
-			label: "Metrics",
-			key: "metrics",
-			href: "/admin" as const,
-			isLink: true,
-		},
-	];
+const sectionItems: {
+	icon: React.ReactNode;
+	label: string;
+	key: AdminSection;
+}[] = [
+	{
+		icon: <LayoutDashboard size={18} />,
+		label: "Visão Geral",
+		key: "overview",
+	},
+	{
+		icon: <Building2 size={18} />,
+		label: "Imóveis",
+		key: "properties",
+	},
+	{
+		icon: <Users size={18} />,
+		label: "Leads",
+		key: "leads",
+	},
+	{
+		icon: <GalleryHorizontal size={18} />,
+		label: "Galeria de Vendas",
+		key: "gallery",
+	},
+];
 
-	const sectionItems: {
-		icon: React.ReactNode;
-		label: string;
-		key: AdminSection;
-	}[] = [
-		{
-			icon: <Building2 size={18} />,
-			label: "Properties",
-			key: "properties",
-		},
-		{
-			icon: <Users size={18} />,
-			label: "Leads",
-			key: "leads",
-		},
-		{
-			icon: <GalleryHorizontal size={18} />,
-			label: "Gallery Sales",
-			key: "gallery",
-		},
-	];
+export function SideNav({ section, onSection }: Props) {
+	const router = useRouter();
+
+	function handleSignOut() {
+		clearToken();
+		router.push("/login");
+	}
 
 	return (
 		<nav className="h-screen w-64 fixed left-0 top-0 bg-surface-container-low shadow-lg flex flex-col p-4 gap-1 z-50">
-			<ul className="flex flex-col gap-1 flex-grow">
-				<li>
-					<button
-						type="button"
-						onClick={() => onSection("overview")}
-						className={[
-							"w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-colors text-left",
-							section === "overview"
-								? "bg-primary-container text-on-primary-container font-bold shadow-sm translate-x-1"
-								: "text-on-surface-variant hover:bg-surface-variant",
-						].join(" ")}
-					>
-						<BarChart2 size={18} />
-						<span className="text-sm flex-grow">Overview</span>
-					</button>
-				</li>
+			<div className="px-3 pt-2 pb-5 mb-2 border-b border-surface-variant">
+				<span
+					style={{ fontFamily: "'Monsieur La Doulaise', cursive" }}
+					className="text-4xl font-normal tracking-wide text-primary"
+				>
+					Fabiana Rocha
+				</span>
+				<p className="text-[11px] font-semibold uppercase tracking-wider text-on-surface-variant mt-1">
+					Painel Administrativo
+				</p>
+			</div>
 
+			<ul className="flex flex-col gap-1 flex-grow">
 				{sectionItems.map((item) => (
 					<li key={item.key}>
 						<button
 							type="button"
 							onClick={() => onSection(item.key)}
 							className={[
-								"w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-colors text-left",
+								"w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-left",
 								section === item.key
 									? "bg-primary-container text-on-primary-container font-bold shadow-sm translate-x-1"
 									: "text-on-surface-variant hover:bg-surface-variant",
@@ -91,28 +84,16 @@ export function SideNav({ section, onSection }: Props) {
 						</button>
 					</li>
 				))}
-
-				<li className="mt-2 pt-2 border-t border-surface-variant">
-					{linkItems.map((item) => (
-						<Link
-							key={item.key}
-							href={item.href}
-							className="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors no-underline text-on-surface-variant hover:bg-surface-variant"
-						>
-							{item.icon}
-							<span className="text-sm flex-grow">{item.label}</span>
-						</Link>
-					))}
-				</li>
 			</ul>
 
 			<div className="pt-4 border-t border-surface-variant">
 				<button
 					type="button"
-					className="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors w-full text-left text-sm"
+					onClick={handleSignOut}
+					className="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant hover:bg-error-container hover:text-on-error-container rounded-lg transition-colors w-full text-left text-sm"
 				>
 					<LogOut size={18} />
-					Sign Out
+					Sair
 				</button>
 			</div>
 		</nav>

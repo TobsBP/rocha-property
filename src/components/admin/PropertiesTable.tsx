@@ -21,13 +21,14 @@ export function PropertiesTable({
 	const properties = Array.isArray(data) ? data : [];
 
 	return (
-		<div className="lg:col-span-2 bg-surface rounded-xl border border-surface-variant shadow-[0_4px_20px_rgba(0,0,0,0.02)] overflow-hidden flex flex-col min-h-[500px]">
+		<div className="lg:col-span-2 bg-surface rounded-2xl border border-surface-variant shadow-[0_4px_20px_rgba(0,0,0,0.02)] overflow-hidden flex flex-col min-h-[500px]">
 			<div className="p-5 border-b border-surface-variant flex justify-between items-center">
 				<h3 className="text-lg font-semibold text-on-surface">
-					Property Listings
+					Lista de Imóveis
 				</h3>
 				<span className="text-sm text-on-surface-variant">
-					{properties.length} properties total
+					{properties.length} {properties.length === 1 ? "imóvel" : "imóveis"}{" "}
+					no total
 				</span>
 			</div>
 			<div className="overflow-x-auto flex-grow">
@@ -35,16 +36,16 @@ export function PropertiesTable({
 					<thead>
 						<tr className="bg-surface-container-lowest border-b border-surface-variant">
 							<th className="text-xs font-bold text-on-surface-variant py-3 px-5 uppercase tracking-wider w-1/2">
-								Property
+								Imóvel
 							</th>
 							<th className="text-xs font-bold text-on-surface-variant py-3 px-5 uppercase tracking-wider whitespace-nowrap">
 								Status
 							</th>
 							<th className="text-xs font-bold text-on-surface-variant py-3 px-5 uppercase tracking-wider whitespace-nowrap">
-								Price
+								Preço
 							</th>
 							<th className="text-xs font-bold text-on-surface-variant py-3 px-5 uppercase tracking-wider text-right whitespace-nowrap">
-								Actions
+								Ações
 							</th>
 						</tr>
 					</thead>
@@ -72,11 +73,18 @@ export function PropertiesTable({
 							))
 						) : properties.length === 0 ? (
 							<tr>
-								<td
-									colSpan={4}
-									className="py-10 text-center text-on-surface-variant font-medium"
-								>
-									Nenhum imóvel encontrado.
+								<td colSpan={4} className="py-16 text-center">
+									<Building2
+										size={40}
+										className="mx-auto text-outline-variant mb-3"
+									/>
+									<p className="text-base font-semibold text-on-surface">
+										Nenhum imóvel cadastrado
+									</p>
+									<p className="text-sm text-on-surface-variant mt-1">
+										Use o botão "Adicionar Imóvel" para criar o primeiro
+										anúncio.
+									</p>
 								</td>
 							</tr>
 						) : (
@@ -90,6 +98,8 @@ export function PropertiesTable({
 											<div className="h-12 rounded bg-surface-container-low border border-outline-variant flex-shrink-0 flex items-center justify-center w-16 overflow-hidden">
 												{p.imageUrl ? (
 													<Image
+														width={200}
+														height={150}
 														src={p.imageUrl}
 														alt={p.title || (p.name as string)}
 														className="w-full h-full object-cover"
@@ -126,7 +136,7 @@ export function PropertiesTable({
 												type="button"
 												onClick={() => onEdit(p)}
 												className="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors"
-												title="Edit"
+												title="Editar"
 											>
 												<Pencil size={16} />
 											</button>
@@ -134,7 +144,7 @@ export function PropertiesTable({
 												type="button"
 												onClick={() => onDelete(p.id)}
 												className="w-8 h-8 rounded-full flex items-center justify-center text-error hover:bg-error-container transition-colors"
-												title="Delete"
+												title="Excluir"
 											>
 												<Trash2 size={16} />
 											</button>

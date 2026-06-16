@@ -155,6 +155,8 @@ export default function ContratosPage() {
 					<Image
 						src={HERO_IMAGE}
 						fill
+						priority
+						sizes="100vw"
 						alt="Contratos imobiliários"
 						className="ken-burns w-full h-full object-cover"
 					/>

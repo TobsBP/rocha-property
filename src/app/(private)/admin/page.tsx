@@ -18,20 +18,20 @@ import {
 const SECTION_TITLE: Record<AdminSection, { title: string; subtitle: string }> =
 	{
 		overview: {
-			title: "Overview",
-			subtitle: "Here's what's happening with your portfolio today.",
+			title: "Visão Geral",
+			subtitle: "Acompanhe o desempenho do seu portfólio em um só lugar.",
 		},
 		properties: {
-			title: "Properties",
-			subtitle: "Manage all your property listings.",
+			title: "Imóveis",
+			subtitle: "Gerencie todos os seus anúncios de imóveis.",
 		},
 		gallery: {
-			title: "Gallery Sales",
-			subtitle: "Manage sold properties shown on the About page.",
+			title: "Galeria de Vendas",
+			subtitle: "Gerencie os imóveis vendidos exibidos na página Sobre.",
 		},
 		leads: {
-			title: "Leads Inbox",
-			subtitle: "Manage and reply to potential clients.",
+			title: "Leads",
+			subtitle: "Acompanhe e responda aos clientes em potencial.",
 		},
 	};
 
@@ -51,7 +51,7 @@ export default function AdminPage() {
 		AdminPropertyListItem | undefined
 	>(undefined);
 	const [showForm, setShowForm] = useState(false);
-	const [section, setSection] = useState<AdminSection>("properties");
+	const [section, setSection] = useState<AdminSection>("overview");
 	const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
 	const deleteMutation = useDeleteProperty();
@@ -102,7 +102,7 @@ export default function AdminPage() {
 								className="bg-primary text-on-primary text-sm font-medium px-5 py-2 rounded-lg flex items-center gap-2 hover:shadow-[0_4px_14px_rgba(162,5,19,0.3)] hover:-translate-y-0.5 transition-all duration-200"
 							>
 								<Plus size={18} />
-								Add New Property
+								Adicionar Imóvel
 							</button>
 						</div>
 					)}
@@ -116,7 +116,7 @@ export default function AdminPage() {
 								onEdit={handleEdit}
 								onDelete={setConfirmDeleteId}
 							/>
-							<LeadsPanel />
+							<LeadsPanel onViewInbox={() => setSection("leads")} />
 						</div>
 					)}
 

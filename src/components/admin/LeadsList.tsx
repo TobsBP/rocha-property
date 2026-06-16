@@ -7,10 +7,10 @@ export function LeadsList() {
 	const leads = response?.data ?? [];
 
 	return (
-		<div className="bg-surface rounded-xl border border-surface-variant shadow-[0_4px_20px_rgba(0,0,0,0.02)] overflow-hidden flex flex-col min-h-[500px]">
+		<div className="bg-surface rounded-2xl border border-surface-variant shadow-[0_4px_20px_rgba(0,0,0,0.02)] overflow-hidden flex flex-col min-h-[500px]">
 			<div className="p-5 border-b border-surface-variant flex justify-between items-center">
 				<h3 className="text-lg font-semibold text-on-surface">
-					Caixa de Entrada (Leads)
+					Caixa de Entrada
 				</h3>
 				<span className="text-sm text-on-surface-variant">
 					{response?.meta.total ?? 0} leads totais

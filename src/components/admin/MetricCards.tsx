@@ -9,28 +9,28 @@ export function MetricCards() {
 		? [
 				{
 					icon: <Building2 size={22} />,
-					label: "Total Listings",
+					label: "Total de Imóveis",
 					value: metrics.totalListings.toLocaleString(),
 					delta: metrics.totalListingsDelta,
 					deltaPositive: true,
 				},
 				{
 					icon: <Users size={22} />,
-					label: "Active Leads",
+					label: "Leads Ativos",
 					value: metrics.activeLeads.toLocaleString(),
 					delta: metrics.activeLeadsDelta,
 					deltaPositive: true,
 				},
 				{
 					icon: <span className="text-xl font-bold">R$</span>,
-					label: "Monthly Sales Volume",
+					label: "Volume de Vendas (mês)",
 					value: formatMillions(metrics.monthlyVolume),
 					delta: metrics.monthlyVolumeDelta,
 					deltaPositive: false,
 				},
 				{
 					icon: <BarChart2 size={22} />,
-					label: "Conversion Rate",
+					label: "Taxa de Conversão",
 					value: `${metrics.conversionRate}%`,
 					chart: metrics.conversionData,
 				},
@@ -43,7 +43,7 @@ export function MetricCards() {
 				{[1, 2, 3, 4].map((i) => (
 					<div
 						key={i}
-						className="bg-surface rounded-xl border border-surface-variant p-6 h-32 animate-pulse bg-surface-container-high"
+						className="bg-surface rounded-2xl border border-surface-variant p-6 h-32 animate-pulse bg-surface-container-high"
 					/>
 				))}
 			</div>
@@ -55,7 +55,7 @@ export function MetricCards() {
 			{cards.map((card) => (
 				<div
 					key={card.label}
-					className="bg-surface rounded-xl border border-surface-variant p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] flex flex-col justify-between hover:border-outline-variant transition-colors group"
+					className="bg-surface rounded-2xl border border-surface-variant p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] flex flex-col justify-between hover:border-outline-variant transition-colors group"
 				>
 					<div className="flex justify-between items-start mb-4">
 						<div className="w-12 h-12 rounded-lg bg-surface-container-low flex items-center justify-center text-on-surface-variant group-hover:text-primary group-hover:bg-primary-fixed transition-colors">

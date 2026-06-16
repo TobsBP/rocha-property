@@ -2,16 +2,18 @@ import { timeAgo } from "#/lib/utils";
 import type { Lead } from "#/modules/leads";
 import { useLeads } from "#/modules/leads";
 
-export function LeadsPanel() {
+export function LeadsPanel({ onViewInbox }: { onViewInbox?: () => void }) {
 	const { data: response, isLoading } = useLeads();
 	const leads = response?.data ?? [];
 
 	return (
-		<div className="lg:col-span-1 bg-surface rounded-xl border border-surface-variant shadow-[0_4px_20px_rgba(0,0,0,0.02)] flex flex-col">
+		<div className="lg:col-span-1 bg-surface rounded-2xl border border-surface-variant shadow-[0_4px_20px_rgba(0,0,0,0.02)] flex flex-col">
 			<div className="p-5 border-b border-surface-variant flex justify-between items-center">
-				<h3 className="text-lg font-semibold text-on-surface">Recent Leads</h3>
+				<h3 className="text-lg font-semibold text-on-surface">
+					Leads Recentes
+				</h3>
 				<span className="bg-error-container text-on-error-container text-xs font-semibold px-2 py-0.5 rounded-full">
-					New
+					Novos
 				</span>
 			</div>
 
@@ -57,14 +59,20 @@ export function LeadsPanel() {
 								)}
 							</div>
 						))}
+				{!isLoading && leads.length === 0 && (
+					<p className="text-sm text-on-surface-variant text-center py-10">
+						Nenhum lead recebido ainda.
+					</p>
+				)}
 			</div>
 
 			<div className="p-4 border-t border-surface-variant">
 				<button
 					type="button"
+					onClick={onViewInbox}
 					className="w-full py-2 rounded-lg border border-outline-variant text-on-surface text-sm font-medium hover:bg-surface-container-high transition-colors"
 				>
-					View Inbox
+					Ver todos os leads
 				</button>
 			</div>
 		</div>

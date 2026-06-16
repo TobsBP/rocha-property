@@ -80,6 +80,8 @@ export default function AboutPage() {
 						src={"/img-1.jpeg"}
 						alt="Sede da Imóveis Rocha"
 						fill
+						priority
+						sizes="100vw"
 						className="w-full h-full object-cover"
 					/>
 					<div className="absolute inset-0 hero-gradient" />
@@ -134,6 +136,7 @@ export default function AboutPage() {
 									<Image
 										src={"/img-2.jpeg"}
 										fill
+										sizes="(max-width: 1024px) 100vw, 50vw"
 										alt="Equipe Imóveis Rocha"
 										className="w-full h-full object-cover"
 									/>
