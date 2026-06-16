@@ -75,7 +75,7 @@ export function AboutSection() {
 					className="lg:col-span-7 grid grid-cols-2 gap-3 md:gap-4"
 				>
 					<Stat end={7} suffix="+" label="Anos no mercado" emphasis />
-					<div className="col-span-1 row-span-2 rounded-2xl overflow-hidden relative min-h-[220px] group">
+					<div className="col-span-1 row-span-2 rounded-2xl overflow-hidden relative min-h-55 group">
 						<Image
 							src="/about.jpeg"
 							alt="Equipe Imóveis Rocha"
@@ -83,7 +83,7 @@ export function AboutSection() {
 							sizes="(max-width: 768px) 100vw, 400px"
 							className="object-cover transition-transform duration-700 group-hover:scale-105"
 						/>
-						<div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+						<div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent" />
 					</div>
 					<Stat end={60} suffix="+" label="Imóveis negociados" />
 				</Reveal>

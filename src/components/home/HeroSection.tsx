@@ -180,7 +180,7 @@ export function HeroSection({
 
 			{/* Scroll cue */}
 			<div className="absolute bottom-7 left-1/2 -translate-x-1/2 z-10 hidden md:flex flex-col items-center gap-2">
-				<div className="h-9 w-[22px] rounded-full border border-white/45 flex justify-center pt-2">
+				<div className="h-9 w-5.5 rounded-full border border-white/45 flex justify-center pt-2">
 					<span className="scroll-cue-dot h-1.5 w-1.5 rounded-full bg-white/90" />
 				</div>
 			</div>

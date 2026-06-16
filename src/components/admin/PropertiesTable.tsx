@@ -21,7 +21,7 @@ export function PropertiesTable({
 	const properties = Array.isArray(data) ? data : [];
 
 	return (
-		<div className="lg:col-span-2 bg-surface rounded-2xl border border-surface-variant shadow-[0_4px_20px_rgba(0,0,0,0.02)] overflow-hidden flex flex-col min-h-[500px]">
+		<div className="lg:col-span-2 bg-surface rounded-2xl border border-surface-variant shadow-[0_4px_20px_rgba(0,0,0,0.02)] overflow-hidden flex flex-col min-h-125">
 			<div className="p-5 border-b border-surface-variant flex justify-between items-center">
 				<h3 className="text-lg font-semibold text-on-surface">
 					Lista de Imóveis
@@ -31,8 +31,8 @@ export function PropertiesTable({
 					no total
 				</span>
 			</div>
-			<div className="overflow-x-auto flex-grow">
-				<table className="w-full text-left border-collapse min-w-[600px]">
+			<div className="overflow-x-auto grow">
+				<table className="w-full text-left border-collapse min-w-150">
 					<thead>
 						<tr className="bg-surface-container-lowest border-b border-surface-variant">
 							<th className="text-xs font-bold text-on-surface-variant py-3 px-5 uppercase tracking-wider w-1/2">
@@ -95,7 +95,7 @@ export function PropertiesTable({
 								>
 									<td className="py-4 px-5">
 										<div className="flex items-center gap-3">
-											<div className="h-12 rounded bg-surface-container-low border border-outline-variant flex-shrink-0 flex items-center justify-center w-16 overflow-hidden">
+											<div className="h-12 rounded bg-surface-container-low border border-outline-variant shrink-0 flex items-center justify-center w-16 overflow-hidden">
 												{p.imageUrl ? (
 													<Image
 														width={200}
@@ -112,10 +112,10 @@ export function PropertiesTable({
 												)}
 											</div>
 											<div className="min-w-0">
-												<p className="text-sm font-semibold text-on-surface break-words">
+												<p className="text-sm font-semibold text-on-surface wrap-break-word">
 													{p.name || p.title || "—"}
 												</p>
-												<p className="text-xs text-on-surface-variant break-words">
+												<p className="text-xs text-on-surface-variant wrap-break-word">
 													{p.location ||
 														[p.neighborhood, p.city, p.state]
 															.filter(Boolean)

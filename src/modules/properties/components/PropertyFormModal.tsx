@@ -112,7 +112,7 @@ export function PropertyFormModal({
 	}
 
 	return (
-		<div className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-black/40 p-4 backdrop-blur-sm">
+		<div className="fixed inset-0 z-100 flex items-start justify-center overflow-y-auto bg-black/40 p-4 backdrop-blur-sm">
 			<button
 				type="button"
 				aria-label="Fechar"
@@ -401,7 +401,7 @@ export function PropertyFormModal({
 						<button
 							type="submit"
 							disabled={isPending}
-							className="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-on-primary shadow-sm transition-all duration-200 hover:-translate-y-[1px] hover:bg-on-primary-fixed-variant hover:shadow-md disabled:opacity-70"
+							className="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-on-primary shadow-sm transition-all duration-200 hover:-translate-y-px hover:bg-on-primary-fixed-variant hover:shadow-md disabled:opacity-70"
 						>
 							{isPending
 								? "Salvando…"
