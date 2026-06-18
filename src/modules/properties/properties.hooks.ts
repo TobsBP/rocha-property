@@ -5,10 +5,15 @@ import {
 	fetchAdminProperties,
 	fetchProperties,
 	fetchProperty,
+	fetchPropertyImages,
 	fetchSimilarProperties,
 	updateProperty,
 } from "./properties.api";
-import type { CreatePropertyInput, PropertyFilters } from "./properties.types";
+import type {
+	CreatePropertyInput,
+	PropertyFilters,
+	PropertyImagesParams,
+} from "./properties.types";
 
 export const propertyKeys = {
 	all: ["properties"] as const,
@@ -17,6 +22,8 @@ export const propertyKeys = {
 	detail: (id: string) => [...propertyKeys.all, id] as const,
 	similar: (id: string) => [...propertyKeys.all, "similar", id] as const,
 	admin: () => [...propertyKeys.all, "admin"] as const,
+	images: (params?: PropertyImagesParams) =>
+		[...propertyKeys.all, "images", params ?? {}] as const,
 };
 
 export function useProperties(filters?: PropertyFilters) {
@@ -73,6 +80,14 @@ export function useUpdateProperty(id: string) {
 			void queryClient.invalidateQueries({ queryKey: propertyKeys.all });
 			void queryClient.invalidateQueries({ queryKey: propertyKeys.detail(id) });
 		},
+	});
+}
+
+export function usePropertyImages(params?: PropertyImagesParams) {
+	return useQuery({
+		queryKey: propertyKeys.images(params),
+		queryFn: () => fetchPropertyImages(params),
+		staleTime: 1000 * 60 * 5,
 	});
 }
 

@@ -7,6 +7,8 @@ import type {
 	Paginated,
 	Property,
 	PropertyFilters,
+	PropertyImagesParams,
+	PropertyImagesResponse,
 } from "./properties.types";
 
 /** Converte o imóvel achatado da API no `Property` aninhado que a UI usa. */
@@ -103,6 +105,13 @@ export async function uploadPropertyImages(files: File[]): Promise<string[]> {
 
 	const { urls } = (await response.json()) as { urls: string[] };
 	return urls;
+}
+
+/** Lista imagens enviadas ao Cloudinary (requer auth). */
+export async function fetchPropertyImages(
+	params?: PropertyImagesParams,
+): Promise<PropertyImagesResponse> {
+	return api.get<PropertyImagesResponse>("/properties/img", { params });
 }
 
 /** Cadastra um novo imóvel (requer auth). */

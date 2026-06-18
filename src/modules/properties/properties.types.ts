@@ -133,3 +133,23 @@ export interface Paginated<T> {
 	data: T[];
 	meta: PaginationMeta;
 }
+
+export interface PropertyImageResource {
+	publicId: string;
+	url: string;
+	createdAt: string;
+	format: string;
+	width: number;
+	height: number;
+}
+
+export interface PropertyImagesResponse {
+	resources: PropertyImageResource[];
+	nextCursor: string | null;
+}
+
+export interface PropertyImagesParams
+	extends Record<string, string | number | boolean | undefined | null> {
+	maxResults?: number;
+	nextCursor?: string;
+}
