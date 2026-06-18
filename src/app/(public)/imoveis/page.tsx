@@ -92,6 +92,9 @@ export default function ImoveisPage() {
 									<option value="cobertura">Cobertura</option>
 									<option value="loft">Loft</option>
 									<option value="comercial">Comercial</option>
+									<option value="sitio">Sítio</option>
+									<option value="chacara">Chácara</option>
+									<option value="fazenda">Fazenda</option>
 								</select>
 							</div>
 						</div>

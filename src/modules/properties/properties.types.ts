@@ -6,7 +6,10 @@ export type PropertyType =
 	| "terreno"
 	| "cobertura"
 	| "loft"
-	| "comercial";
+	| "comercial"
+	| "sitio"
+	| "chacara"
+	| "fazenda";
 
 export type TransactionType = "compra" | "aluguel";
 

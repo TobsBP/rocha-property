@@ -148,6 +148,9 @@ export function HeroSection({
 								<option value="apartamento">Apartamento</option>
 								<option value="terreno">Terreno</option>
 								<option value="cobertura">Cobertura</option>
+								<option value="sitio">Sítio</option>
+								<option value="chacara">Chácara</option>
+								<option value="fazenda">Fazenda</option>
 							</select>
 						</div>
 						<div className="relative">

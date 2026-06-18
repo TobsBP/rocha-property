@@ -18,6 +18,9 @@ const TYPE_OPTIONS: { value: PropertyType; label: string }[] = [
 	{ value: "cobertura", label: "Cobertura" },
 	{ value: "loft", label: "Loft" },
 	{ value: "comercial", label: "Comercial" },
+	{ value: "sitio", label: "Sítio" },
+	{ value: "chacara", label: "Chácara" },
+	{ value: "fazenda", label: "Fazenda" },
 ];
 
 const PURPOSE_OPTIONS: { value: PropertyPurpose; label: string }[] = [
