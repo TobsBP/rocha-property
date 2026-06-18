@@ -71,7 +71,8 @@ export interface AdminProperty {
 	neighborhood: string;
 	city: string;
 	state: string;
-	imageUrl: string;
+	/** URLs das imagens; a primeira é a capa. */
+	imageUrls: string[];
 	brokerId: string;
 	createdAt?: string;
 	updatedAt?: string;
@@ -112,7 +113,8 @@ export interface AdminPropertyListItem {
 	neighborhood?: string;
 	city?: string;
 	state?: string;
-	imageUrl?: string;
+	/** URLs das imagens; a primeira é a capa. */
+	imageUrls?: string[];
 	brokerId?: string;
 	createdAt?: string;
 	updatedAt?: string;

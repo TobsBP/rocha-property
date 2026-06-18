@@ -96,11 +96,11 @@ export function PropertiesTable({
 									<td className="py-4 px-5">
 										<div className="flex items-center gap-3">
 											<div className="h-12 rounded bg-surface-container-low border border-outline-variant shrink-0 flex items-center justify-center w-16 overflow-hidden">
-												{p.imageUrl ? (
+												{p.imageUrls?.[0] ? (
 													<Image
 														width={200}
 														height={150}
-														src={p.imageUrl}
+														src={p.imageUrls[0]}
 														alt={p.title || (p.name as string)}
 														className="w-full h-full object-cover"
 													/>

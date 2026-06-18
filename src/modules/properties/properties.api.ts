@@ -1,4 +1,5 @@
-import { api } from "#/lib/api";
+import { API_URL, ApiError, api } from "#/lib/api";
+import { getToken } from "#/modules/auth/auth.storage";
 import type {
 	AdminProperty,
 	AdminPropertyListItem,
@@ -31,7 +32,7 @@ function mapApiToProperty(item: AdminPropertyListItem): Property {
 		bedrooms: item.bedrooms ?? 0,
 		bathrooms: item.bathrooms ?? 0,
 		parkingSpots: item.parkingSpaces ?? 0,
-		images: item.imageUrl ? [item.imageUrl] : [],
+		images: item.imageUrls ?? [],
 		badge: item.isExclusive ? "Exclusivo" : item.isNew ? "Novo" : undefined,
 		createdAt: item.createdAt ?? "",
 		updatedAt: item.updatedAt ?? "",
@@ -78,6 +79,30 @@ export async function fetchSimilarProperties(id: string): Promise<Property[]> {
 export async function fetchAdminProperties(): Promise<AdminPropertyListItem[]> {
 	const res = await api.get<Paginated<AdminPropertyListItem>>("/properties");
 	return Array.isArray(res?.data) ? res.data : [];
+}
+
+/**
+ * Sobe uma ou mais imagens de imóvel (requer auth).
+ * `POST /properties/img` — multipart, responde `{ urls: string[] }`.
+ */
+export async function uploadPropertyImages(files: File[]): Promise<string[]> {
+	const formData = new FormData();
+	for (const file of files) formData.append("file", file);
+
+	const token = getToken();
+	const response = await fetch(`${API_URL}/properties/img`, {
+		method: "POST",
+		headers: token ? { Authorization: `Bearer ${token}` } : {},
+		body: formData,
+	});
+
+	if (!response.ok) {
+		const body = await response.json().catch(() => undefined);
+		throw new ApiError(response.status, "Falha no upload das imagens.", body);
+	}
+
+	const { urls } = (await response.json()) as { urls: string[] };
+	return urls;
 }
 
 /** Cadastra um novo imóvel (requer auth). */

@@ -1,5 +1,7 @@
-import { X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ImagePlus, Loader2, X } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import { uploadPropertyImages } from "../properties.api";
 import { useCreateProperty, useUpdateProperty } from "../properties.hooks";
 import type {
 	AdminPropertyListItem,
@@ -49,7 +51,7 @@ const EMPTY: CreatePropertyInput = {
 	neighborhood: "",
 	city: "",
 	state: "",
-	imageUrl: "",
+	imageUrls: [],
 	brokerId: "",
 };
 
@@ -88,7 +90,7 @@ export function PropertyFormModal({
 				neighborhood: property.neighborhood || "",
 				city: property.city || "",
 				state: property.state || "",
-				imageUrl: property.imageUrl || "",
+				imageUrls: property.imageUrls ?? [],
 				brokerId: property.brokerId || "",
 			});
 		}
@@ -99,11 +101,54 @@ export function PropertyFormModal({
 	const mutation = isEdit ? updateMutation : createMutation;
 	const { mutate, isPending, error } = mutation;
 
+	const [uploading, setUploading] = useState(false);
+	const [uploadError, setUploadError] = useState<string | null>(null);
+	const [dragOver, setDragOver] = useState(false);
+	const fileInputRef = useRef<HTMLInputElement>(null);
+
 	function set<K extends keyof CreatePropertyInput>(
 		key: K,
 		value: CreatePropertyInput[K],
 	) {
 		setForm((prev) => ({ ...prev, [key]: value }));
+	}
+
+	async function handleFiles(files: File[]) {
+		const images = files.filter((f) => f.type.startsWith("image/"));
+		if (images.length === 0) {
+			setUploadError("Selecione apenas arquivos de imagem.");
+			return;
+		}
+		setUploadError(null);
+		setUploading(true);
+		try {
+			const urls = await uploadPropertyImages(images);
+			setForm((prev) => ({ ...prev, imageUrls: [...prev.imageUrls, ...urls] }));
+		} catch {
+			setUploadError("Falha no upload. Tente novamente.");
+		} finally {
+			setUploading(false);
+			if (fileInputRef.current) fileInputRef.current.value = "";
+		}
+	}
+
+	function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+		const files = Array.from(e.target.files ?? []);
+		if (files.length) handleFiles(files);
+	}
+
+	function handleDrop(e: React.DragEvent) {
+		e.preventDefault();
+		setDragOver(false);
+		const files = Array.from(e.dataTransfer.files);
+		if (files.length) handleFiles(files);
+	}
+
+	function removeImage(index: number) {
+		setForm((prev) => ({
+			...prev,
+			imageUrls: prev.imageUrls.filter((_, i) => i !== index),
+		}));
 	}
 
 	function handleSubmit(e: React.FormEvent) {
@@ -342,31 +387,107 @@ export function PropertyFormModal({
 						</div>
 					</div>
 
-					<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-						<div>
-							<label htmlFor="imageUrl" className={labelClass}>
-								URL da imagem
-							</label>
-							<input
-								id="imageUrl"
-								type="url"
-								value={form.imageUrl}
-								onChange={(e) => set("imageUrl", e.target.value)}
-								placeholder="https://..."
-								className={inputClass}
-							/>
-						</div>
-						<div>
-							<label htmlFor="brokerId" className={labelClass}>
-								Corretor (ID)
-							</label>
-							<input
-								id="brokerId"
-								value={form.brokerId}
-								onChange={(e) => set("brokerId", e.target.value)}
-								className={inputClass}
-							/>
-						</div>
+					<div className="flex flex-col gap-2">
+						<span className={labelClass}>
+							Imagens
+							{form.imageUrls.length > 0 && ` (${form.imageUrls.length})`}
+						</span>
+
+						<input
+							ref={fileInputRef}
+							type="file"
+							accept="image/*"
+							multiple
+							className="hidden"
+							onChange={handleInputChange}
+						/>
+
+						{form.imageUrls.length > 0 && (
+							<div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+								{form.imageUrls.map((url, i) => (
+									<div
+										// biome-ignore lint/suspicious/noArrayIndexKey: a ordem importa (1ª é a capa)
+										key={i}
+										className="group relative aspect-video overflow-hidden rounded-lg border border-surface-variant"
+									>
+										<Image
+											width={120}
+											height={90}
+											src={url}
+											alt={`Imagem ${i + 1}`}
+											className="h-full w-full object-cover"
+										/>
+										{i === 0 && (
+											<span className="absolute bottom-1 left-1 rounded bg-primary/90 px-1.5 py-0.5 text-[10px] font-semibold text-on-primary">
+												Capa
+											</span>
+										)}
+										<button
+											type="button"
+											onClick={() => removeImage(i)}
+											className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-surface/90 text-on-surface opacity-0 shadow backdrop-blur-sm transition-opacity group-hover:opacity-100"
+										>
+											<X size={11} />
+										</button>
+									</div>
+								))}
+							</div>
+						)}
+
+						<button
+							type="button"
+							onClick={() => fileInputRef.current?.click()}
+							onDragOver={(e) => {
+								e.preventDefault();
+								setDragOver(true);
+							}}
+							onDragLeave={() => setDragOver(false)}
+							onDrop={handleDrop}
+							disabled={uploading}
+							className={[
+								"flex w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed py-5 transition-colors",
+								dragOver
+									? "border-primary bg-primary-fixed/20"
+									: "border-surface-variant hover:border-primary/50 hover:bg-surface-container-low",
+							].join(" ")}
+						>
+							{uploading ? (
+								<>
+									<Loader2 size={24} className="animate-spin text-primary" />
+									<span className="text-sm text-on-surface-variant">
+										Enviando…
+									</span>
+								</>
+							) : (
+								<>
+									<ImagePlus size={24} className="text-outline" />
+									<span className="px-4 text-center text-sm text-on-surface-variant">
+										{form.imageUrls.length > 0
+											? "Adicionar mais imagens"
+											: "Clique ou arraste imagens aqui"}
+									</span>
+									<span className="text-xs text-outline">
+										Múltiplos arquivos permitidos
+									</span>
+								</>
+							)}
+						</button>
+
+						{uploadError && (
+							<p className="text-xs font-medium text-error">{uploadError}</p>
+						)}
+					</div>
+
+					<div>
+						<label htmlFor="brokerId" className={labelClass}>
+							Corretor (ID)
+						</label>
+						<input
+							id="brokerId"
+							value={form.brokerId}
+							onChange={(e) => set("brokerId", e.target.value)}
+							className={inputClass}
+						/>
 					</div>
 
 					<div className="flex flex-wrap gap-6 pt-1">
@@ -400,7 +521,7 @@ export function PropertyFormModal({
 						</button>
 						<button
 							type="submit"
-							disabled={isPending}
+							disabled={isPending || uploading || form.imageUrls.length === 0}
 							className="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-on-primary shadow-sm transition-all duration-200 hover:-translate-y-px hover:bg-on-primary-fixed-variant hover:shadow-md disabled:opacity-70"
 						>
 							{isPending

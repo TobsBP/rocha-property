@@ -2,11 +2,13 @@
 
 import {
 	Building2,
+	ExternalLink,
 	GalleryHorizontal,
 	LayoutDashboard,
 	LogOut,
 	Users,
 } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { clearToken } from "#/modules/auth";
 
@@ -86,7 +88,16 @@ export function SideNav({ section, onSection }: Props) {
 				))}
 			</ul>
 
-			<div className="pt-4 border-t border-surface-variant">
+			<div className="pt-4 border-t border-surface-variant flex flex-col gap-1">
+				<Link
+					href="/imoveis"
+					target="_blank"
+					rel="noopener noreferrer"
+					className="flex items-center gap-3 px-3 py-2.5 text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors w-full text-left text-sm"
+				>
+					<ExternalLink size={18} />
+					Ver imóveis no site
+				</Link>
 				<button
 					type="button"
 					onClick={handleSignOut}
