@@ -2,10 +2,30 @@ import { Bed, Home, MapPin, Search } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import type { PropertyType, TransactionType } from "#/modules/properties";
+import { FilterSelect } from "./FilterSelect";
 
 const INTENTS: { value: TransactionType; label: string }[] = [
 	{ value: "compra", label: "Comprar" },
 	{ value: "aluguel", label: "Alugar" },
+];
+
+const TYPE_OPTIONS = [
+	{ value: "", label: "Todos os tipos" },
+	{ value: "casa", label: "Casa" },
+	{ value: "apartamento", label: "Apartamento" },
+	{ value: "terreno", label: "Terreno" },
+	{ value: "cobertura", label: "Cobertura" },
+	{ value: "sitio", label: "Sítio" },
+	{ value: "chacara", label: "Chácara" },
+	{ value: "fazenda", label: "Fazenda" },
+];
+
+const BEDROOM_OPTIONS = [
+	{ value: "", label: "Qualquer" },
+	{ value: "1", label: "1+ quartos" },
+	{ value: "2", label: "2+ quartos" },
+	{ value: "3", label: "3+ quartos" },
+	{ value: "4", label: "4+ quartos" },
 ];
 
 export function HeroSection({
@@ -29,7 +49,7 @@ export function HeroSection({
 					fill
 					priority
 					sizes="100vw"
-					src={"/img-4.jpeg"}
+					src={"/hero.avif"}
 					alt="Imóvel de luxo"
 					className="ken-burns w-full h-full object-cover"
 				/>
@@ -133,43 +153,20 @@ export function HeroSection({
 								className="w-full pl-11 pr-4 py-3.5 rounded-xl border border-outline-variant bg-surface focus:border-primary focus:ring-2 focus:ring-primary/25 outline-none transition-all text-sm text-on-surface"
 							/>
 						</div>
-						<div className="relative">
-							<Home
-								size={18}
-								className="absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none"
-							/>
-							<select
-								value={type}
-								onChange={(e) => setType(e.target.value as PropertyType | "")}
-								className="w-full pl-11 pr-4 py-3.5 rounded-xl border border-outline-variant bg-surface focus:border-primary focus:ring-2 focus:ring-primary/25 outline-none transition-all text-sm text-on-surface appearance-none"
-							>
-								<option value="">Tipo</option>
-								<option value="casa">Casa</option>
-								<option value="apartamento">Apartamento</option>
-								<option value="terreno">Terreno</option>
-								<option value="cobertura">Cobertura</option>
-								<option value="sitio">Sítio</option>
-								<option value="chacara">Chácara</option>
-								<option value="fazenda">Fazenda</option>
-							</select>
-						</div>
-						<div className="relative">
-							<Bed
-								size={18}
-								className="absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none"
-							/>
-							<select
-								value={bedrooms}
-								onChange={(e) => setBedrooms(e.target.value)}
-								className="w-full pl-11 pr-4 py-3.5 rounded-xl border border-outline-variant bg-surface focus:border-primary focus:ring-2 focus:ring-primary/25 outline-none transition-all text-sm text-on-surface appearance-none"
-							>
-								<option value="">Quartos</option>
-								<option value="1">1+</option>
-								<option value="2">2+</option>
-								<option value="3">3+</option>
-								<option value="4">4+</option>
-							</select>
-						</div>
+						<FilterSelect
+							icon={<Home size={18} />}
+							placeholder="Tipo"
+							value={type}
+							options={TYPE_OPTIONS}
+							onChange={(v) => setType(v as PropertyType | "")}
+						/>
+						<FilterSelect
+							icon={<Bed size={18} />}
+							placeholder="Quartos"
+							value={bedrooms}
+							options={BEDROOM_OPTIONS}
+							onChange={setBedrooms}
+						/>
 						<button
 							type="button"
 							className="btn-sheen bg-primary hover:bg-on-primary-fixed-variant text-on-primary text-sm font-bold py-3.5 px-7 rounded-xl shadow-lg transition-all hover:-translate-y-0.5 flex items-center justify-center gap-2 whitespace-nowrap"

@@ -281,7 +281,7 @@ export default function AboutPage() {
 										<Building2 size={18} /> Ver imóveis
 									</Link>
 									<span className="inline-flex items-center gap-2 text-sm font-medium text-on-primary/90">
-										<MapPin size={16} /> Av. Faria Lima, 1000 — São Paulo
+										<MapPin size={16} /> Ouro Fino - MG
 									</span>
 								</div>
 							</div>
