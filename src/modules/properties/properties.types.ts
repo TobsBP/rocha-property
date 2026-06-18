@@ -73,7 +73,6 @@ export interface AdminProperty {
 	state: string;
 	/** URLs das imagens; a primeira é a capa. */
 	imageUrls: string[];
-	brokerId: string;
 	createdAt?: string;
 	updatedAt?: string;
 }
@@ -115,7 +114,6 @@ export interface AdminPropertyListItem {
 	state?: string;
 	/** URLs das imagens; a primeira é a capa. */
 	imageUrls?: string[];
-	brokerId?: string;
 	createdAt?: string;
 	updatedAt?: string;
 }

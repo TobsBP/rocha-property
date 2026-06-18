@@ -88,13 +88,14 @@ export function GallerySaleFormModal({ sale, onClose }: Props) {
 	}
 
 	return (
-		<button
-			type="button"
-			className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 w-full cursor-default"
-			onClick={(e) => e.target === e.currentTarget && onClose()}
-			onKeyDown={(e) => e.key === "Escape" && onClose()}
-		>
-			<div className="bg-surface rounded-2xl shadow-2xl w-full max-w-lg flex flex-col overflow-hidden max-h-[90vh] cursor-auto">
+		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+			<button
+				type="button"
+				aria-label="Fechar"
+				className="absolute inset-0 cursor-default"
+				onClick={onClose}
+			/>
+			<div className="relative bg-surface rounded-2xl shadow-2xl w-full max-w-lg flex flex-col overflow-hidden max-h-[90vh]">
 				{/* Header */}
 				<div className="flex items-center justify-between px-6 py-4 border-b border-surface-variant">
 					<h2 className="text-lg font-semibold text-on-surface">
@@ -251,6 +252,6 @@ export function GallerySaleFormModal({ sale, onClose }: Props) {
 					</div>
 				</form>
 			</div>
-		</button>
+		</div>
 	);
 }

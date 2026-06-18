@@ -143,15 +143,14 @@ export default function AdminPage() {
 			)}
 
 			{confirmDeleteId && (
-				<button
-					type="button"
-					className="fixed inset-0 z-110 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 w-full cursor-default"
-					onClick={(e) =>
-						e.target === e.currentTarget && setConfirmDeleteId(null)
-					}
-					onKeyDown={(e) => e.key === "Escape" && setConfirmDeleteId(null)}
-				>
-					<div className="bg-surface rounded-2xl shadow-2xl w-full max-sm p-6 flex flex-col gap-4 cursor-auto text-left mx-4">
+				<div className="fixed inset-0 z-110 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+					<button
+						type="button"
+						aria-label="Fechar"
+						className="absolute inset-0 cursor-default"
+						onClick={() => setConfirmDeleteId(null)}
+					/>
+					<div className="relative bg-surface rounded-2xl shadow-2xl w-full max-w-sm p-6 flex flex-col gap-4 text-left mx-4">
 						<h2 className="text-base font-semibold text-on-surface">
 							Excluir imóvel?
 						</h2>
@@ -176,7 +175,7 @@ export default function AdminPage() {
 							</button>
 						</div>
 					</div>
-				</button>
+				</div>
 			)}
 		</div>
 	);

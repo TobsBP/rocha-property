@@ -52,7 +52,6 @@ const EMPTY: CreatePropertyInput = {
 	city: "",
 	state: "",
 	imageUrls: [],
-	brokerId: "",
 };
 
 const inputClass =
@@ -91,7 +90,6 @@ export function PropertyFormModal({
 				city: property.city || "",
 				state: property.state || "",
 				imageUrls: property.imageUrls ?? [],
-				brokerId: property.brokerId || "",
 			});
 		}
 	}, [property]);
@@ -104,6 +102,7 @@ export function PropertyFormModal({
 	const [uploading, setUploading] = useState(false);
 	const [uploadError, setUploadError] = useState<string | null>(null);
 	const [dragOver, setDragOver] = useState(false);
+	const [validationError, setValidationError] = useState<string | null>(null);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
 	function set<K extends keyof CreatePropertyInput>(
@@ -151,8 +150,34 @@ export function PropertyFormModal({
 		}));
 	}
 
+	function validate(): string | null {
+		const required: [string, string][] = [
+			[form.title.trim(), "Título"],
+			[form.description.trim(), "Descrição"],
+			[form.price.trim(), "Preço"],
+			[form.addressStreet.trim(), "Endereço"],
+			[form.neighborhood.trim(), "Bairro"],
+			[form.city.trim(), "Cidade"],
+			[form.state.trim(), "Estado (UF)"],
+		];
+		const missing = required
+			.filter(([value]) => !value)
+			.map(([, label]) => label);
+		if (form.imageUrls.length === 0) missing.push("Imagens");
+		if (missing.length > 0) {
+			return `Preencha os campos obrigatórios: ${missing.join(", ")}.`;
+		}
+		return null;
+	}
+
 	function handleSubmit(e: React.FormEvent) {
 		e.preventDefault();
+		const message = validate();
+		if (message) {
+			setValidationError(message);
+			return;
+		}
+		setValidationError(null);
 		mutate(form, { onSuccess: onClose });
 	}
 
@@ -186,12 +211,17 @@ export function PropertyFormModal({
 					</button>
 				</header>
 
-				<form onSubmit={handleSubmit} className="flex flex-col gap-5 p-6">
-					{error && (
+				<form
+					onSubmit={handleSubmit}
+					noValidate
+					className="flex flex-col gap-5 p-6"
+				>
+					{(validationError || error) && (
 						<div className="rounded-lg bg-error-container px-4 py-3 text-sm font-medium text-on-error-container">
-							{error instanceof Error
-								? error.message
-								: "Não foi possível concluir a operação."}
+							{validationError ??
+								(error instanceof Error
+									? error.message
+									: "Não foi possível concluir a operação.")}
 						</div>
 					)}
 
@@ -476,18 +506,6 @@ export function PropertyFormModal({
 						{uploadError && (
 							<p className="text-xs font-medium text-error">{uploadError}</p>
 						)}
-					</div>
-
-					<div>
-						<label htmlFor="brokerId" className={labelClass}>
-							Corretor (ID)
-						</label>
-						<input
-							id="brokerId"
-							value={form.brokerId}
-							onChange={(e) => set("brokerId", e.target.value)}
-							className={inputClass}
-						/>
 					</div>
 
 					<div className="flex flex-wrap gap-6 pt-1">
