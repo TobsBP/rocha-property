@@ -68,7 +68,7 @@ export function SideNav({ section, onSection }: Props) {
 				</p>
 			</div>
 
-			<ul className="flex flex-col gap-1 flex-grow">
+			<ul className="flex flex-col gap-1 grow">
 				{sectionItems.map((item) => (
 					<li key={item.key}>
 						<button
@@ -82,7 +82,7 @@ export function SideNav({ section, onSection }: Props) {
 							].join(" ")}
 						>
 							{item.icon}
-							<span className="text-sm flex-grow">{item.label}</span>
+							<span className="text-sm grow">{item.label}</span>
 						</button>
 					</li>
 				))}
