@@ -1,6 +1,7 @@
 export { BadgeChip } from "./components/BadgeChip";
 export { FinancingSimulator } from "./components/FinancingSimulator";
 export { ImageGallery } from "./components/ImageGallery";
+export { Lightbox } from "./components/Lightbox";
 export { PropertyCard } from "./components/PropertyCard";
 export { PropertyCardSkeleton } from "./components/PropertyCardSkeleton";
 export { PropertyFormModal } from "./components/PropertyFormModal";
