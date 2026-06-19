@@ -13,7 +13,9 @@ export function SimilarCard({ property }: { property: Property }) {
 						<Image
 							src={property.images[0]}
 							alt={property.title}
-							className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+							fill
+							sizes="(min-width: 768px) 33vw, 100vw"
+							className="object-cover group-hover:scale-105 transition-transform duration-500"
 						/>
 					)}
 					<button

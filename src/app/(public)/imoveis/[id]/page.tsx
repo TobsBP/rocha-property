@@ -21,6 +21,7 @@ import { LeadForm } from "#/modules/leads";
 import {
 	FinancingSimulator,
 	ImageGallery,
+	PropertyMap,
 	SimilarCard,
 	useProperty,
 	useSimilarProperties,
@@ -199,28 +200,12 @@ export default function PropertyDetailPage() {
 							</div>
 						</div>
 
-						{/* Map Placeholder */}
+						{/* Localização */}
 						<div>
 							<h2 className="text-2xl font-semibold text-on-surface mb-4">
 								Localização
 							</h2>
-							<div className="w-full h-75 md:h-100 rounded-xl overflow-hidden bg-surface-container-high border border-surface-variant relative flex items-center justify-center">
-								<div
-									className="absolute inset-0 bg-cover bg-center opacity-40"
-									style={{
-										backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuDK43VO3KspVbBnblKD6_bMf_1HLvoUICUZZxtQ-tB0IfAVv87zU_EG6b7M2q8qRDMguSQvoRD9aveO09i5sjjj0tuDRAadpYlCbSa-RAjwerhq4GwdpAf11cBSsIs_g88nomqDXEg-MV2zQij1DUZEUY2E-lgZcStRYu03_zrKS_p2E9VI1IvijOjd6z1UJIT5J-SvzINlLWjJEiSyN6lGtCKHTulI1HujjvSueUZW1etk-APveVQZQsc2YUXX4odVpjY6Xh72rmHW')`,
-									}}
-								/>
-								<div className="z-10 bg-surface/90 backdrop-blur-sm px-6 py-4 rounded-lg shadow-lg text-center">
-									<MapPin size={32} className="text-primary mx-auto mb-2" />
-									<p className="text-lg font-semibold text-on-surface">
-										{property.address.neighborhood}, {property.address.city}
-									</p>
-									<p className="text-sm text-on-surface-variant">
-										Mapa Interativo (Placeholder)
-									</p>
-								</div>
-							</div>
+							<PropertyMap address={property.address} />
 						</div>
 					</div>
 

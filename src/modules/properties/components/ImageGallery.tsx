@@ -22,7 +22,9 @@ export function ImageGallery({
 				<Image
 					src={shown[active] ?? shown[0]}
 					alt={title}
-					className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+					fill
+					sizes="(min-width: 768px) 50vw, 100vw"
+					className="object-cover transition-transform duration-500 group-hover:scale-105"
 				/>
 			</button>
 			{shown.slice(1, 5).map((src, i) => (
@@ -35,7 +37,9 @@ export function ImageGallery({
 					<Image
 						src={src}
 						alt={`${title} ${i + 2}`}
-						className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+						fill
+						sizes="(min-width: 768px) 25vw, 100vw"
+						className="object-cover transition-transform duration-500 group-hover:scale-105"
 					/>
 					{i === 3 && images.length > 5 && (
 						<div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/50 transition-colors">
