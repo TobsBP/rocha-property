@@ -72,7 +72,7 @@ export function GallerySaleFormModal({ sale, onClose }: Props) {
 		setImgUrls((prev) => prev.filter((_, i) => i !== index));
 	}
 
-	async function handleSubmit(e: React.FormEvent) {
+	async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
 		e.preventDefault();
 		const input: CreateGallerySaleInput = {
 			soldAt: new Date(soldAt).toISOString(),

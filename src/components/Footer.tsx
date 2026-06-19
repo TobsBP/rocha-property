@@ -40,7 +40,7 @@ export function Footer() {
 					</h4>
 					<div className="flex flex-col gap-2 text-sm text-on-secondary-container">
 						<span className="flex items-center gap-2">
-							<Phone size={14} /> (11) 3000-0000
+							<Phone size={14} /> (35) 99836-3750
 						</span>
 						<span className="flex items-center gap-2">
 							<Mail size={14} /> contato@imoveisrocha.com

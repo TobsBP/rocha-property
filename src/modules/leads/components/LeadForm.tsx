@@ -19,7 +19,7 @@ export function LeadForm({
 
 	const { mutate, isPending } = useSubmitLead();
 
-	function handleSubmit(e: React.FormEvent) {
+	function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
 		e.preventDefault();
 		mutate(
 			{ name, email, phone, message, propertyId },
@@ -117,7 +117,7 @@ export function LeadForm({
 				<button
 					type="submit"
 					disabled={isPending}
-					className="w-full bg-primary hover:bg-on-primary-fixed-variant disabled:opacity-70 text-on-primary py-3 rounded-lg text-base font-semibold shadow-sm hover:shadow-md hover:-translate-y-[1px] transition-all duration-200 mt-1"
+					className="w-full bg-primary hover:bg-on-primary-fixed-variant disabled:opacity-70 text-on-primary py-3 rounded-lg text-base font-semibold shadow-sm hover:shadow-md hover:-translate-y-px transition-all duration-200 mt-1"
 				>
 					{isPending ? "Enviando…" : "Falar com Corretor"}
 				</button>

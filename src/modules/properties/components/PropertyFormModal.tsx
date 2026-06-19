@@ -175,7 +175,7 @@ export function PropertyFormModal({
 		return null;
 	}
 
-	function handleSubmit(e: React.FormEvent) {
+	function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
 		e.preventDefault();
 		const message = validate();
 		if (message) {

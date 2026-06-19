@@ -11,7 +11,7 @@ export function LoginForm({ redirectTo = "/admin" }: { redirectTo?: string }) {
 
 	const { mutate, isPending, error } = useSignIn();
 
-	function handleSubmit(e: React.FormEvent) {
+	function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
 		e.preventDefault();
 		mutate({ email, password }, { onSuccess: () => router.push(redirectTo) });
 	}
@@ -100,7 +100,7 @@ export function LoginForm({ redirectTo = "/admin" }: { redirectTo?: string }) {
 			<button
 				type="submit"
 				disabled={isPending}
-				className="mt-1 w-full rounded-lg bg-primary py-3 text-base font-semibold text-on-primary shadow-sm transition-all duration-200 hover:-translate-y-[1px] hover:bg-on-primary-fixed-variant hover:shadow-md disabled:opacity-70"
+				className="mt-1 w-full rounded-lg bg-primary py-3 text-base font-semibold text-on-primary shadow-sm transition-all duration-200 hover:-translate-y-px hover:bg-on-primary-fixed-variant hover:shadow-md disabled:opacity-70"
 			>
 				{isPending ? "Entrando…" : "Entrar"}
 			</button>
