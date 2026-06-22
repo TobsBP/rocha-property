@@ -6,6 +6,7 @@ export { PropertyCard } from "./components/PropertyCard";
 export { PropertyCardSkeleton } from "./components/PropertyCardSkeleton";
 export { PropertyFormModal } from "./components/PropertyFormModal";
 export { PropertyMap } from "./components/PropertyMap";
+export { ShareModal } from "./components/ShareModal";
 export { SimilarCard } from "./components/SimilarCard";
 export { StatusBadge } from "./components/StatusBadge";
 export * from "./properties.api";

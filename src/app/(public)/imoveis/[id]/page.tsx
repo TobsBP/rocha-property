@@ -6,7 +6,6 @@ import {
 	Bed,
 	Car,
 	ChevronRight,
-	Heart,
 	MapPin,
 	Ruler,
 	Share2,
@@ -14,6 +13,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useState } from "react";
 import { Footer } from "#/components/Footer";
 import { NavBar } from "#/components/NavBar";
 import { formatPrice } from "#/lib/utils";
@@ -22,6 +22,7 @@ import {
 	FinancingSimulator,
 	ImageGallery,
 	PropertyMap,
+	ShareModal,
 	SimilarCard,
 	useProperty,
 	useSimilarProperties,
@@ -32,6 +33,7 @@ export default function PropertyDetailPage() {
 	const id = params.id as string;
 	const { data: property, isLoading } = useProperty(id);
 	const { data: similar = [] } = useSimilarProperties(id);
+	const [shareOpen, setShareOpen] = useState(false);
 
 	if (isLoading) {
 		return (
@@ -99,15 +101,11 @@ export default function PropertyDetailPage() {
 					<div className="flex gap-2">
 						<button
 							type="button"
+							onClick={() => setShareOpen(true)}
+							aria-label="Compartilhar imóvel"
 							className="p-2 rounded-full bg-surface-container-low hover:bg-surface-container-high transition-colors text-on-surface-variant"
 						>
 							<Share2 size={18} />
-						</button>
-						<button
-							type="button"
-							className="p-2 rounded-full bg-surface-container-low hover:bg-surface-container-high transition-colors text-on-surface-variant"
-						>
-							<Heart size={18} />
 						</button>
 					</div>
 				</div>
@@ -238,6 +236,14 @@ export default function PropertyDetailPage() {
 					</div>
 				)}
 			</main>
+
+			{shareOpen && (
+				<ShareModal
+					url={typeof window !== "undefined" ? window.location.href : ""}
+					title={property.title}
+					onClose={() => setShareOpen(false)}
+				/>
+			)}
 
 			<Footer />
 		</div>
